@@ -1,0 +1,76 @@
+.homePage {
+  background-image: url("../../assets/png/bg-main.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  height: 100%; }
+  .homePage .layer {
+    position: absolute;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    right: -2000px;
+    left: -2000px; }
+    .homePage .layer img.back {
+      overflow: hidden; }
+  .homePage .content {
+    z-index: 10;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .homePage .content h2 {
+      text-align: center;
+      margin-bottom: 50px; }
+    .homePage .content .social {
+      display: flex;
+      justify-content: center; }
+      .homePage .content .social a {
+        width: 37px;
+        height: 37px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #303555;
+        -webkit-box-shadow: 4px 5px 10px #191e40;
+        -moz-box-shadow: 4px 5px 10px #191e40;
+        box-shadow: 4px 5px 10px #191e40;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        -ms-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s; }
+        .homePage .content .social a:hover {
+          -webkit-transform: scale(1.2, 1.2);
+          -moz-transform: scale(1.2, 1.2);
+          -ms-transform: scale(1.2, 1.2);
+          -o-transform: scale(1.2, 1.2);
+          transform: scale(1.2, 1.2);
+          opacity: .8; }
+
+.selectWrapper {
+  width: 200px; }
+
+.paginBox {
+  display: flex;
+  justify-content: center; }
+
+@media (min-width: 576px) {
+  .homePage .content .social a {
+    width: 54px;
+    height: 54px;
+    margin: 10px; } }
+@media (min-width: 768px) {
+  .homePage .content {
+    padding-top: 190px; } }
+
+/*# sourceMappingURL=HomePage.module.css.map */

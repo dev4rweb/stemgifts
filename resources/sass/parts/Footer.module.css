@@ -1,0 +1,48 @@
+.footer {
+  min-height: 120px;
+  background-color: #3d4266;
+  color: #5f6489;
+  position: relative; }
+  .footer a {
+    font-size: 18px;
+    line-height: 21px;
+    font-weight: 400; }
+  .footer .wrapper {
+    padding-top: 35px;
+    padding-bottom: 35px; }
+    .footer .wrapper .left .logo p {
+      margin-bottom: 0; }
+    .footer .wrapper .left .menu ul {
+      margin-top: 20px;
+      list-style: none; }
+      .footer .wrapper .left .menu ul li {
+        margin-bottom: 15px; }
+        .footer .wrapper .left .menu ul li a {
+          color: #9a9fbe;
+          text-decoration: underline; }
+    .footer .wrapper .right a {
+      color: #5f6489; }
+
+@media (min-width: 992px) {
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    min-height: 120px;
+    align-items: center; }
+    .wrapper .left {
+      display: flex;
+      align-items: center; }
+      .wrapper .left .menu ul {
+        margin-bottom: 0;
+        margin-top: 0;
+        display: flex; }
+        .wrapper .left .menu ul li {
+          margin-right: 10px;
+          margin-bottom: 0; } }
+@media (min-width: 1200px) {
+  .wrapper .left .logo {
+    margin-right: 22px; }
+  .wrapper .left .menu ul li {
+    margin-right: 30px; } }
+
+/*# sourceMappingURL=Footer.module.css.map */

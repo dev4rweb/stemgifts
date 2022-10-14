@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  z-index: 7; }
+
+.langBtn span:nth-of-type(2) {
+  display: none; }
+
+@media (min-width: 488px) {
+  .header {
+    justify-content: space-between; } }
+@media (min-width: 768px) {
+  .header {
+    padding-top: 25px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0; } }
+
+/*# sourceMappingURL=Header.module.css.map */
