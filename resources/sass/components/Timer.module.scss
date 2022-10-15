@@ -1,0 +1,67 @@
+@import "../variables";
+
+.timer {
+    .clock {
+        font-size: 25px;
+        line-height: 30px;
+        color: white;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 5px;
+
+        b {
+            border: 3px solid white;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 41px;
+            height: 57px;
+            margin: 4px;
+        }
+
+        span {
+            line-height: 35px;
+            margin: 4px;
+        }
+    }
+
+    .sign {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        color: $text-color-two;
+        font-size: 17px;
+        line-height: 20px;
+        font-weight: 400;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .timer {
+        .clock {
+            font-size: 51px;
+            line-height: 60px;
+
+            b {
+                border: 7px solid white;
+                width: 82px;
+                height: 115px;
+            }
+
+            span {
+                line-height: 71px;
+            }
+        }
+
+        .sign {
+            font-size: 17px;
+            line-height: 20px;
+        }
+    }
+}

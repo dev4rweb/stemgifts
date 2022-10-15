@@ -21,4 +21,24 @@ class PagesController extends Controller
     {
         return Inertia::render('user/UserPage');
     }
+
+    public function faqPage()
+    {
+        return Inertia::render('FaqPage');
+    }
+
+    public function affiliatePage()
+    {
+        return Inertia::render('AffiliatePage');
+    }
+
+    public function ContactsPage()
+    {
+        return Inertia::render('ContactsPage');
+    }
+
+    public function errorPage()
+    {
+        return Inertia::render('ErrorPage');
+    }
 }

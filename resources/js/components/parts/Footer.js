@@ -10,7 +10,7 @@ const Footer = () => {
             <div className={`container ${s.wrapper}`}>
                 <div className={s.left}>
                     <div className={s.logo}>
-                        <h4><a href="/">Giveaway</a></h4>
+                        <h4><InertiaLink href="/">Giveaway</InertiaLink></h4>
                         <p>All rights reserved</p>
                     </div>
                     <nav className={s.menu}>
