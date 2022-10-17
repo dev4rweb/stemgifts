@@ -1,0 +1,36 @@
+@import "../variables";
+
+.faqPage {
+    background-image: url('../../assets/png/bg-main.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+
+    .layer {
+        background-image: url('../../assets/png/dots.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 100%;
+        background-position: bottom;
+        display: flex;
+        align-items: center;
+
+        .content {
+            margin-top: 200px;
+            margin-bottom: 100px;
+        }
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .faqPage {
+        .layer {
+            .content {
+                margin-top: 400px;
+                margin-bottom: 200px;
+            }
+        }
+    }
+}
