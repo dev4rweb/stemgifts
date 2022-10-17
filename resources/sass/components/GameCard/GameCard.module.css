@@ -1,0 +1,101 @@
+.card {
+  width: 100%;
+  max-width: 360px;
+  height: 250px;
+  border: 2px solid #272b45;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  box-shadow: 4px 5px 10px #191e40;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-self: center;
+  -webkit-transition: all .2s;
+  -moz-transition: all .2s;
+  -ms-transition: all .2s;
+  -o-transition: all .2s;
+  transition: all .2s; }
+  .card .starBox {
+    display: flex;
+    justify-content: flex-end;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s; }
+    .card .starBox span {
+      background-color: #303555;
+      width: 64px;
+      height: 64px;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 7px;
+      margin-right: 7px; }
+  .card .content {
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s; }
+    .card .content h3 {
+      margin-left: 25px;
+      margin-top: 45px;
+      line-height: 30px; }
+    .card .content .steamBox {
+      height: 72px;
+      width: 95%;
+      background-color: #303555;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      display: flex;
+      align-items: center;
+      padding-left: 24px; }
+      .card .content .steamBox a {
+        width: 40px;
+        height: 40px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #252943;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 8px; }
+    .card .content .btnBox {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      height: 0;
+      overflow-y: hidden;
+      -webkit-transition: all .2s;
+      -moz-transition: all .2s;
+      -ms-transition: all .2s;
+      -o-transition: all .2s;
+      transition: all .2s; }
+  .card:hover {
+    cursor: pointer; }
+    .card:hover .starBox {
+      height: 0;
+      overflow-y: hidden; }
+    .card:hover .content {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 40, 0.5);
+      backdrop-filter: blur(5px);
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      border-radius: 20px; }
+      .card:hover .content .btnBox {
+        height: auto;
+        overflow-y: visible;
+        margin-top: 12px; }
+
+/*# sourceMappingURL=GameCard.module.css.map */

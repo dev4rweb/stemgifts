@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -9,7 +10,14 @@ class PagesController extends Controller
 {
     public function homePage()
     {
-        return Inertia::render('HomePage');
+        $games = Game::where('status', Game::STATUS_ACTIVE)
+            ->where('is_sponsored', false)
+            ->paginate(6);
+        $sponsor_game = Game::where('is_sponsored', true)->first();
+        return Inertia::render('HomePage', [
+            'games' => $games,
+            'sponsorGame' => $sponsor_game
+        ]);
     }
 
     public function adminPage()

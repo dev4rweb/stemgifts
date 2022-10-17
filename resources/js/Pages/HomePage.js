@@ -8,8 +8,10 @@ import SocialBlock from "../components/SocialBlock";
 import {usePage} from "@inertiajs/inertia-react";
 import {setSnackMessageAction} from "../reducers/mainReducer";
 import {Inertia} from "@inertiajs/inertia";
+import GameCard from "../components/GameCard";
+import Pagination from "../components/Pagination";
 
-const HomePage = ({errors}) => {
+const HomePage = ({games, sponsorGame, errors}) => {
     const dispatch = useDispatch()
     const { auth } = usePage().props
     console.log('HomePage', errors)
@@ -19,6 +21,8 @@ const HomePage = ({errors}) => {
         if (auth.user) dispatch(setSnackMessageAction('What we need to do?'))
         else Inertia.visit('/login')
     };
+
+    console.log('games', games)
 
     return (
         <Layout>
@@ -38,6 +42,32 @@ const HomePage = ({errors}) => {
                     >
                         {stateData.home.get_key[stateData.lang]}
                     </button>
+                </section>
+
+                <section className="container">
+
+                    {
+                        games.data.length &&
+                            <div className={s.gameContainer}>
+                                {
+                                    games.data.map(item =>
+                                        <div
+                                            key={item.id}
+                                            className="d-flex justify-content-center align-items-center"
+                                        >
+                                            <GameCard item={item} />
+                                        </div>
+                                    )
+                                }
+                            </div>
+                    }
+
+                    {
+                        games.links.length &&
+                        <Pagination links={games.links} />
+
+                    }
+
                 </section>
             </article>
         </Layout>

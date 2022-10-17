@@ -72,5 +72,9 @@
 @media (min-width: 768px) {
   .homePage .content {
     padding-top: 190px; } }
+.gameContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem; }
 
 /*# sourceMappingURL=HomePage.module.css.map */

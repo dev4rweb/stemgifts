@@ -1,0 +1,123 @@
+@import "../../variables";
+
+.card {
+    width: 100%;
+    max-width: 360px;
+    height: 250px;
+    border: $card-border;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    box-shadow: $box-shadow;
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    justify-self: center;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+
+    .starBox {
+        display: flex;
+        justify-content: flex-end;
+        -webkit-transition: all .2s;
+        -moz-transition: all .2s;
+        -ms-transition: all .2s;
+        -o-transition: all .2s;
+        transition: all .2s;
+
+        span {
+            background-color: $body-bg;
+            width: 64px;
+            height: 64px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 7px;
+            margin-right: 7px;
+        }
+    }
+
+    .content {
+        -webkit-transition: all .2s;
+        -moz-transition: all .2s;
+        -ms-transition: all .2s;
+        -o-transition: all .2s;
+        transition: all .2s;
+        h3 {
+            margin-left: 25px;
+            margin-top: 45px;
+            line-height: 30px;
+        }
+
+        .steamBox {
+            height: 72px;
+            width: 95%;
+            background-color: $body-bg;
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding-left: 24px;
+
+            a {
+                width: 40px;
+                height: 40px;
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+                background-color: $dark-bg;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 8px;
+            }
+        }
+
+        .btnBox {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            height: 0;
+            overflow-y: hidden;
+            -webkit-transition: all .2s;
+            -moz-transition: all .2s;
+            -ms-transition: all .2s;
+            -o-transition: all .2s;
+            transition: all .2s;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        .starBox {
+            height: 0;
+            overflow-y: hidden;
+        }
+
+        .content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 40, .5);
+            backdrop-filter: blur(5px);
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+
+            .btnBox {
+                height: auto;
+                overflow-y: visible;
+                margin-top: 12px;
+            }
+        }
+    }
+}

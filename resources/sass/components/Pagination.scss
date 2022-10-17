@@ -1,0 +1,40 @@
+@import "../variables";
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 45px;
+
+    .page-item {
+        margin: 7px;
+
+        .page-link {
+            height: 48px;
+            min-width: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $body-bg;
+            color: $text-color-three;
+            border: 1px solid $text-color-three;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            font-size: 24px;
+            line-height: 28px;
+            font-weight: 700;
+            -webkit-transition: all .3s;
+            -moz-transition: all .3s;
+            -ms-transition: all .3s;
+            -o-transition: all .3s;
+            transition: all .3s;
+
+            &.activePage, &:hover{
+                cursor: pointer;
+                color: white;
+                border-color: white;
+            }
+        }
+    }
+}
