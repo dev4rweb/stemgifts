@@ -4,11 +4,13 @@ import thunk from "redux-thunk";
 import mainReducer from './mainReducer'
 import translateReducer from "./translateReducer";
 import modalReducer from "./modalRegister";
+import homeReducer from "./pages/homePageReducer";
 
 const rootReducer = combineReducers({
     main: mainReducer,
     lang: translateReducer,
     modal: modalReducer,
+    homePage: homeReducer
 })
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))

@@ -29,6 +29,8 @@ const defaultState = {
         select_sort: {en: 'Sort', ru: 'Сортировка'},
         select_all: {en: 'All', ru: 'Все'},
         select_comp: {en: 'Competition', ru: 'Соревнования'},
+        select_favorite: {en: 'Favorite', ru: 'Популярные'},
+        select_not_favorite: {en: 'Recommended', ru: 'Рекомендуемые'},
         select_give: {en: 'Giveaways', ru: 'Раздачи'},
         get_key: {
             en: 'Get the key', ru: 'Получить ключ'

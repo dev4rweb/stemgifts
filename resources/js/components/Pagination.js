@@ -1,8 +1,17 @@
 import React from 'react';
 import '../../sass/components/Pagination.scss'
-import {InertiaLink} from "@inertiajs/inertia-react";
+import {useDispatch} from "react-redux";
+import {setHomePaginationPageAction} from "../reducers/pages/homePageReducer";
 
 const Pagination = ({links}) => {
+    const dispatch = useDispatch()
+
+    const changePageHandler = (url) => {
+        const urlParams = new URLSearchParams(new URL(url).search)
+        dispatch(setHomePaginationPageAction(urlParams.get('page')))
+        console.log('changePageHandler', urlParams.get('page'))
+    };
+
     return (
         <nav>
             <ul className="pagination">
@@ -11,12 +20,12 @@ const Pagination = ({links}) => {
                      <li key={i} className={`page-item`}>
                          {
                              item.url ?
-                                 <InertiaLink
-                                     href={item.url}
+                                 <button
+                                     onClick={e => changePageHandler(item.url)}
                                      className={`page-link ${item.active ? 'activePage' : ''}`}
                                  >
                                      <span dangerouslySetInnerHTML={{__html: item.label}} />
-                                 </InertiaLink>
+                                 </button>
                                  :
                                  <div
                                      className={`page-link ${item.active ? 'activePage' : ''}`}
