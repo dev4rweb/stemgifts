@@ -11,6 +11,11 @@ import {Inertia} from "@inertiajs/inertia";
 import GameCard from "../components/GameCard";
 import Pagination from "../components/Pagination";
 import {setHomePaginationPageAction} from "../reducers/pages/homePageReducer";
+import LogRegWelcome from "../components/modals/LogRegWelcome";
+import ModalLayout from "../components/modals/ModalLayout";
+import ModalGameDescription from "../components/modals/ModalGameDescription";
+import SponsorGame from "../components/SponsorGame";
+
 
 const HomePage = ({games, sponsorGame, errors}) => {
     const dispatch = useDispatch()
@@ -25,9 +30,6 @@ const HomePage = ({games, sponsorGame, errors}) => {
     const [lowLimit, setLowLimit] = useState(12)
     const [middleLimit, setMiddleLimit] = useState(24)
     const [highLimit, setHighLimit] = useState(48)
-
-
-    // console.log(window.innerWidth)
 
     const handleIsLogged = e => {
         if (auth.user) dispatch(setSnackMessageAction('What we need to do?'))
@@ -184,6 +186,13 @@ const HomePage = ({games, sponsorGame, errors}) => {
                     </div>
 
                     {
+                        sponsorGame ?
+                            <SponsorGame sponsorGame={sponsorGame} />
+                            :
+                            <div/>
+                    }
+
+                    {
                         games.data.length ?
                             <div className={s.gameContainer}>
                                 {
@@ -209,6 +218,10 @@ const HomePage = ({games, sponsorGame, errors}) => {
 
                 </section>
             </article>
+            <ModalLayout>
+                <LogRegWelcome/>
+            </ModalLayout>
+            <ModalGameDescription />
         </Layout>
     );
 };

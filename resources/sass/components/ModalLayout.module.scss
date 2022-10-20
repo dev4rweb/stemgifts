@@ -1,0 +1,97 @@
+@import "../variables";
+
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.1); /* Black w/ opacity */
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    .modalBody {
+        -webkit-box-shadow: $box-shadow;
+        -moz-box-shadow: $box-shadow;
+        box-shadow: $box-shadow;
+        border: 1px solid $text-color-three;
+        background-color: $dark-bg-rgba;
+        width: 100%;
+        max-width: 890px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+        position: relative;
+        padding: 40px 5px 0;
+
+        .close {
+            position: absolute;
+            font-size: 22px;
+            right: 25px;
+            top: 28px;
+            -webkit-transition: all .3s;
+            -moz-transition: all .3s;
+            -ms-transition: all .3s;
+            -o-transition: all .3s;
+            transition: all .3s;
+
+            &:hover {
+                cursor: pointer;
+                -webkit-transform: scale(1.5, 1.5) rotate(270deg);
+                -moz-transform: scale(1.5, 1.5) rotate(270deg);
+                -ms-transform: scale(1.5, 1.5) rotate(270deg);
+                -o-transform: scale(1.5, 1.5) rotate(270deg);
+                transform: scale(1.5, 1.5) rotate(270deg);
+
+                color: $red;
+            }
+        }
+
+    }
+}
+
+.active {
+    display: flex;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .modal {
+        .modalBody {
+            padding: 40px 45px 40px;
+
+        }
+    }
+}
+
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animateZoom 0.6s;
+    animation: animateZoom 0.6s
+}
+
+@-webkit-keyframes animateZoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes animateZoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+

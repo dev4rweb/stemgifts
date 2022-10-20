@@ -109,7 +109,7 @@ const RegisterPage = ({errors}) => {
                 alignItems: 'center'
             }}
         >
-            <h1><InertiaLink href="/">Giveaway</InertiaLink></h1>
+            <h1><InertiaLink href="/">SteamGifts</InertiaLink></h1>
             <h3>Register</h3>
             <form
                 className={classes.root}

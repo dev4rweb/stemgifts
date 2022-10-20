@@ -3,9 +3,13 @@ import s from '../../sass/components/GameCard/GameCard.module.scss'
 import fullStar from '../../assets/icons/full-star.png';
 import halfStar from '../../assets/icons/star.png';
 import steam from '../../assets/icons/steam.png'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setGameDescription, setIsAuthModalOpen} from "../reducers/modalRegister";
+import {usePage} from "@inertiajs/inertia-react";
 
 const GameCard = ({item}) => {
+    const { auth } = usePage().props
+    const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const star = item.is_favorite ? fullStar : halfStar
     const btnText = item && item.is_competition ?
@@ -13,7 +17,9 @@ const GameCard = ({item}) => {
         stateData.home.join_giveaway[stateData.lang]
 
     const handleClick = (e) => {
+        dispatch(setGameDescription(item))
         console.log('handleClick', item)
+        // dispatch(setIsAuthModalOpen(true))
     }
 
     return (
