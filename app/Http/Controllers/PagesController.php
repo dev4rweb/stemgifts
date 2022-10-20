@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\GameFilter;
 use App\Models\Game;
+use App\Models\User;
 use Inertia\Inertia;
 
 class PagesController extends Controller
@@ -25,7 +26,19 @@ class PagesController extends Controller
 
     public function adminPage()
     {
-        return Inertia::render('admin/AdminPage');
+        $users = User::where('is_admin', 0)
+            ->get();
+        $activeGames = Game::where('is_sponsored', false)
+            ->where('status', Game::STATUS_ACTIVE)
+            ->get();
+        $moderationGames = Game::where('is_sponsored', false)
+            ->where('status', Game::STATUS_MODERATE)
+            ->get();
+        return Inertia::render('admin/AdminPage', [
+            'countUsers' => count($users),
+            'activeGames' => count($activeGames),
+            'moderationGames' => count($moderationGames),
+        ]);
     }
 
     public function userPage()

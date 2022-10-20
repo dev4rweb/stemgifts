@@ -1,0 +1,30 @@
+.adminMainPage {
+  position: relative; }
+  .adminMainPage .item {
+    height: 106px;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 35px;
+    padding-right: 55px; }
+    .adminMainPage .item p {
+      text-decoration: underline;
+      margin-bottom: 0; }
+    .adminMainPage .item span {
+      font-weight: bold;
+      font-size: 52px; }
+  .adminMainPage .green {
+    background-color: #60b95b; }
+  .adminMainPage .orange {
+    background-color: #cd953e; }
+  .adminMainPage .red {
+    background-color: #e72d2d; }
+  .adminMainPage .cardWrapper {
+    margin-top: 45px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 100px; }
+
+/*# sourceMappingURL=AdminMainPage.module.css.map */

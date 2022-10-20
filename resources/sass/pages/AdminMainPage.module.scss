@@ -1,0 +1,44 @@
+@import "../variables";
+
+.adminMainPage {
+    position: relative;
+    .item {
+        height: 106px;
+        width: 100%;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 35px;
+        padding-right: 55px;
+
+        p {
+            text-decoration: underline;
+            margin-bottom: 0;
+        }
+
+        span {
+            font-weight: bold;
+            font-size: 52px;
+        }
+    }
+
+    .green {
+        background-color: $green-bg;
+    }
+
+    .orange {
+        background-color: $orange-bg;
+    }
+
+    .red {
+        background-color: $red-bg;
+    }
+
+    .cardWrapper {
+        margin-top: 45px;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 100px;
+    }
+}

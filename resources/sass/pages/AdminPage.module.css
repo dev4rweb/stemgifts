@@ -1,0 +1,40 @@
+.adminPage {
+  background-color: #303555; }
+  .adminPage .navigation {
+    background-color: #3d4266;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    padding-top: 80px; }
+    .adminPage .navigation .item {
+      height: 50px;
+      display: flex;
+      padding-left: 25px;
+      align-items: center;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -ms-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s; }
+      .adminPage .navigation .item img {
+        margin-right: 20px; }
+      .adminPage .navigation .item:hover, .adminPage .navigation .item.active, .adminPage .navigation .item[aria-selected="true"] {
+        background-color: #303555;
+        color: #fbb527;
+        cursor: pointer; }
+    .adminPage .navigation .btnWrapper {
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+
+@media (min-width: 992px) {
+  .adminPage {
+    display: flex;
+    height: 100%; }
+    .adminPage .navigation {
+      width: 280px; }
+      .adminPage .navigation .btnWrapper {
+        margin-top: 50%; } }
+
+/*# sourceMappingURL=AdminPage.module.css.map */

@@ -17,7 +17,7 @@ class GameFactory extends Factory
             'name' => $this->faker->words(2, true),
             'description' => $this->faker->text(),
             'is_competition' => $this->faker->boolean,
-            'status' => $this->faker->boolean,
+            'status' => $this->faker->numberBetween(0, 3),
             'start_date' => $this->faker->dateTimeBetween('-1 years', '1 years'),
             'end_date' => $this->faker->dateTimeBetween('-1 years', '1 years'),
             'main_image' => $this->faker->imageUrl,

@@ -2,7 +2,7 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import s from '../../../sass/components/ModalLayout.module.scss'
 import m from '../../../sass/components/modals/ModalGameDescriptiion.module.scss'
-import {setGameDescription} from "../../reducers/modalRegister";
+import {setGameDescription} from "../../reducers/modalReducer";
 
 const ModalGameDescription = () => {
     const dispatch = useDispatch()

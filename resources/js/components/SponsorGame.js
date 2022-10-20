@@ -2,7 +2,7 @@ import React from 'react';
 import s from '../../sass/components/SponsorGame.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {usePage} from "@inertiajs/inertia-react";
-import {setIsAuthModalOpen, setModalKey} from "../reducers/modalRegister";
+import {setIsAuthModalOpen, setModalKey} from "../reducers/modalReducer";
 
 const SponsorGame = ({sponsorGame}) => {
     const { auth } = usePage().props

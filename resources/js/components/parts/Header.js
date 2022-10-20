@@ -6,7 +6,7 @@ import {setLang} from "../../reducers/translateReducer";
 import ReactFlagsSelect from "react-flags-select";
 import steamWhite from '../../../assets/png/steam-icon-white.png'
 import { usePage } from '@inertiajs/inertia-react'
-import {setModalAuth} from "../../reducers/modalRegister";
+import {setModalAuth} from "../../reducers/modalReducer";
 
 const Header = () => {
     const { auth } = usePage().props

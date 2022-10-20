@@ -1,0 +1,58 @@
+@import "../variables";
+
+.adminPage {
+    background-color: $body-bg;
+
+    .navigation {
+        background-color: $footer-bg;
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+        padding-top: 80px;
+
+        .item {
+            height: 50px;
+            display: flex;
+            padding-left: 25px;
+            align-items: center;
+            -webkit-transition: all .3s;
+            -moz-transition: all .3s;
+            -ms-transition: all .3s;
+            -o-transition: all .3s;
+            transition: all .3s;
+
+            img {
+                margin-right: 20px;
+            }
+
+            &:hover, &.active, &[aria-selected="true"] {
+                background-color: $body-bg;
+                color: $text-color-orange;
+                cursor: pointer;
+            }
+        }
+
+        .btnWrapper {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+    .adminPage {
+        display: flex;
+        height: 100%;
+
+        .navigation {
+            width: 280px;
+
+            .btnWrapper {
+                margin-top: 50%;
+            }
+        }
+    }
+}

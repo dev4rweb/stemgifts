@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import s from '../../../sass/components/ModalLayout.module.scss'
-import {setIsAuthModalOpen} from "../../reducers/modalRegister";
+import {setIsAuthModalOpen} from "../../reducers/modalReducer";
 
 const ModalLayout = ({children, zIndex = 10}) => {
     const dispatch = useDispatch()

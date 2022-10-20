@@ -4,7 +4,7 @@ import fullStar from '../../assets/icons/full-star.png';
 import halfStar from '../../assets/icons/star.png';
 import steam from '../../assets/icons/steam.png'
 import {useDispatch, useSelector} from "react-redux";
-import {setGameDescription, setIsAuthModalOpen} from "../reducers/modalRegister";
+import {setGameDescription, setIsAuthModalOpen} from "../reducers/modalReducer";
 import {usePage} from "@inertiajs/inertia-react";
 
 const GameCard = ({item}) => {

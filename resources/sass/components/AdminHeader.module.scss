@@ -1,0 +1,26 @@
+@import "../variables";
+
+.adminHeader {
+    background-color: $admin-header-bg;
+
+    & > div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 20px;
+        padding-bottom: 10px;
+
+        h1 {
+            line-height: 60px;
+            margin-bottom: -10px;
+        }
+
+        h4 {
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: 900;
+            line-height: 20px;
+        }
+    }
+}

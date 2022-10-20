@@ -15,6 +15,7 @@ import LogRegWelcome from "../components/modals/LogRegWelcome";
 import ModalLayout from "../components/modals/ModalLayout";
 import ModalGameDescription from "../components/modals/ModalGameDescription";
 import SponsorGame from "../components/SponsorGame";
+import ModalKey from "../components/modals/ModalKey";
 
 
 const HomePage = ({games, sponsorGame, errors}) => {
@@ -222,6 +223,7 @@ const HomePage = ({games, sponsorGame, errors}) => {
                 <LogRegWelcome/>
             </ModalLayout>
             <ModalGameDescription />
+            <ModalKey />
         </Layout>
     );
 };
