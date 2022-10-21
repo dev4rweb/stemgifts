@@ -8,10 +8,6 @@ import AdminSideBar from "../../components/parts/AdminSideBar";
 
 const AdminPage = ({countUsers, activeGames, moderationGames}) => {
     const stateData = useSelector(state => state.lang)
-    const logoutHandler = e => {
-        console.log('logoutHandler')
-        Inertia.post('/logout')
-    };
 
     return (
         <AdminLayout>

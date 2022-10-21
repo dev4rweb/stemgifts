@@ -29,8 +29,11 @@ Route::get('/affiliate-program', [PagesController::class, 'affiliatePage']);
 Route::get('/contacts', [PagesController::class, 'ContactsPage']);
 
 Route::get('/admin-panel', [PagesController::class, 'adminPage']);
+Route::get('/admin-competitions', [PagesController::class, 'adminCompetitions']);
+Route::get('/admin-users', [PagesController::class, 'adminUsers']);
+Route::get('/admin-category', [PagesController::class, 'adminCategoryTasks']);
+Route::get('/admin-create-competition', [PagesController::class, 'adminCreateCompetition']);
+
 Route::get('/user-panel', [PagesController::class, 'userPage']);
-
-
 
 Route::fallback([PagesController::class, 'errorPage']);

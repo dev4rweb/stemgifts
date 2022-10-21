@@ -18,7 +18,7 @@ const AdminHeader = () => {
                 </div>
                 <button
                     className="btn btn-warning w-100"
-                    onClick={event => Inertia.visit('/admin-create-games')}
+                    onClick={event => Inertia.visit('/admin-create-competition')}
                 >
                     {stateData.admin.btnCreate[stateData.lang]}
                 </button>

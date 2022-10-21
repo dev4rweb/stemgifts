@@ -41,6 +41,34 @@ class PagesController extends Controller
         ]);
     }
 
+    public function adminCompetitions()
+    {
+        $games = Game::orderBy('status')
+            ->orderBy('end_date')
+            ->paginate(30);
+        return Inertia::render('admin/AdminCompetitions', [
+            'games' => $games
+        ]);
+    }
+
+    public function adminUsers()
+    {
+        $users = User::where('is_admin', 0)->paginate(30);
+        return Inertia::render('admin/AdminUsers', [
+            'users' => $users
+        ]);
+    }
+
+    public function adminCategoryTasks()
+    {
+        return Inertia::render('admin/AdminCategoryTasks');
+    }
+
+    public function adminCreateCompetition()
+    {
+        return Inertia::render('admin/AdminCreateCompetition');
+    }
+
     public function userPage()
     {
         return Inertia::render('user/UserPage');
