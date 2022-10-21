@@ -1,0 +1,58 @@
+.table {
+  color: #fdfdfd;
+  font-size: 14px;
+  font-weight: 500;
+  overflow-x: scroll; }
+  .table th, .table td {
+    border: none; }
+  .table thead {
+    color: #3d4266; }
+    .table thead th {
+      border: none; }
+  .table .table-status {
+    text-decoration: underline; }
+  .table .link a {
+    color: #9a9a9a; }
+  .table .remove-column {
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s; }
+    .table .remove-column span {
+      color: #e72d2d;
+      font-size: 25px;
+      line-height: 25px;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -ms-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s; }
+      .table .remove-column span:hover {
+        cursor: pointer; }
+    .table .remove-column:hover {
+      -webkit-transform: scale(1.5, 1.5);
+      -moz-transform: scale(1.5, 1.5);
+      -ms-transform: scale(1.5, 1.5);
+      -o-transform: scale(1.5, 1.5);
+      transform: scale(1.5, 1.5); }
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #3d4266;
+  color: white; }
+
+.grey-text {
+  color: #9a9a9a;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s; }
+  .grey-text:hover {
+    color: white;
+    cursor: pointer; }
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  color: white; }
+
+/*# sourceMappingURL=AdminTable.css.map */

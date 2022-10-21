@@ -1,0 +1,82 @@
+@import "../variables";
+
+.table {
+    color: $text-color;
+    font-size: 14px;
+    font-weight: 500;
+    overflow-x: scroll;
+
+    th, td {
+        border: none;
+    }
+
+    thead {
+        color: $footer-bg;
+
+        th {
+            border: none;
+        }
+    }
+
+    .table-status{
+        text-decoration: underline;
+    }
+
+    .link {
+        a {
+            color: $text-grey;
+        }
+    }
+
+    .remove-column{
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        -ms-transition: all .3s;
+        -o-transition: all .3s;
+        transition: all .3s;
+        span{
+            color: $red-bg;
+            //border-bottom: 1px solid $red-bg;
+            font-size: 25px;
+            line-height: 25px;
+            -webkit-transition: all .3s;
+            -moz-transition: all .3s;
+            -ms-transition: all .3s;
+            -o-transition: all .3s;
+            transition: all .3s;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        &:hover{
+            -webkit-transform: scale(1.5, 1.5);
+            -moz-transform: scale(1.5, 1.5);
+            -ms-transform: scale(1.5, 1.5);
+            -o-transform: scale(1.5, 1.5);
+            transform: scale(1.5, 1.5);
+        }
+    }
+}
+
+.table-striped tbody tr:nth-of-type(odd){
+    background-color: $footer-bg;
+    color: white;
+}
+
+.grey-text{
+    color: $text-grey;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+
+    &:hover{
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > *{
+    color: white;
+}

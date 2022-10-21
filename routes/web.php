@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,5 +36,9 @@ Route::get('/admin-category', [PagesController::class, 'adminCategoryTasks']);
 Route::get('/admin-create-competition', [PagesController::class, 'adminCreateCompetition']);
 
 Route::get('/user-panel', [PagesController::class, 'userPage']);
+
+Route::resources([
+    'admin-user' => UserController::class
+]);
 
 Route::fallback([PagesController::class, 'errorPage']);

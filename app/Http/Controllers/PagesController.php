@@ -53,7 +53,9 @@ class PagesController extends Controller
 
     public function adminUsers()
     {
-        $users = User::where('is_admin', 0)->paginate(30);
+        $users = User::where('is_admin', 0)
+            ->orderBy('created_at', 'desc')
+            ->paginate(30);
         return Inertia::render('admin/AdminUsers', [
             'users' => $users
         ]);
