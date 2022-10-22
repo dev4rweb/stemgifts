@@ -31,6 +31,11 @@ class Game extends Model
       'is_sponsored',
     ];
 
+    protected $casts = [
+        'start_date' => 'datetime:d-m-Y',
+        'end_date' => 'datetime:d-m-Y',
+    ];
+
     public function scopeFilter(Builder $builder, QueryFilter $filter)
     {
         return $filter->apply($builder);

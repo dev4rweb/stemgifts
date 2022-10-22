@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,8 @@ Route::get('/admin-create-competition', [PagesController::class, 'adminCreateCom
 Route::get('/user-panel', [PagesController::class, 'userPage']);
 
 Route::resources([
-    'admin-user' => UserController::class
+    'admin-user' => UserController::class,
+    'admin-games' => GameController::class
 ]);
 
 Route::fallback([PagesController::class, 'errorPage']);

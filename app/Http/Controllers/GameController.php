@@ -28,15 +28,10 @@ class GameController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Game  $game
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Game $game)
     {
-        //
+        return redirect()->back()->withErrors(['error' => 'Page did not create']);
     }
 
     /**
@@ -51,14 +46,15 @@ class GameController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Game $game)
+    public function destroy($id)
     {
-        //
+        try {
+            $game = Game::findOrFail($id);
+            $game->delete();
+            $message = 'Game removed';
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+        }
+        return redirect()->back()->withErrors(['error' => $message]);
     }
 }

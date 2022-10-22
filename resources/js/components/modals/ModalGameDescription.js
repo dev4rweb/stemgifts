@@ -3,12 +3,17 @@ import {useDispatch, useSelector} from "react-redux";
 import s from '../../../sass/components/ModalLayout.module.scss'
 import m from '../../../sass/components/modals/ModalGameDescriptiion.module.scss'
 import {setGameDescription} from "../../reducers/modalReducer";
+import share from '../../../assets/icons/share.png'
+import {TelegramShareButton} from "react-share";
 
 const ModalGameDescription = () => {
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const item = useSelector(state => state.modal.gameDescription)
     const rootClasses = [s.modal]
+    const btnText = item && item.is_competition ?
+        stateData.home.join_competition[stateData.lang] :
+        stateData.home.join_giveaway[stateData.lang]
 
     if (item) {
         rootClasses.push(s.active)
@@ -16,6 +21,10 @@ const ModalGameDescription = () => {
 
     const handleClose = (ev) => {
         dispatch(setGameDescription(null))
+    };
+
+    const handleClick = e => {
+        console.log('handleClick', item)
     };
 
     return (
@@ -56,6 +65,23 @@ const ModalGameDescription = () => {
                                     :
                                     <div/>
                             }
+                            <div className={m.btnWrapper}>
+                                <TelegramShareButton
+                                    url="/"
+                                    className={m.share}
+                                    title={`Get the key`}
+                                >
+                                    <img src={share} alt="share"/>
+                                </TelegramShareButton>
+
+                                <button
+                                    className="btn btn-warning"
+                                    disabled={item.is_competition}
+                                    onClick={handleClick}
+                                >
+                                    {btnText}
+                                </button>
+                            </div>
                         </div>
                     }
                 </div>
