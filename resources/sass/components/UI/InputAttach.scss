@@ -1,0 +1,31 @@
+@import "../../variables";
+
+.input-attach {
+    display: flex;
+    width: 100%;
+    border: 1px solid $footer-bg;
+    background-color: $admin-header-bg;
+    padding: 5px 5px 5px 8px;
+
+    .text-field {
+        border: none;
+        width: 100%;
+        background: none;
+        color: $footer-bg;
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    .attach-file {
+        display: none;
+    }
+
+    .btn-add {
+        width: 130px;
+        border: none;
+        color: $text-color;
+        background-color: $footer-bg;
+    }
+}

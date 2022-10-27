@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileUploaderController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UserController;
@@ -37,6 +38,8 @@ Route::get('/admin-category', [PagesController::class, 'adminCategoryTasks']);
 Route::get('/admin-create-competition', [PagesController::class, 'adminCreateCompetition']);
 
 Route::get('/user-panel', [PagesController::class, 'userPage']);
+
+Route::post('/file-upload', [FileUploaderController::class, 'uploadImage']);
 
 Route::resources([
     'admin-user' => UserController::class,

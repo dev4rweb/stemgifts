@@ -1,0 +1,150 @@
+@import "../variables";
+
+.createPage {
+    font-size: 14px;
+    color: $footer-bg;
+    padding-bottom: 200px;
+
+    .taskP {
+        margin-bottom: 10px;
+    }
+
+    .inputBox {
+        display: flex;
+        flex-direction: column;
+
+        .toggleBox {
+            display: flex;
+            width: 100%;
+        }
+
+        .calendarBox {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+    }
+
+    .titleBox {
+    }
+
+    .description {
+        margin-top: 15px;
+    }
+
+    .attachFile {
+        margin-top: 12px;
+
+        .attachTitle {
+            margin-bottom: 0;
+            margin-top: 15px;
+        }
+    }
+
+    .giftBox {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .tasksBlock {
+        margin-top: 20px;
+
+        p {
+            margin-bottom: 5px;
+        }
+
+        .tasks {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .btnWrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+.editPage{
+    position: absolute;
+    z-index: 3;
+    background-color: #303555;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {
+    .createPage {
+        .inputBox {
+            .calendarBox {
+                flex-direction: row;
+            }
+        }
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+    .createPage {
+        .inputBox {
+            flex-direction: row;
+            justify-content: space-between;
+
+            .calendarBox {
+                max-width: 340px;
+                margin-top: 3px;
+            }
+        }
+
+        .tasksBlock {
+
+            .tasks {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+    .createPage {
+        .inputBox {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .calendarBox {
+                flex-direction: row;
+                max-width: 340px;
+            }
+        }
+
+        .titleBox {
+            margin-top: 20px;
+        }
+    }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+    .createPage {
+        .inputBox {
+            flex-direction: row;
+            justify-content: space-between;
+
+            .calendarBox {
+                max-width: 500px;
+            }
+        }
+    }
+}

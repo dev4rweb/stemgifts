@@ -12,7 +12,7 @@ const AdminHeader = () => {
             <div className="container">
                 <div>
                     <h1>
-                        <InertiaLink href="/">Giveaway</InertiaLink>
+                        <InertiaLink href="/">SteamGifts</InertiaLink>
                     </h1>
                     <h4>{stateData.admin.heading[stateData.lang]}</h4>
                 </div>

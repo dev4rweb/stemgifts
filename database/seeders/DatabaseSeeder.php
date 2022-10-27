@@ -21,7 +21,19 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@source-byte.com',
             'password' => \bcrypt('qa9h6`dNWNd{J#rd'),
         ]);
-         User::factory(100)->create();
-         $this->call(GameSeeder::class);
+        User::factory()->create([
+            'name' => 'Admin',
+            'is_admin' => true,
+            'email' => 'admin@gmail.com',
+            'password' => \bcrypt('password'),
+        ]);
+        User::factory()->create([
+            'name' => 'User',
+            'is_admin' => true,
+            'email' => 'user@gmail.com',
+            'password' => \bcrypt('password'),
+        ]);
+        User::factory(100)->create();
+        $this->call(GameSeeder::class);
     }
 }

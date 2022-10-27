@@ -1,0 +1,22 @@
+.input-attach {
+  display: flex;
+  width: 100%;
+  border: 1px solid #3d4266;
+  background-color: #2b2f4c;
+  padding: 5px 5px 5px 8px; }
+  .input-attach .text-field {
+    border: none;
+    width: 100%;
+    background: none;
+    color: #3d4266; }
+    .input-attach .text-field:focus-visible {
+      outline: none; }
+  .input-attach .attach-file {
+    display: none; }
+  .input-attach .btn-add {
+    width: 130px;
+    border: none;
+    color: #fdfdfd;
+    background-color: #3d4266; }
+
+/*# sourceMappingURL=InputAttach.css.map */

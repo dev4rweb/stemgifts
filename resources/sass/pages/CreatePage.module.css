@@ -1,0 +1,83 @@
+.createPage {
+  font-size: 14px;
+  color: #3d4266;
+  padding-bottom: 200px; }
+  .createPage .taskP {
+    margin-bottom: 10px; }
+  .createPage .inputBox {
+    display: flex;
+    flex-direction: column; }
+    .createPage .inputBox .toggleBox {
+      display: flex;
+      width: 100%; }
+    .createPage .inputBox .calendarBox {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      justify-content: space-between;
+      margin-top: 25px; }
+  .createPage .description {
+    margin-top: 15px; }
+  .createPage .attachFile {
+    margin-top: 12px; }
+    .createPage .attachFile .attachTitle {
+      margin-bottom: 0;
+      margin-top: 15px; }
+  .createPage .giftBox {
+    width: 100%;
+    margin-top: 15px; }
+  .createPage .tasksBlock {
+    margin-top: 20px; }
+    .createPage .tasksBlock p {
+      margin-bottom: 5px; }
+    .createPage .tasksBlock .tasks {
+      display: flex;
+      flex-direction: column; }
+  .createPage .btnWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; }
+
+.editPage {
+  position: absolute;
+  z-index: 3;
+  background-color: #303555;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; }
+
+@media (min-width: 576px) {
+  .createPage .inputBox .calendarBox {
+    flex-direction: row; } }
+@media (min-width: 768px) {
+  .createPage .inputBox {
+    flex-direction: row;
+    justify-content: space-between; }
+    .createPage .inputBox .calendarBox {
+      max-width: 340px;
+      margin-top: 3px; }
+  .createPage .tasksBlock .tasks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; } }
+@media (min-width: 992px) {
+  .createPage .inputBox {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center; }
+    .createPage .inputBox .calendarBox {
+      flex-direction: row;
+      max-width: 340px; }
+  .createPage .titleBox {
+    margin-top: 20px; } }
+@media (min-width: 1200px) {
+  .createPage .inputBox {
+    flex-direction: row;
+    justify-content: space-between; }
+    .createPage .inputBox .calendarBox {
+      max-width: 500px; } }
+
+/*# sourceMappingURL=CreatePage.module.css.map */

@@ -1,0 +1,44 @@
+.toggle-box {
+  display: flex;
+  justify-content: space-between;
+  width: 60%; }
+
+.custom-switch {
+  outline: none; }
+
+.custom-control-label::before {
+  left: -2.25rem;
+  width: 50px;
+  height: 25px;
+  pointer-events: all;
+  border-radius: 12.5px;
+  background-color: #3d4266;
+  border: #3d4266 solid 2px !important; }
+
+.custom-control-label::after {
+  top: 9px;
+  left: -32px;
+  width: 16px;
+  height: 16px;
+  background-color: #303555;
+  border-radius: 50%; }
+
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+  background-color: #b4ff00;
+  transform: translateX(25px); }
+
+.custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: none; }
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #b4ff00;
+  border-color: #b4ff00 !important;
+  background-color: #51b94e; }
+
+.toggle-placeholder {
+  position: absolute;
+  left: 25px;
+  width: 100px;
+  top: 5px; }
+
+/*# sourceMappingURL=ToggleBtn.css.map */

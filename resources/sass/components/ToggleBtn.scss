@@ -1,0 +1,59 @@
+@import "../variables";
+
+.toggle-box{
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+}
+// ToggleBtn
+.custom-switch{
+    outline: none;
+}
+
+
+.custom-control-label::before{
+    left: -2.25rem;
+    width: 50px;
+    height: 25px;
+    pointer-events: all;
+    border-radius: 12.5px;
+    background-color: $footer-bg;
+    border: $footer-bg solid 2px !important;
+}
+.custom-control-label::after{
+    top: 9px;
+    left: -32px;
+    //top: calc(0.22rem + 2px);
+    //left: calc(-2.25rem + 2px);
+    width: 16px;
+    //width: calc(1rem - 4px);
+    //height: calc(1rem - 4px);
+    height: 16px;
+    background-color: $body-bg;
+    border-radius: 50%;
+}
+
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+    background-color: $toggle-btn-checked;
+    transform: translateX(25px);
+}
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+    //border-color: $toggle-btn-checked;
+}
+.custom-control-input:focus ~ .custom-control-label::before {
+    //box-shadow: 0 0 0 0.2rem rgb(52 144 220 / 25%);
+    box-shadow: none;
+}
+.custom-control-input:checked ~ .custom-control-label::before{
+    color: $toggle-btn-checked;
+    border-color: $toggle-btn-checked !important;
+    background-color: $toggle-btn-checked-bg;
+}
+
+.toggle-placeholder{
+    position: absolute;
+    left: 25px;
+    width: 100px;
+    top: 5px;
+}
+// ToggleBtn
