@@ -1,0 +1,51 @@
+.task-wrapper {
+  width: 100%; }
+
+.task-block {
+  border: 1px solid #fdfdfd;
+  padding: 15px 0px 20px;
+  margin-bottom: 45px;
+  background-color: #2b2f4c; }
+  .task-block .task-block-input {
+    padding-left: 13px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #fdfdfd; }
+    .task-block .task-block-input span {
+      color: #fdfdfd;
+      margin-right: 20px; }
+    .task-block .task-block-input .custom-input {
+      width: 100%;
+      border: none; }
+  .task-block .radio-choice {
+    padding-left: 13px;
+    padding-right: 13px;
+    padding-top: 15px; }
+    .task-block .radio-choice .options-container .option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .task-block .radio-choice .options-container .option .radio-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        background-color: #3d4266;
+        margin-right: 25px;
+        min-width: 25px; }
+        .task-block .radio-choice .options-container .option .radio-btn span {
+          background-color: #2b2f4c;
+          width: 13px;
+          height: 13px; }
+        .task-block .radio-choice .options-container .option .radio-btn p {
+          margin-bottom: 0; }
+      .task-block .radio-choice .options-container .option .option-task {
+        width: 40%; }
+      .task-block .radio-choice .options-container .option .option-input {
+        width: 40%; }
+
+/*# sourceMappingURL=taskBlock.css.map */

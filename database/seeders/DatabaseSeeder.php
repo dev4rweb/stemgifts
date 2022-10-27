@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Game;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -35,5 +34,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory(100)->create();
         $this->call(GameSeeder::class);
+        $this->call(TaskCategorySeeder::class);
+        $this->call(TaskCategoryItemSeeder::class);
     }
 }

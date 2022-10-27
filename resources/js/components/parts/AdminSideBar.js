@@ -40,13 +40,13 @@ const AdminSideBar = () => {
             activeIcon: profileOrange,
             name: stateData.admin.usersTab[stateData.lang]
         },
-        {
-            id: 4,
-            url: '/admin-category',
-            icon: management,
-            activeIcon: managementOrange,
-            name: stateData.admin.categoryTabs[stateData.lang]
-        },
+        // {
+        //     id: 4,
+        //     url: '/admin-category',
+        //     icon: management,
+        //     activeIcon: managementOrange,
+        //     name: stateData.admin.categoryTabs[stateData.lang]
+        // },
     ]
     const isActiveItem = url => !!window.location.href.includes(url);
 

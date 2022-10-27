@@ -32,6 +32,11 @@ const HomePage = ({games, sponsorGame, errors}) => {
     const [middleLimit, setMiddleLimit] = useState(24)
     const [highLimit, setHighLimit] = useState(48)
 
+    useEffect(() => {
+        if (errors && errors.error)
+            dispatch(setSnackMessageAction(errors.error))
+    }, [errors]);
+
     const handleIsLogged = e => {
         if (auth.user) dispatch(setSnackMessageAction('What we need to do?'))
         else Inertia.visit('/login')

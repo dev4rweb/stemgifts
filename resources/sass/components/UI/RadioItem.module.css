@@ -1,0 +1,27 @@
+.radioItem {
+  position: relative; }
+  .radioItem .optionsContainer .option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .radioItem .optionsContainer .option .radioBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 25px;
+      height: 25px;
+      background-color: #3d4266;
+      margin-right: 25px;
+      min-width: 25px; }
+      .radioItem .optionsContainer .option .radioBtn span {
+        background-color: #2b2f4c;
+        width: 13px;
+        height: 13px; }
+      .radioItem .optionsContainer .option .radioBtn p {
+        margin-bottom: 0; }
+    .radioItem .optionsContainer .option .optionTask {
+      width: 50%; }
+    .radioItem .optionsContainer .option .optionInput {
+      width: 40%; }
+
+/*# sourceMappingURL=RadioItem.module.css.map */

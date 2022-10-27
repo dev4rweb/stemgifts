@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\TaskCategory;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class GameController extends Controller
 {
@@ -17,33 +19,44 @@ class GameController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            Game::create($request->all());
+            $message = 'Game created';
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+        }
+
+        return redirect('/admin-competitions')->withErrors(['error' => $message]);
     }
 
 
-    public function show(Game $game)
+    public function show($id)
     {
-        return redirect()->back()->withErrors(['error' => 'Page did not create']);
+        try {
+            $game = Game::findOrFail($id);
+            $categories = TaskCategory::with('taskCategoryItems')->get();
+            return Inertia::render('admin/AdminEditCompetition', [
+                'item' => $game,
+                'categories' => $categories
+            ]);
+        } catch (\Exception $exception) {
+            return redirect('/')->withErrors(['error' => 'Page not found']);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Game  $game
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Game $game)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            $game = Game::findOrFail($id);
+            $game->update($request->all());
+            $message = 'Game updated';
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+        }
+
+        return redirect('/admin-competitions')->withErrors(['error' => $message]);
     }
 
     public function destroy($id)

@@ -11,7 +11,8 @@ import {setSnackMessageAction} from "../../reducers/mainReducer";
 const AdminCompetitions = ({games, errors}) => {
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
-    console.log('AdminCompetitions', games)
+    // console.log('AdminCompetitions', games)
+    console.log('AdminCompetitions err', errors.error)
 
     useEffect(() => {
         if (errors && errors.error)

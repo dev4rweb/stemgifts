@@ -1,0 +1,42 @@
+@import "../../variables";
+
+
+.radioItem {
+    position: relative;
+    .optionsContainer {
+        .option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .radioBtn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 25px;
+                height: 25px;
+                background-color: $footer-bg;
+                margin-right: 25px;
+                min-width: 25px;
+
+                span {
+                    background-color: $admin-header-bg;
+                    width: 13px;
+                    height: 13px;
+                }
+
+                p {
+                    margin-bottom: 0;
+                }
+            }
+
+            .optionTask {
+                width: 50%;
+            }
+
+            .optionInput{
+                width: 40%;
+            }
+        }
+    }
+}

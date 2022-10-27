@@ -1,41 +1,57 @@
 import React, {createRef, useEffect, useState} from 'react';
 import s from '../../../sass/pages/CreatePage.module.scss'
 import m from '../../../sass/pages/AdminPage.module.scss'
-import AdminLayout from "../../components/parts/AdminLayout";
+import {setSnackMessageAction} from "../../reducers/mainReducer";
 import {useDispatch, useSelector} from "react-redux";
+import {Inertia} from "@inertiajs/inertia";
 import AdminSideBar from "../../components/parts/AdminSideBar";
 import {Switch} from "@material-ui/core";
 import AttachFilesBlock from "../../components/AttachFilesBlock";
-import {setSnackMessageAction} from "../../reducers/mainReducer";
-import {Inertia} from "@inertiajs/inertia";
-import TaskContainer from "../../components/Tasks/TaskContainer";
+import AdminLayout from "../../components/parts/AdminLayout";
 
-const AdminCreateCompetition = ({categories, errors}) => {
+const AdminEditCompetition = ({item, categories, errors}) => {
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const [req, setReq] = useState(null)
     let requireField = createRef();
+    const dateFormat = date => {
+        let parts = date.split('-')
+        const d = new Date(parts[2], parts[1] - 1, parts[0])
+        let month = '' + (d.getMonth() + 1)
+        let day = '' + d.getDate()
+        let year = d.getFullYear()
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    };
+
     const [game, setGame] = useState({
-        name: '',
-        description: '',
-        is_competition: false,
-        status: 0,
-        start_date: '',
-        end_date: '',
-        main_image: '',
-        secondary_image: '',
-        left_image: '',
-        right_image: '',
-        is_favorite: false,
-        is_sponsored: false,
+        name: item.name || '',
+        description: item.description || '',
+        is_competition: item.is_competition || false,
+        status: item.status || 0,
+        start_date: dateFormat(item.start_date) || '',
+        end_date: dateFormat(item.end_date) || '',
+        main_image: item.main_image || '',
+        secondary_image: item.secondary_image || '',
+        left_image: item.left_image || '',
+        right_image: item.right_image || '',
+        is_favorite: item.is_favorite || false,
+        is_sponsored: item.is_sponsored || false,
     })
-
-    console.log('AdminCreateCompetition', categories)
-
+    // console.log('AdminEditCompetition', game)
+    console.log('AdminEditCompetition', categories)
+    // console.log('AdminEditCompetition err', errors.error)
+// '2022-10-28'
     useEffect(() => {
         if (errors && errors.error)
             dispatch(setSnackMessageAction(errors.error))
     }, [errors]);
+
 
     const switchHandler = e => {
         console.log('switchHandler', e.target.checked)
@@ -61,7 +77,7 @@ const AdminCreateCompetition = ({categories, errors}) => {
             console.log('handleSubmit need to focus')
             requireField.current.focus()
             setReq('Required field')
-        } else Inertia.post('/admin-games', game)
+        } else Inertia.patch(`/admin-games/${item.id}`, game)
     };
 
     return (
@@ -161,7 +177,7 @@ const AdminCreateCompetition = ({categories, errors}) => {
 
                     {
                         game.is_competition ?
-                            <TaskContainer categories={categories}/>
+                            <div>Task container</div>
                             :
                             <div/>
                     }
@@ -171,7 +187,7 @@ const AdminCreateCompetition = ({categories, errors}) => {
                             className="btn btn-warning w-100 mt-3"
                             onClick={handleSubmit}
                         >
-                            {stateData.admin.createGive.btnCreate[stateData.lang]}
+                            {stateData.admin.createGive.btnUpdate[stateData.lang]}
                         </button>
                     </div>
                 </div>
@@ -180,4 +196,4 @@ const AdminCreateCompetition = ({categories, errors}) => {
     );
 };
 
-export default AdminCreateCompetition;
+export default AdminEditCompetition;

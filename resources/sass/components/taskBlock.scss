@@ -1,0 +1,76 @@
+@import "../variables";
+
+.task-wrapper{
+    width: 100%;
+}
+
+.task-block {
+    border: 1px solid $text-color;
+    padding: 15px 0px 20px;
+    margin-bottom: 45px;
+    //max-width: 400px;
+    background-color: $admin-header-bg;
+
+    .task-block-input {
+        padding-left: 13px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid $text-color;
+
+        span {
+            color: $text-color;
+            margin-right: 20px;
+        }
+
+        .custom-input {
+            width: 100%;
+            border: none;
+        }
+    }
+
+    .radio-choice {
+        padding-left: 13px;
+        padding-right: 13px;
+        padding-top: 15px;
+
+        .options-container {
+            .option {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .radio-btn {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 25px;
+                    height: 25px;
+                    background-color: $footer-bg;
+                    margin-right: 25px;
+                    min-width: 25px;
+
+                    span {
+                        background-color: $admin-header-bg;
+                        width: 13px;
+                        height: 13px;
+                    }
+
+                    p {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .option-task {
+                    width: 40%;
+                }
+
+                .option-input{
+                    width: 40%;
+                }
+            }
+        }
+    }
+}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\GameFilter;
 use App\Models\Game;
+use App\Models\TaskCategory;
 use App\Models\User;
 use Inertia\Inertia;
 
@@ -68,7 +69,10 @@ class PagesController extends Controller
 
     public function adminCreateCompetition()
     {
-        return Inertia::render('admin/AdminCreateCompetition');
+        $categories = TaskCategory::with('taskCategoryItems')->get();
+        return Inertia::render('admin/AdminCreateCompetition', [
+            'categories' => $categories
+        ]);
     }
 
     public function userPage()
