@@ -31,7 +31,7 @@ const GameCard = ({item}) => {
                     item.is_competition ?
                         <div className={s.steamBox}>
                             {
-                                item.tasks && item.tasks.map((item, index) =>
+                                item.tasks && item.tasks.slice(0, 3).map((item, index) =>
                                     <a key={index} href="#"><img src={steam} alt="steam"/></a>
                                 )
                             }

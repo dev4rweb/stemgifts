@@ -14,7 +14,8 @@ class PagesController extends Controller
     {
         $limit = 12;
         if (isset($filter->request['limit'])) $limit = $filter->request['limit'];
-        $games = Game::where('status', Game::STATUS_ACTIVE)
+        $games = Game::with('tasks')
+            ->where('status', Game::STATUS_ACTIVE)
             ->where('is_sponsored', false)
             ->filter($filter)
             ->paginate($limit);

@@ -3,8 +3,10 @@ import {useDispatch, useSelector} from "react-redux";
 import s from '../../../sass/components/ModalLayout.module.scss'
 import m from '../../../sass/components/modals/ModalGameDescriptiion.module.scss'
 import {setGameDescription} from "../../reducers/modalReducer";
+import steam from '../../../assets/png/steam-icon-white.png'
 import share from '../../../assets/icons/share.png'
 import {TelegramShareButton} from "react-share";
+import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 
 const ModalGameDescription = () => {
     const dispatch = useDispatch()
@@ -65,6 +67,46 @@ const ModalGameDescription = () => {
                                     :
                                     <div/>
                             }
+
+                            {
+                                item.is_competition ?
+                                    <div className={m.links}>
+                                        <Tabs>
+                                            <TabList className={m.tasks}>
+                                                {
+                                                    item.tasks && item.tasks.slice(0, 3).map((item, index) =>
+                                                        <Tab key={index}><img src={steam}
+                                                                                                                        alt="steam"/></Tab>)
+                                                }
+                                            </TabList>
+                                            <div>
+                                                {
+                                                    item.tasks && item.tasks.slice(0, 3).map((i, index) => {
+                                                        return (
+                                                            <TabPanel key={index}>
+                                                                <div className={m.subscribe}>
+                                                                    <p>
+                                                                        <span>
+                                                                            {i.task}
+                                                                        </span>
+                                                                         {i.url}
+                                                                    </p>
+                                                                    {/*<SwitchGameDescBtn
+                                                                        task={i}
+                                                                        userTasks={userTasks}
+                                                                    />*/}
+                                                                </div>
+                                                            </TabPanel>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </Tabs>
+                                    </div>
+                                    :
+                                    <div/>
+                            }
+
                             <div className={m.btnWrapper}>
                                 <TelegramShareButton
                                     url="/"

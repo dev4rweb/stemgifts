@@ -36,6 +36,11 @@ class Game extends Model
         'end_date' => 'datetime:d-m-Y',
     ];
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
     public function scopeFilter(Builder $builder, QueryFilter $filter)
     {
         return $filter->apply($builder);

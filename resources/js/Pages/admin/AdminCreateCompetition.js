@@ -11,6 +11,9 @@ import {Inertia} from "@inertiajs/inertia";
 import TaskContainer from "../../components/Tasks/TaskContainer";
 
 const AdminCreateCompetition = ({categories, errors}) => {
+    const taskOneSelector = useSelector(state => state.createCompetition.createTaskOne)
+    const taskTwoSelector = useSelector(state => state.createCompetition.createTaskTwo)
+    const taskThreeSelector = useSelector(state => state.createCompetition.createTaskThree)
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const [req, setReq] = useState(null)
