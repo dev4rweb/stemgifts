@@ -37,5 +37,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TaskCategorySeeder::class);
         $this->call(TaskCategoryItemSeeder::class);
         $this->call(TaskSeeder::class);
+        $this->call(UserTaskSeeder::class);
     }
 }

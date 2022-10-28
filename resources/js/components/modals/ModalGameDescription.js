@@ -7,6 +7,7 @@ import steam from '../../../assets/png/steam-icon-white.png'
 import share from '../../../assets/icons/share.png'
 import {TelegramShareButton} from "react-share";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
+import SwitchGameDescBtn from "../UI/SwitchGameDescBtn";
 
 const ModalGameDescription = () => {
     const dispatch = useDispatch()
@@ -91,10 +92,10 @@ const ModalGameDescription = () => {
                                                                         </span>
                                                                          {i.url}
                                                                     </p>
-                                                                    {/*<SwitchGameDescBtn
+                                                                    <SwitchGameDescBtn
                                                                         task={i}
-                                                                        userTasks={userTasks}
-                                                                    />*/}
+                                                                        // userTasks={userTasks}
+                                                                    />
                                                                 </div>
                                                             </TabPanel>
                                                         )

@@ -43,6 +43,7 @@ const defaultState = {
         taskTwo: {en: 'Task Two', ru: 'задача 2 '},
         taskThree: {en: 'Task Three', ru: 'задача 3'},
         copy: {en: 'Copy', ru: 'Копировать'},
+        copied: {en: 'Copied', ru: 'Скопировано'},
         plus_one: {en: '+1', ru: '+1'},
         visit: {en: 'Visit', ru: 'Посетить'},
         done: {en: 'Done', ru: 'Выполнено'},

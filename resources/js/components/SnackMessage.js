@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -10,10 +10,17 @@ const SnackMessage = ({message = '', hideTime = 5000}) => {
     const [open, setOpen] = React.useState(true);
 
     const handleClose = (event, reason) => {
+        // console.log('handleClose', reason)
         if (reason === 'clickaway') return
         dispatch(setSnackMessageAction(null))
         setOpen(false)
     }
+
+    useEffect((e) => {
+        setTimeout(() => {
+            handleClose(e, null)
+        }, hideTime);
+    }, [message]);
 
     return (
         <div>
@@ -23,7 +30,7 @@ const SnackMessage = ({message = '', hideTime = 5000}) => {
                     horizontal: 'right',
                 }}
                 open={open}
-                autoHideDuration={hideTime}
+                // autoHideDuration={hideTime}
                 onClose={handleClose}
                 message={message}
                 action={

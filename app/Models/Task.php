@@ -16,7 +16,8 @@ class Task extends Model
     ];
 
     protected $appends = [
-        'task'
+        'task',
+        'users'
     ];
 
     public function getTaskAttribute()
@@ -25,4 +26,10 @@ class Task extends Model
         if ($taskCatItem) return $taskCatItem->title;
         return 'task not found';
     }
+
+    public function getUsersAttribute()
+    {
+        return UserTask::where('task_id', $this->id)->get();
+    }
+
 }
