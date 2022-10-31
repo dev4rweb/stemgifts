@@ -50,6 +50,8 @@ const defaultState = {
         subscribe: {en: 'Subscribe', ru: 'Подписаться'},
         addCom: {en: 'Add Comment', ru: 'Добавить комментарий'},
         repost: {en: 'Repost', ru: 'Репост'},
+        need_update_api: {en: 'Need to update API', ru: 'Нужно обновить АПИ'},
+        need_create_api: {en: 'Need to create API', ru: 'Нужно создать АПИ'},
         cong: {en: 'Congratulations! Take your key', ru: 'Поздравляю! Возьми свой ключ'},
     },
     footer: {

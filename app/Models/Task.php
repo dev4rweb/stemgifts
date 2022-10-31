@@ -17,8 +17,30 @@ class Task extends Model
 
     protected $appends = [
         'task',
-        'users'
+        'users',
+        'category_id',
+        'category_name'
     ];
+
+    public function getCategoryIdAttribute()
+    {
+        $taskCatItem = TaskCategoryItem::find($this->task_category_item_id);
+        if ($taskCatItem) {
+            $taskCategory = TaskCategory::where('id', $taskCatItem->task_category_id)->first();
+            if ($taskCategory) return $taskCategory->id;
+        }
+        return null;
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        $taskCatItem = TaskCategoryItem::find($this->task_category_item_id);
+        if ($taskCatItem) {
+            $taskCategory = TaskCategory::where('id', $taskCatItem->task_category_id)->first();
+            if ($taskCategory) return $taskCategory->title;
+        }
+        return null;
+    }
 
     public function getTaskAttribute()
     {
