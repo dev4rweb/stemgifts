@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../../sass/components/taskBlock.scss'
 import Task from "./Task";
 import {useDispatch} from "react-redux";
@@ -7,7 +7,13 @@ const TaskBlock = ({selector, createTaskAction, name, categories}) => {
     const dispatch = useDispatch()
     const [tasks, setTasks] = useState(null)
 
-    console.log('TaskBlock', selector)
+    // console.log('TaskBlock', selector)
+
+    useEffect(() => {
+        if (selector && selector.category_id) {
+            categoryHandler({target: {value : selector.category_id}})
+        }
+    }, [selector]);
 
     const categoryHandler = e => {
         const curTasks = categories.find(i => i.id == e.target.value)
@@ -17,7 +23,7 @@ const TaskBlock = ({selector, createTaskAction, name, categories}) => {
         } else {
             setTasks(null)
             dispatch(createTaskAction({
-                task_category_items_id: 0,
+                task_category_item_id: 0,
                 url: ''
             }))
         }
@@ -39,6 +45,7 @@ const TaskBlock = ({selector, createTaskAction, name, categories}) => {
                                 <option
                                     key={cat.id}
                                     value={cat.id}
+                                    selected={!!(selector && selector.category_id && selector.category_id === cat.id)}
                                 >
                                     {cat.title}
                                 </option>

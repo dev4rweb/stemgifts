@@ -8,25 +8,35 @@ import AdminSideBar from "../../components/parts/AdminSideBar";
 import {Switch} from "@material-ui/core";
 import AttachFilesBlock from "../../components/AttachFilesBlock";
 import AdminLayout from "../../components/parts/AdminLayout";
+import TaskContainer from "../../components/Tasks/TaskContainer";
+import {
+    setCreateTaskOneAction,
+    setCreateTaskThreeAction,
+    setCreateTaskTwoAction
+} from "../../reducers/pages/createCompetitionReducer";
 
 const AdminEditCompetition = ({item, categories, errors}) => {
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const [req, setReq] = useState(null)
     let requireField = createRef();
+
     const dateFormat = date => {
-        let parts = date.split('-')
-        const d = new Date(parts[2], parts[1] - 1, parts[0])
-        let month = '' + (d.getMonth() + 1)
-        let day = '' + d.getDate()
-        let year = d.getFullYear()
+        if (date) {
+            let parts = date.split('-');
+            const d = new Date(parts[2], parts[1] - 1, parts[0])
+            let month = '' + (d.getMonth() + 1)
+            let day = '' + d.getDate()
+            let year = d.getFullYear()
 
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
+            if (month.length < 2)
+                month = '0' + month;
+            if (day.length < 2)
+                day = '0' + day;
 
-        return [year, month, day].join('-');
+            return [year, month, day].join('-');
+        }
+        return ''
     };
 
     const [game, setGame] = useState({
@@ -42,16 +52,31 @@ const AdminEditCompetition = ({item, categories, errors}) => {
         right_image: item.right_image || '',
         is_favorite: item.is_favorite || false,
         is_sponsored: item.is_sponsored || false,
+        tasks: item.tasks || []
     })
-    // console.log('AdminEditCompetition', game)
-    console.log('AdminEditCompetition', categories)
-    // console.log('AdminEditCompetition err', errors.error)
+    console.log('AdminEditCompetition item', item)
+    console.log('AdminEditCompetition game', game)
+    console.log('AdminEditCompetition categories', categories)
+    console.log('AdminEditCompetition err', errors.error)
 // '2022-10-28'
     useEffect(() => {
         if (errors && errors.error)
             dispatch(setSnackMessageAction(errors.error))
     }, [errors]);
 
+    useEffect(() => {
+        if (item.tasks.length) {
+            dispatch(setCreateTaskOneAction(item.tasks[0]))
+            if (item.tasks.length === 2) {
+                dispatch(setCreateTaskTwoAction(item.tasks[1]))
+            }
+            if (item.tasks.length >= 3) {
+                dispatch(setCreateTaskTwoAction(item.tasks[1]))
+                dispatch(setCreateTaskThreeAction(item.tasks[2]))
+            }
+            console.log('need to create tasks');
+        }
+    }, [item.tasks]);
 
     const switchHandler = e => {
         console.log('switchHandler', e.target.checked)
@@ -177,7 +202,7 @@ const AdminEditCompetition = ({item, categories, errors}) => {
 
                     {
                         game.is_competition ?
-                            <div>Task container</div>
+                            <TaskContainer categories={categories}/>
                             :
                             <div/>
                     }

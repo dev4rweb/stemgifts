@@ -34,6 +34,9 @@ class Game extends Model
     protected $casts = [
         'start_date' => 'datetime:d-m-Y',
         'end_date' => 'datetime:d-m-Y',
+        'is_competition' => 'boolean',
+        'is_favorite' => 'boolean',
+        'is_sponsored' => 'boolean',
     ];
 
     public function tasks()

@@ -36,7 +36,9 @@ const AdminTableCompetitionsItem = ({item, index}) => {
     };
     const removeHandler = e => {
         console.log('removeHandler', item)
-        Inertia.delete(`admin-games/${item.id}`)
+        Inertia.patch(`admin-games/${item.id}`,{
+            status: 3
+        })
     };
 
 

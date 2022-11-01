@@ -5,10 +5,21 @@ import {useDispatch, useSelector} from "react-redux";
 const Task = ({task, selector, createTaskAction}) => {
     const dispatch = useDispatch()
     const [url, setUrl] = useState('')
+    const [selected, setSelected] = useState(false)
+
+    // console.log('Task', task)
+    // console.log('Task selector', selector)
+
+    useEffect(() => {
+        if (selector && selector.task_category_item_id === task.id){
+            setSelected(true)
+            setUrl(selector.url)
+        } else setSelected(false)
+    }, [selector, task, selected]);
 
     const checkHandler = () => {
         dispatch(createTaskAction({
-            task_category_items_id: task.id,
+            task_category_item_id: task.id,
             url: url
         }))
         console.log('checkHandler', task)
@@ -18,7 +29,7 @@ const Task = ({task, selector, createTaskAction}) => {
     const urlHandler = e => {
         setUrl(e.target.value)
         dispatch(createTaskAction({
-            task_category_items_id: task.id,
+            task_category_item_id: task.id,
             url: e.target.value
         }))
     };
@@ -37,7 +48,7 @@ const Task = ({task, selector, createTaskAction}) => {
                     >
                         <span
                             style={{
-                                backgroundColor: ` ${selector.task_category_items_id === task.id ? "#2b2f4c" : "#3d4266"} `
+                                backgroundColor: ` ${selected === true ? "#2b2f4c" : "#3d4266"} `
                             }}
                         />
                     </div>

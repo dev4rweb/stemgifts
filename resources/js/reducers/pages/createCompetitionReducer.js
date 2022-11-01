@@ -2,15 +2,15 @@ import {CREATE_TASK_ONE, CREATE_TASK_THREE, CREATE_TASK_TWO} from "../../utils/r
 
 const defaultState = {
     createTaskOne: {
-        task_category_items_id: 0,
+        task_category_item_id: 0,
         url: ''
     },
     createTaskTwo: {
-        task_category_items_id: 0,
+        task_category_item_id: 0,
         url: ''
     },
     createTaskThree: {
-        task_category_items_id: 0,
+        task_category_item_id: 0,
         url: ''
     },
 }

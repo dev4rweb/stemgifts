@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\Task;
 use App\Models\TaskCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -22,7 +23,15 @@ class GameController extends Controller
     public function store(Request $request)
     {
         try {
-            Game::create($request->all());
+            $game = Game::create($request->all());
+            if (isset($request['tasks']) && count($request['tasks'])) {
+                foreach ($request['tasks'] as $task)
+                Task::create([
+                   'game_id' => $game->id,
+                   'task_category_item_id' => $task['task_category_item_id'],
+                   'url' => $task['url'],
+                ]);
+            }
             $message = 'Game created';
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
@@ -35,7 +44,7 @@ class GameController extends Controller
     public function show($id)
     {
         try {
-            $game = Game::findOrFail($id);
+            $game = Game::with('tasks')->findOrFail($id);
             $categories = TaskCategory::with('taskCategoryItems')->get();
             return Inertia::render('admin/AdminEditCompetition', [
                 'item' => $game,

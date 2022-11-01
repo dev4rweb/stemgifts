@@ -64,7 +64,19 @@ const AdminCreateCompetition = ({categories, errors}) => {
             console.log('handleSubmit need to focus')
             requireField.current.focus()
             setReq('Required field')
-        } else Inertia.post('/admin-games', game)
+        } else {
+            if (game.is_competition) {
+                const tasks = [];
+                if(taskOneSelector && taskOneSelector.task_category_item_id)
+                    tasks.push(taskOneSelector)
+                if(taskTwoSelector && taskTwoSelector.task_category_item_id)
+                    tasks.push(taskTwoSelector)
+                if(taskThreeSelector && taskThreeSelector.task_category_item_id)
+                    tasks.push(taskThreeSelector)
+                game.tasks = tasks
+            }
+            Inertia.post('/admin-games', game)
+        }
     };
 
     return (
