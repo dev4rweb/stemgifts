@@ -18,6 +18,9 @@ import {
 const AdminEditCompetition = ({item, categories, errors}) => {
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
+    const taskOneSelector = useSelector(state => state.createCompetition.createTaskOne)
+    const taskTwoSelector = useSelector(state => state.createCompetition.createTaskTwo)
+    const taskThreeSelector = useSelector(state => state.createCompetition.createTaskThree)
     const [req, setReq] = useState(null)
     let requireField = createRef();
 
@@ -74,7 +77,6 @@ const AdminEditCompetition = ({item, categories, errors}) => {
                 dispatch(setCreateTaskTwoAction(item.tasks[1]))
                 dispatch(setCreateTaskThreeAction(item.tasks[2]))
             }
-            console.log('need to create tasks');
         }
     }, [item.tasks]);
 
@@ -102,7 +104,17 @@ const AdminEditCompetition = ({item, categories, errors}) => {
             console.log('handleSubmit need to focus')
             requireField.current.focus()
             setReq('Required field')
-        } else Inertia.patch(`/admin-games/${item.id}`, game)
+        } else {
+            const newTasks = []
+            if(taskOneSelector && taskOneSelector.task_category_item_id)
+                newTasks.push(taskOneSelector)
+            if(taskTwoSelector && taskTwoSelector.task_category_item_id)
+                newTasks.push(taskTwoSelector)
+            if(taskThreeSelector && taskThreeSelector.task_category_item_id)
+                newTasks.push(taskThreeSelector)
+            game.tasks_new = newTasks
+            Inertia.patch(`/admin-games/${item.id}`, game)
+        }
     };
 
     return (

@@ -60,6 +60,35 @@ class GameController extends Controller
         try {
             $game = Game::findOrFail($id);
             $game->update($request->all());
+            if (isset($request['tasks']) || isset($request['tasks_new'])){
+                $old_tasks = array();
+                $response['tasks'] = $request['tasks'];
+                $response['tasks_new'] = $request['tasks_new'];
+
+                if (count($request['tasks_new'])) {
+                    foreach ($request['tasks_new'] as $task) {
+                        if (isset($task['id'])) array_push($old_tasks, $task);
+                        else Task::create([
+                            'game_id' => $game['id'],
+                            'task_category_item_id' => $task['task_category_item_id'],
+                            'url' => $task['url'],
+                        ]);
+                    }
+                }
+                // Remove old tasks
+                if (count($request['tasks'])) {
+                    foreach ($request['tasks'] as $task) {
+                        $is_remove = true;
+                        foreach ($old_tasks as $old_task) {
+                            if ($task['id'] == $old_task['id']) $is_remove = false;
+                        }
+                        if ($is_remove == true) {
+                            $item = Task::where('id', $task['id'])->first();
+                            $item->delete();
+                        }
+                    }
+                }
+            }
             $message = 'Game updated';
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
