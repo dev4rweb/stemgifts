@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UserGame;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserGameController extends Controller
 {
@@ -17,15 +18,21 @@ class UserGameController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        try {
+            $user = Auth::user();
+            if ($user) {
+                UserGame::create([
+                    'user_id' => $user->id,
+                    'game_id' => $request['game_id'],
+                ]);
+                $message = 'You joined';
+            } else $message = 'User not found';
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+        }
+        return redirect()->back()->withErrors(['error' => $message]);
     }
 
     /**

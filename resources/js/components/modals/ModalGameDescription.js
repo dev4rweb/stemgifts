@@ -9,6 +9,7 @@ import {TelegramShareButton} from "react-share";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import SwitchGameDescBtn from "../UI/SwitchGameDescBtn";
 import {usePage} from "@inertiajs/inertia-react";
+import {Inertia} from "@inertiajs/inertia";
 
 const ModalGameDescription = () => {
     const {auth} = usePage().props
@@ -23,6 +24,10 @@ const ModalGameDescription = () => {
 
     const handleClick = e => {
         console.log('handleClick', item)
+        dispatch(setGameDescription(null))
+        Inertia.post('/user-games', {
+            game_id: item.id
+        })
     };
 
     const btnText = () => {

@@ -83,6 +83,16 @@ class PagesController extends Controller
         return Inertia::render('user/UserPage');
     }
 
+    public function userSettings()
+    {
+        return Inertia::render('user/UserSettings');
+    }
+
+    public function userAchievements()
+    {
+        return Inertia::render('user/UserAchievements');
+    }
+
     public function faqPage()
     {
         return Inertia::render('FaqPage');

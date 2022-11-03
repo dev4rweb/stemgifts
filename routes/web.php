@@ -4,6 +4,7 @@ use App\Http\Controllers\FileUploaderController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserGameController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,12 +39,15 @@ Route::get('/admin-category', [PagesController::class, 'adminCategoryTasks']);
 Route::get('/admin-create-competition', [PagesController::class, 'adminCreateCompetition']);
 
 Route::get('/user-panel', [PagesController::class, 'userPage']);
+Route::get('/user-settings', [PagesController::class, 'userSettings']);
+Route::get('/user-achievements', [PagesController::class, 'userAchievements']);
 
 Route::post('/file-upload', [FileUploaderController::class, 'uploadImage']);
 
 Route::resources([
     'admin-user' => UserController::class,
-    'admin-games' => GameController::class
+    'admin-games' => GameController::class,
+    'user-games' => UserGameController::class
 ]);
 
 Route::fallback([PagesController::class, 'errorPage']);
