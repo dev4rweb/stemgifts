@@ -15,6 +15,7 @@ class PagesController extends Controller
         $limit = 12;
         if (isset($filter->request['limit'])) $limit = $filter->request['limit'];
         $games = Game::with('tasks')
+            ->with('users')
             ->where('status', Game::STATUS_ACTIVE)
             ->where('is_sponsored', false)
             ->filter($filter)
@@ -55,7 +56,8 @@ class PagesController extends Controller
 
     public function adminUsers()
     {
-        $users = User::where('is_admin', 0)
+        $users = User::withCount('games')
+            ->where('is_admin', 0)
             ->orderBy('created_at', 'desc')
             ->paginate(30);
         return Inertia::render('admin/AdminUsers', [

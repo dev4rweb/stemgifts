@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserTask;
+use App\Models\UserGame;
 use Illuminate\Database\Seeder;
 
-class UserTaskSeeder extends Seeder
+class UserGameSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class UserTaskSeeder extends Seeder
      */
     public function run()
     {
-        UserTask::factory(15000)->create();
+        UserGame::factory(3000)->create();
     }
 }

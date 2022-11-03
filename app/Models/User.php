@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime:d-m-Y'
     ];
+
+    public function games()
+    {
+        return $this->hasMany(UserGame::class);
+    }
 }

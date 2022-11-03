@@ -20,7 +20,7 @@ const AdminTableUsersItem = ({user, index}) => {
             <td>{user.email}</td>
             <td>{user.votes} 42</td>
             <td>789</td>
-            <td>789</td>
+            <td>{user.games_count}</td>
             <td
                 className={`link`}
             >

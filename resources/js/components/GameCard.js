@@ -17,9 +17,9 @@ const GameCard = ({item}) => {
         stateData.home.join_giveaway[stateData.lang]
 
     const handleClick = (e) => {
-        dispatch(setGameDescription(item))
         console.log('handleClick', item)
-        // dispatch(setIsAuthModalOpen(true))
+        if (auth.user) dispatch(setGameDescription(item))
+        else dispatch(setIsAuthModalOpen(true))
     }
 
     return (

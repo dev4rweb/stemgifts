@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Task;
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserTaskFactory extends Factory
+class UserGameFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class UserTaskFactory extends Factory
     {
         return [
             'user_id' => User::where('is_admin', 0)->get()->random()->id,
-            'task_id' => Task::all()->random()->id,
-            'is_done' => $this->faker->boolean(80)
+            'game_id' => Game::where('is_competition', 0)->get()->random()->id
         ];
     }
 }

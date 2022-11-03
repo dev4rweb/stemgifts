@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import s from '../../../sass/components/ModalLayout.module.scss'
 import m from '../../../sass/components/modals/ModalGameDescriptiion.module.scss'
@@ -8,27 +8,59 @@ import share from '../../../assets/icons/share.png'
 import {TelegramShareButton} from "react-share";
 import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import SwitchGameDescBtn from "../UI/SwitchGameDescBtn";
+import {usePage} from "@inertiajs/inertia-react";
 
 const ModalGameDescription = () => {
+    const {auth} = usePage().props
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const item = useSelector(state => state.modal.gameDescription)
     const rootClasses = [s.modal]
-    const btnText = item && item.is_competition ?
-        stateData.home.join_competition[stateData.lang] :
-        stateData.home.join_giveaway[stateData.lang]
 
-    if (item) {
-        rootClasses.push(s.active)
-    }
+    if (item) rootClasses.push(s.active)
 
-    const handleClose = (ev) => {
-        dispatch(setGameDescription(null))
-    };
+    const handleClose = (ev) => dispatch(setGameDescription(null))
 
     const handleClick = e => {
         console.log('handleClick', item)
     };
+
+    const btnText = () => {
+        if (item && auth.user) {
+            if (item.users.length) {
+                const participate = item.users.find(i => i.user_id === auth.user.id);
+                if (participate) return stateData.home.joined[stateData.lang]
+            }
+            if (item.is_competition) return stateData.home.join_competition[stateData.lang]
+            else return stateData.home.join_giveaway[stateData.lang]
+        }
+        return ''
+    };
+
+
+    const isDisabled = () => {
+        if (item && auth.user) {
+            if (item.users.length) {
+                const participate = item.users.find(i => i.user_id === auth.user.id)
+                console.log('PARTICIPATE', participate)
+                return !!participate;
+            }
+            if (item.is_competition) {
+                if (item.tasks.length) {
+                    const countTasks = item.tasks.length;
+                    /*const countDoneTasks = item.tasks.reduce((total, task) =>
+                        total + task.users.find(i => i.user_id === auth.user.id) ? 1 : 0, 0)*/;
+                    const countDoneTasks = item.tasks.filter(i => {
+                        const userTask = i.users.find(m => m.user_id === auth.user.id && m.is_done === 1)
+                        if (userTask) return true
+                    });
+                    console.log('COUNT DONE', countDoneTasks, countTasks);
+                    return countTasks !== countDoneTasks.length;
+                } return  false
+            }
+        }
+        return true;
+    }
 
     return (
         <div
@@ -77,7 +109,7 @@ const ModalGameDescription = () => {
                                                 {
                                                     item.tasks && item.tasks.slice(0, 3).map((item, index) =>
                                                         <Tab key={index}><img src={steam}
-                                                                                                                        alt="steam"/></Tab>)
+                                                                              alt="steam"/></Tab>)
                                                 }
                                             </TabList>
                                             <div>
@@ -90,7 +122,7 @@ const ModalGameDescription = () => {
                                                                         <span>
                                                                             {i.task}
                                                                         </span>
-                                                                         {i.url}
+                                                                        {i.url}
                                                                     </p>
                                                                     <SwitchGameDescBtn
                                                                         task={i}
@@ -119,10 +151,10 @@ const ModalGameDescription = () => {
 
                                 <button
                                     className="btn btn-warning"
-                                    disabled={item.is_competition}
+                                    disabled={isDisabled()}
                                     onClick={handleClick}
                                 >
-                                    {btnText}
+                                    {btnText()}
                                 </button>
                             </div>
                         </div>

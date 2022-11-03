@@ -37,6 +37,7 @@ const defaultState = {
         },
         join_giveaway: {en: 'join to giveaway', ru: 'присоединяйтесь к розыгрышу'},
         join_competition: {en: 'join the competition', ru: 'присоединиться к соревнованию'},
+        joined: {en: 'joined', ru: 'присоединился'},
         show_info: {en: 'show information', ru: 'показать информацию'},
         task: {en: 'task', ru: 'задача'},
         taskOne: {en: 'Task One', ru: 'задача 1'},

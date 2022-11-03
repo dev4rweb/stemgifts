@@ -20,7 +20,7 @@ const SwitchGameDescBtn = ({task}) => {
     console.log('SwitchGameDescBtn', task, auth)
 
     if (task.users.length && auth.user) {
-        const userTask = task.users.find(i => i.user_id === auth.user.id)
+        const userTask = task.users.find(i => i.user_id === auth.user.id && i.is_done)
         if (userTask && userTask.is_done)
             return (
                 <button
