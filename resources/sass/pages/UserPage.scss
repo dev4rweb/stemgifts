@@ -1,0 +1,60 @@
+@import "../variables";
+
+.user-page {
+    height: calc(100vh - 130px);
+    overflow-y: auto;
+
+    .user-statistic {
+        width: 100%;
+        height: 57px;
+        margin-bottom: 30px;
+
+        .user-stat-item {
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            p {
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: 500;
+            }
+
+            span {
+                font-weight: bold;
+                font-size: 26px;
+            }
+        }
+    }
+
+    .stat-orange {
+        background-color: $orange-bg;
+    }
+
+    .stat-green {
+        background-color: $green-bg;
+    }
+
+    .stat-blue {
+        background-color: $footer-bg;
+    }
+}
+
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+    .user-page {
+        .user-statistic {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .user-stat-item {
+                width: 30%;
+                max-width: 260px;
+            }
+        }
+    }
+}

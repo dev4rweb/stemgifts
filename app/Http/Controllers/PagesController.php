@@ -6,6 +6,8 @@ use App\Filters\GameFilter;
 use App\Models\Game;
 use App\Models\TaskCategory;
 use App\Models\User;
+use App\Models\UserGame;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PagesController extends Controller
@@ -80,7 +82,24 @@ class PagesController extends Controller
 
     public function userPage()
     {
-        return Inertia::render('user/UserPage');
+        $user = Auth::user();
+        $ownGames = array();
+        if ($user) {
+            $games = Game::with('users')->get();
+            if (count($games)) {
+                foreach ($games as $game) {
+                    if (count($game->users))
+                        foreach ($game->users as $userGame) {
+                            if ($userGame->user_id == $user->id)
+                                array_push($ownGames, $game);
+                        }
+                }
+            }
+//            return $ownGames;
+        }
+        return Inertia::render('user/UserPage', [
+            'games' => $ownGames
+        ]);
     }
 
     public function userSettings()

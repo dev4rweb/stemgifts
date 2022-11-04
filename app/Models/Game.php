@@ -49,6 +49,7 @@ class Game extends Model
         return $this->hasMany(UserGame::class);
     }
 
+
     public function scopeFilter(Builder $builder, QueryFilter $filter)
     {
         return $filter->apply($builder);
