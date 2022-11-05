@@ -39,6 +39,11 @@ class Game extends Model
         'is_sponsored' => 'boolean',
     ];
 
+    public function gifts()
+    {
+        return $this->hasMany(Gift::class);
+    }
+
     public function tasks()
     {
         return $this->hasMany(Task::class);

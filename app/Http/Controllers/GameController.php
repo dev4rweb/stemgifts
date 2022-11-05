@@ -44,7 +44,8 @@ class GameController extends Controller
     public function show($id)
     {
         try {
-            $game = Game::with('tasks')->findOrFail($id);
+            $game = Game::with('tasks')
+                ->with('gifts')->findOrFail($id);
             $categories = TaskCategory::with('taskCategoryItems')->get();
             return Inertia::render('admin/AdminEditCompetition', [
                 'item' => $game,

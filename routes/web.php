@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FileUploaderController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\GiftController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGameController;
@@ -47,7 +48,8 @@ Route::post('/file-upload', [FileUploaderController::class, 'uploadImage']);
 Route::resources([
     'admin-user' => UserController::class,
     'admin-games' => GameController::class,
-    'user-games' => UserGameController::class
+    'user-games' => UserGameController::class,
+    'gifts' => GiftController::class
 ]);
 
 Route::fallback([PagesController::class, 'errorPage']);

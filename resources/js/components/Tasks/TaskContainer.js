@@ -17,7 +17,7 @@ const TaskContainer = ({categories}) => {
     // console.log('AdminCreateCompetition', categories)
     return (
         <div className={s.tasksBlock}>
-            <p>{stateData.admin.createGive.cond[stateData.lang]}</p>
+            <h2>{stateData.admin.createGive.cond[stateData.lang]}</h2>
             <div className={s.tasks}>
                 {
                     categories.length &&

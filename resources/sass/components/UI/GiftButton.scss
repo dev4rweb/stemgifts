@@ -1,0 +1,24 @@
+@import "../../variables";
+
+.gift-button{
+    display: flex;
+    align-items: center;
+    width: 50%;
+
+    span{
+        color: $text-color;
+        margin-left: 15px;
+        margin-right: 20px;
+    }
+    .btn-plus{
+        background-color: $admin-header-bg;
+        color: $footer-bg;
+        border: none;
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 0;
+        padding: 0;
+        margin: 0;
+        outline: none;
+    }
+}

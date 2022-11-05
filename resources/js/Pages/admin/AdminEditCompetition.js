@@ -14,6 +14,7 @@ import {
     setCreateTaskThreeAction,
     setCreateTaskTwoAction
 } from "../../reducers/pages/createCompetitionReducer";
+import GiftBlock from "../../components/GiftBlock/GiftBlock";
 
 const AdminEditCompetition = ({item, categories, errors}) => {
     const dispatch = useDispatch()
@@ -55,16 +56,22 @@ const AdminEditCompetition = ({item, categories, errors}) => {
         right_image: item.right_image || '',
         is_favorite: item.is_favorite || false,
         is_sponsored: item.is_sponsored || false,
-        tasks: item.tasks || []
+        tasks: item.tasks || [],
+        gifts: item.gifts || []
     })
     console.log('AdminEditCompetition item', item)
     console.log('AdminEditCompetition game', game)
     console.log('AdminEditCompetition categories', categories)
     console.log('AdminEditCompetition err', errors.error)
-// '2022-10-28'
+
     useEffect(() => {
-        if (errors && errors.error)
-            dispatch(setSnackMessageAction(errors.error))
+        if (errors && errors.error) {
+            dispatch(setSnackMessageAction(errors.error));
+            setGame({
+                ...game,
+                ['gifts'] : item.gifts || []
+            })
+        }
     }, [errors]);
 
     useEffect(() => {
@@ -211,6 +218,17 @@ const AdminEditCompetition = ({item, categories, errors}) => {
                         game={game}
                         setGame={setGame}
                     />
+
+                    <div className={s.giftBox}>
+                        {
+                            game.gifts.length &&
+                                <div>
+                                    <h2>Keys</h2>
+                                    <GiftBlock gifts={game.gifts} gameId={item.id}/>
+                                </div>
+
+                        }
+                    </div>
 
                     {
                         game.is_competition ?
