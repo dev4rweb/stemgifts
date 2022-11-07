@@ -9,12 +9,13 @@ import {usePage} from "@inertiajs/inertia-react";
 import {setSnackMessageAction} from "../../reducers/mainReducer";
 import UserTable from "../../components/UI/tables/UserTable";
 
-const UserPage = ({games, errors}) => {
+const UserPage = ({games, gifts, errors}) => {
     const { auth } = usePage().props
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
 
-    console.log('UserPage', games)
+    console.log('UserPage Games', games)
+    console.log('UserPage gifts', gifts)
 
     useEffect(() => {
         if (errors && errors.error)
@@ -38,9 +39,7 @@ const UserPage = ({games, errors}) => {
                         </div>
                         <div className="user-stat-item stat-green">
                             <p>{stateData.user.wins[stateData.lang]} </p>
-                            <span>
-                        42
-                            </span>
+                            <span>{gifts.length}</span>
                         </div>
                         <div className="user-stat-item stat-blue">
                             <p>{stateData.user.pend[stateData.lang]} </p>
@@ -53,7 +52,7 @@ const UserPage = ({games, errors}) => {
                     <div>
                         {
                             games.length ?
-                                <UserTable games={games} />
+                                <UserTable games={games} gifts={gifts}/>
                                 :
                                 <h3>Take part!</h3>
                         }

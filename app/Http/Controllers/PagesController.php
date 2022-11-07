@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\GameFilter;
 use App\Models\Game;
+use App\Models\Gift;
 use App\Models\TaskCategory;
 use App\Models\User;
 use App\Models\UserGame;
@@ -84,6 +85,7 @@ class PagesController extends Controller
     {
         $user = Auth::user();
         $ownGames = array();
+        $gifts = Gift::where('user_id', $user->id)->get();
         if ($user) {
             $games = Game::with('users')->get();
             if (count($games)) {
@@ -98,7 +100,8 @@ class PagesController extends Controller
 //            return $ownGames;
         }
         return Inertia::render('user/UserPage', [
-            'games' => $ownGames
+            'games' => $ownGames,
+            'gifts' => $gifts
         ]);
     }
 
@@ -109,7 +112,11 @@ class PagesController extends Controller
 
     public function userAchievements()
     {
-        return Inertia::render('user/UserAchievements');
+        $user = Auth::user();
+        $gifts = Gift::where('user_id', $user->id)->get();
+        return Inertia::render('user/UserAchievements', [
+            'gifts' => $gifts
+        ]);
     }
 
     public function faqPage()
