@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use App\Models\Gift;
 use App\Models\Task;
 use App\Models\TaskCategory;
 use Illuminate\Http\Request;
@@ -31,6 +32,14 @@ class GameController extends Controller
                    'task_category_item_id' => $task['task_category_item_id'],
                    'url' => $task['url'],
                 ]);
+            }
+            if (isset($request['gifts']) && count($request['gifts'])){
+                foreach ($request['gifts'] as $gift) {
+                    Gift::create([
+                        'game_id' => $game->id,
+                        'gift_key' => $gift['gift_key']
+                    ]);
+                }
             }
             $message = 'Game created';
         } catch (\Exception $exception) {

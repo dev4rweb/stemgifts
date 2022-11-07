@@ -221,7 +221,7 @@ const AdminEditCompetition = ({item, categories, errors}) => {
 
                     <div className={s.giftBox}>
                         {
-                            game.gifts.length &&
+                            game.gifts &&
                                 <div>
                                     <h2>Keys</h2>
                                     <GiftBlock gifts={game.gifts} gameId={item.id}/>

@@ -1,12 +1,17 @@
 import React from 'react';
 import "../../../sass/components/GiftBlock.scss"
 import {Inertia} from "@inertiajs/inertia";
+import {useDispatch} from "react-redux";
+import {removeGiftAction} from "../../reducers/pages/createCompetitionReducer";
 
 const GiftBlockItem = ({gift, index}) => {
+    const dispatch = useDispatch()
 
     const removeKeyHandler = e => {
         console.log('removeKeyHandler', gift)
-        Inertia.delete(`/gifts/${gift.id}`, {preserveScroll: true})
+        if (gift.id)
+            Inertia.delete(`/gifts/${gift.id}`, {preserveScroll: true})
+        else dispatch(removeGiftAction(gift.gift_key))
     };
 
     return (

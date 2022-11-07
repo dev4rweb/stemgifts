@@ -9,11 +9,13 @@ import AttachFilesBlock from "../../components/AttachFilesBlock";
 import {setSnackMessageAction} from "../../reducers/mainReducer";
 import {Inertia} from "@inertiajs/inertia";
 import TaskContainer from "../../components/Tasks/TaskContainer";
+import GiftBlock from "../../components/GiftBlock/GiftBlock";
 
 const AdminCreateCompetition = ({categories, errors}) => {
     const taskOneSelector = useSelector(state => state.createCompetition.createTaskOne)
     const taskTwoSelector = useSelector(state => state.createCompetition.createTaskTwo)
     const taskThreeSelector = useSelector(state => state.createCompetition.createTaskThree)
+    const keys = useSelector(state => state.createCompetition.gifts)
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const [req, setReq] = useState(null)
@@ -31,6 +33,7 @@ const AdminCreateCompetition = ({categories, errors}) => {
         right_image: '',
         is_favorite: false,
         is_sponsored: false,
+        gifts: []
     })
 
     console.log('AdminCreateCompetition', categories)
@@ -75,7 +78,10 @@ const AdminCreateCompetition = ({categories, errors}) => {
                     tasks.push(taskThreeSelector)
                 game.tasks = tasks
             }
-            Inertia.post('/admin-games', game)
+            if (keys.length) {
+                game.gifts = keys
+            }
+            Inertia.post('/admin-games', game);
         }
     };
 
@@ -173,6 +179,13 @@ const AdminCreateCompetition = ({categories, errors}) => {
                         game={game}
                         setGame={setGame}
                     />
+
+                    <div className={s.giftBox}>
+                        <div>
+                            <h2>Keys</h2>
+                            <GiftBlock gifts={game.gifts} gameId={null}/>
+                        </div>
+                    </div>
 
                     {
                         game.is_competition ?

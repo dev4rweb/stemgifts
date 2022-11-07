@@ -20,6 +20,9 @@ export const CREATE_TASK_ONE = 'CREATE_TASK_ONE'
 export const CREATE_TASK_TWO = 'CREATE_TASK_TWO'
 export const CREATE_TASK_THREE = 'CREATE_TASK_THREE'
 
+export const ADD_GIFT = 'ADD_GIFT'
+export const REMOVE_GIFT = 'REMOVE_GIFT'
+
 export const EDIT_TASK_ONE = 'EDIT_TASK_ONE'
 export const EDIT_TASK_TWO = 'EDIT_TASK_TWO'
 export const EDIT_TASK_THREE = 'EDIT_TASK_THREE'
