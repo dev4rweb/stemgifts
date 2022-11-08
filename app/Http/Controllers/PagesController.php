@@ -60,6 +60,8 @@ class PagesController extends Controller
     public function adminUsers()
     {
         $users = User::withCount('games')
+            ->with('games')
+            ->with('wallet')
             ->where('is_admin', 0)
             ->orderBy('created_at', 'desc')
             ->paginate(30);

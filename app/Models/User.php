@@ -47,4 +47,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserGame::class);
     }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
 }

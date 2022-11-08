@@ -14,4 +14,14 @@ class UserGame extends Model
         'game_id',
     ];
 
+    protected $appends = [
+        'is_giveaway'
+    ];
+
+    public function getIsGiveawayAttribute()
+    {
+        $game = Game::where('id', $this->game_id)->where('is_competition', 0)->first();
+        if ($game) return true;
+        return false;
+    }
 }
