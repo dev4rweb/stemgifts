@@ -26,7 +26,8 @@ const ModalGameDescription = () => {
         console.log('handleClick', item)
         dispatch(setGameDescription(null))
         Inertia.post('/user-games', {
-            game_id: item.id
+            game_id: item.id,
+            points: 1
         })
     };
 

@@ -42,7 +42,7 @@ class HandleInertiaRequests extends Middleware
             'appName' => config('app.name'),
 
             // Lazily
-            'auth.user' => Auth::user()
+            'auth.user' => Auth::user(),
         ]);
     }
 }

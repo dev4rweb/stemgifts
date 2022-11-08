@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserGame;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,10 +24,23 @@ class UserGameController extends Controller
         try {
             $user = Auth::user();
             if ($user) {
+
                 UserGame::create([
                     'user_id' => $user->id,
                     'game_id' => $request['game_id'],
                 ]);
+                if (isset($request['points'])) {
+                    $wallet = Wallet::where('user_id', $user->id)->first();
+                    if ($wallet) {
+                        $wallet->points += $request['points'];
+                        $wallet->save();
+                    } else
+                        Wallet::create([
+                            'user_id' => $user->id,
+                            'points' => $request['points']
+                        ]);
+                }
+
                 $message = 'You joined';
             } else $message = 'User not found';
         } catch (\Exception $exception) {
@@ -38,7 +52,7 @@ class UserGameController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\UserGame  $userGame
+     * @param \App\Models\UserGame $userGame
      * @return \Illuminate\Http\Response
      */
     public function show(UserGame $userGame)
@@ -49,8 +63,8 @@ class UserGameController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserGame  $userGame
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\UserGame $userGame
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, UserGame $userGame)
@@ -61,7 +75,7 @@ class UserGameController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\UserGame  $userGame
+     * @param \App\Models\UserGame $userGame
      * @return \Illuminate\Http\Response
      */
     public function destroy(UserGame $userGame)
