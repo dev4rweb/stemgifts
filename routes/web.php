@@ -38,6 +38,7 @@ Route::get('/admin-competitions', [PagesController::class, 'adminCompetitions'])
 Route::get('/admin-users', [PagesController::class, 'adminUsers']);
 Route::get('/admin-category', [PagesController::class, 'adminCategoryTasks']);
 Route::get('/admin-create-competition', [PagesController::class, 'adminCreateCompetition']);
+Route::get('/admin-test-page', [PagesController::class, 'adminTestPage']);
 
 Route::get('/user-panel', [PagesController::class, 'userPage']);
 Route::get('/user-settings', [PagesController::class, 'userSettings']);

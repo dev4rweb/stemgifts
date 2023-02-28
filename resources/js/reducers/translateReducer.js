@@ -79,6 +79,9 @@ const defaultState = {
         mainWin: {
             en: 'Achievements', ru: 'Достижения'
         },
+        testPage: {
+            en: 'Test Page', ru: 'Тестовая страница'
+        },
         competitionTab: {
             en: 'Competitions', ru: 'Конкурсы'
         },

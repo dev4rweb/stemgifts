@@ -83,6 +83,11 @@ class PagesController extends Controller
         ]);
     }
 
+    public function adminTestPage()
+    {
+        return Inertia::render('admin/AdminTestPage');
+    }
+
     public function userPage()
     {
         $user = Auth::user();

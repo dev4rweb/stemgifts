@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 const Timer = () => {
     const stateData = useSelector(state => state.lang);
     const [distance, setDistance] = useState(null);
-    const time = `December 31, 2022 00:00:25`;
+    const time = `December 31, 2023 00:00:25`;
     const countDownDate = new Date(time).getTime();
 
     useEffect(() => {
