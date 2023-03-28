@@ -18,7 +18,7 @@ const AdminTableUsersItem = ({user, index}) => {
             <td>id{user.id}</td>
             <td>{user.created_at}</td>
             <td>{user.email}</td>
-            <td>{user.wallet.points}</td>
+            <td>{user.wallet ? user.wallet.points : '0'}</td>
             <td>{user.games.filter(i => i.is_giveaway === true).length}</td>
             <td>{user.games_count}</td>
             <td

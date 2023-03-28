@@ -50,7 +50,7 @@ const AdminSideBar = () => {
     ]
     const isActiveItem = url => !!window.location.href.includes(url);
 
-    console.log('AdminSideBar', auth)
+    // console.log('AdminSideBar', auth)
 
     return (
         <ul className={s.navigation}>
