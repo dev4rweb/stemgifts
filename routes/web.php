@@ -4,6 +4,7 @@ use App\Http\Controllers\FileUploaderController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\GiftController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGameController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,10 @@ Route::get('/user-settings', [PagesController::class, 'userSettings']);
 Route::get('/user-achievements', [PagesController::class, 'userAchievements']);
 
 Route::post('/file-upload', [FileUploaderController::class, 'uploadImage']);
+
+// Socials
+Route::get('/auth/steam', [SocialController::class, 'steamRedirect']);
+Route::get('/auth/steam/callback', [SocialController::class, 'loginWithSteam']);
 
 Route::resources([
     'admin-user' => UserController::class,
