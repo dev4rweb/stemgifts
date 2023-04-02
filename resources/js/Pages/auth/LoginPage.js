@@ -183,11 +183,19 @@ const LoginPage = ({errors}) => {
                 </Button>
 
             </form>
-            <InertiaLink
+            {/*<InertiaLink
                 href={'/register'}
             >
                 or Register
-            </InertiaLink>
+            </InertiaLink>*/}
+            <div className="m-3 d-flex justify-content-center">
+                <a
+                    className="btn btn-success"
+                    href={'/auth/steam'}
+                >
+                    or Login with STEAM
+                </a>
+            </div>
             <div>
                 <InertiaLink href={'/privacy-policy'}>Privacy Policy</InertiaLink>
             </div>

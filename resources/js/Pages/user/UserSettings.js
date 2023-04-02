@@ -18,7 +18,19 @@ const UserSettings = () => {
                         <p className="admin-title">| {stateData.admin.mainTab[stateData.lang]} points - {auth.user.votes}</p>
                         <hr/>
                     </div>
-                    <h1>User Setting</h1>
+                    {
+                        auth.user.steam_id ?
+                            <h2>Steam ID - { auth.user.steam_id}</h2>
+                            :
+                            <div className="m-3 d-flex justify-content-center">
+                                <a
+                                    className="btn btn-success"
+                                    href={'/auth/steam'}
+                                >
+                                    Attach an account from steam
+                                </a>
+                            </div>
+                    }
                 </div>
             </div>
         </UserLayout>

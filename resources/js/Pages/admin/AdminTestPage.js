@@ -74,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
         },
     }
 }));
+// https://socialiteproviders.com/Steam/#add-provider-event-listener
+// https://laravel.com/docs/8.x/socialite
+// https://youtu.be/9FKBKoWg-lQ?t=754
 
 //https://www.youtube.com/watch?v=rfHX-Hecu3k
 //https://github.com/invisnik/laravel-steam-auth

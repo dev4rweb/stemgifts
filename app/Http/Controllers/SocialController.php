@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialController extends Controller
@@ -16,14 +18,30 @@ class SocialController extends Controller
     public function loginWithSteam()
     {
         try {
-            $user = Socialite::driver('steam')->user();
+            $social_user = Socialite::driver('steam')->user();
             $response['success'] = true;
-            $response['user'] = $user;
-            /*$createUser = User::create([
-                // all data
-            ]);
-            Auth::login($createUser);*/
-//            $response['auth_user'] = Auth::user();
+            $response['user'] = $social_user;
+            if ($social_user) {
+                $is_user = User::query()->where('steam_id', $social_user->id)->first();
+                if ($is_user) Auth::login($is_user);
+                else {
+                    if (Auth::user()) { // Подкрепление аккаунта из личного кабинета
+                        $auth_user = User::query()->findOrFail(Auth::id());
+                        $auth_user['steam_id'] = $social_user->id;
+                        $auth_user['name'] = $social_user->nickname;
+                        $auth_user->save();
+                        return redirect('/user-settings');
+                    } else {
+                        $user = User::create([
+                            'name' => $social_user->nickname,
+                            'steam_id' => $social_user->id,
+                            'password' => Hash::make('password')
+                        ]);
+                        Auth::login($user);
+                    }
+                }
+                return redirect('/');
+            }
         } catch (\Exception $exception) {
             $response['success'] = false;
             $response['message'] = $exception->getMessage();
