@@ -80,7 +80,10 @@ class SocialController extends Controller
     {
         try {
             // https://steamcommunity.com/
-            $steam_id = '76561199127510163';
+            $user = User::findOrFail(Auth::id());
+            if (!$user) return 'Please login by Steam';
+            if (!$user['steam_id']) return 'Steam ID not found!';
+            $steam_id = $user['steam_id'];
             $app_id = 269650; // DEX
             $resp = Http::post("https://store.steampowered.com/api/addtowishlist/v1/",
                 [
