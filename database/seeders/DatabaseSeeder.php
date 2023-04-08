@@ -33,13 +33,13 @@ class DatabaseSeeder extends Seeder
             'password' => \bcrypt('password'),
         ]);
         User::factory(100)->create();
-        $this->call(GameSeeder::class);
-        $this->call(TaskCategorySeeder::class);
-        $this->call(TaskCategoryItemSeeder::class);
-        $this->call(TaskSeeder::class);
-        $this->call(UserTaskSeeder::class);
-        $this->call(UserGameSeeder::class);
-        $this->call(GiftSeeder::class);
-        $this->call(WalletSeeder::class);
+//        $this->call(GameSeeder::class);
+//        $this->call(TaskCategorySeeder::class);
+//        $this->call(TaskCategoryItemSeeder::class);
+//        $this->call(TaskSeeder::class);
+//        $this->call(UserTaskSeeder::class);
+//        $this->call(UserGameSeeder::class);
+//        $this->call(GiftSeeder::class);
+//        $this->call(WalletSeeder::class);
     }
 }

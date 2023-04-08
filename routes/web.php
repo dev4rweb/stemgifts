@@ -50,6 +50,7 @@ Route::post('/file-upload', [FileUploaderController::class, 'uploadImage']);
 // Socials
 Route::get('/auth/steam', [SocialController::class, 'steamRedirect']);
 Route::get('/auth/steam/callback', [SocialController::class, 'loginWithSteam']);
+Route::get('/steam/add-wishlist', [SocialController::class, 'addToWishListSteam']);
 
 Route::resources([
     'admin-user' => UserController::class,
