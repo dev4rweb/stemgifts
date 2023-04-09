@@ -87,9 +87,20 @@ class SocialController extends Controller
             $app_id = 269650; // DEX
             $api_key = '4280EC36D1A4C1670BB67C1B48633AC9';
 
+            $url = "https://store.steampowered.com/api/add_to_wishlist";
+
+            // Set up the POST data
+            $data = array(
+                'appid' => $app_id,
+                'sessionid' => '', // Optional, use this if you want to add the app to a specific user's wishlist
+                'wishlist_name' => '', // Optional, use this if the user has multiple wishlists
+                'priority' => 0 // Optional, use this to set the app's priority on the wishlist
+            );
+
             // https://api.steampowered.com/ISteamUser/AddAppWishlistItem/v1/?key=YOUR_API_KEY&appid=APP_ID
 //            $resp = Http::get('https://api.steampowered.com/ISteamUser/AddAppWishlistItem/v1/?key=4280EC36D1A4C1670BB67C1B48633AC9&appid=269650');
-            $resp = Http::get("https://api.steampowered.com/ISteamUser/AddAppWishlistItem/v1/?key={$api_key}&appid={$app_id}&steamid={$steam_id}");
+//            $resp = Http::get("https://api.steampowered.com/ISteamUser/AddAppWishlistItem/v1/?key={$api_key}&appid={$app_id}&steamid={$steam_id}");
+            $resp = Http::get($url, $data);
             /*$resp = Http::post("https://store.steampowered.com/api/addtowishlist/v1/",
                 [
                     'form_params' => [
