@@ -85,14 +85,20 @@ class SocialController extends Controller
             if (!$user['steam_id']) return 'Steam ID not found!';
             $steam_id = $user['steam_id'];
             $app_id = 269650; // DEX
-            $resp = Http::post("https://store.steampowered.com/api/addtowishlist/v1/",
+            $api_key = '4280EC36D1A4C1670BB67C1B48633AC9';
+
+            // https://api.steampowered.com/ISteamUser/AddAppWishlistItem/v1/?key=YOUR_API_KEY&appid=APP_ID
+//            $resp = Http::get('https://api.steampowered.com/ISteamUser/AddAppWishlistItem/v1/?key=4280EC36D1A4C1670BB67C1B48633AC9&appid=269650');
+            $resp = Http::get("https://api.steampowered.com/ISteamUser/AddAppWishlistItem/v1/?key={$api_key}&appid={$app_id}&steamid={$steam_id}");
+            /*$resp = Http::post("https://store.steampowered.com/api/addtowishlist/v1/",
                 [
                     'form_params' => [
                         'appid' => $app_id,
+                        'sessionid' => '',
                         'steamid' => $steam_id
                     ]
                 ]
-            );
+            );*/
             /*if ($resp->status() == 200) {
                 // Game added to wishlist
             } else {
