@@ -157,6 +157,7 @@ const AdminTestPage = () => {
                         <hr/>
                     </div>
                     <div>
+
                         <h1>{stateData.admin.testPage[stateData.lang]}</h1>
                         {/*<a className="btn btn-info" href="/auth/steam">Login with Steam</a>*/}
                         <form

@@ -14,4 +14,9 @@ class UserTask extends Model
         'task_id',
         'is_done',
     ];
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserTaskController;
 use App\Http\Controllers\FileUploaderController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\GiftController;
@@ -57,6 +58,10 @@ Route::resources([
     'admin-games' => GameController::class,
     'user-games' => UserGameController::class,
     'gifts' => GiftController::class
+]);
+
+Route::apiResources([
+    'user-tasks' => UserTaskController::class,
 ]);
 
 Route::fallback([PagesController::class, 'errorPage']);

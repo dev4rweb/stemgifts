@@ -8,6 +8,7 @@ use App\Models\Gift;
 use App\Models\TaskCategory;
 use App\Models\User;
 use App\Models\UserGame;
+use App\Models\UserTask;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -16,6 +17,10 @@ class PagesController extends Controller
     public function homePage(GameFilter $filter)
     {
         $limit = 12;
+        $user_tasks = null;
+        if (Auth::id()) $user_tasks = UserTask::query()
+            ->with('task')
+            ->where('user_id', Auth::id())->get();
         if (isset($filter->request['limit'])) $limit = $filter->request['limit'];
         $games = Game::with('tasks')
             ->with('users')
@@ -26,7 +31,8 @@ class PagesController extends Controller
         $sponsor_game = Game::where('is_sponsored', true)->first();
         return Inertia::render('HomePage', [
             'games' => $games,
-            'sponsorGame' => $sponsor_game
+            'sponsorGame' => $sponsor_game,
+            'userTasks' => $user_tasks
         ]);
     }
 

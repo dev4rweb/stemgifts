@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Timer from "../components/Timer";
 import SocialBlock from "../components/SocialBlock";
 import {usePage} from "@inertiajs/inertia-react";
-import {setSnackMessageAction} from "../reducers/mainReducer";
+import {setLoadingAction, setSnackMessageAction} from "../reducers/mainReducer";
 import {Inertia} from "@inertiajs/inertia";
 import GameCard from "../components/GameCard";
 import Pagination from "../components/Pagination";
@@ -16,9 +16,11 @@ import ModalLayout from "../components/modals/ModalLayout";
 import ModalGameDescription from "../components/modals/ModalGameDescription";
 import SponsorGame from "../components/SponsorGame";
 import ModalKey from "../components/modals/ModalKey";
+import {getWishListApi} from "../api/steamApi";
+import {userTaskPatchApi} from "../api/userTasksApi";
 
 
-const HomePage = ({games, sponsorGame, errors}) => {
+const HomePage = ({games, sponsorGame, errors, userTasks}) => {
     const dispatch = useDispatch()
     const pagination = useSelector(state => state.homePage.page)
     const { auth } = usePage().props
@@ -36,6 +38,50 @@ const HomePage = ({games, sponsorGame, errors}) => {
         if (errors && errors.error)
             dispatch(setSnackMessageAction(errors.error))
     }, [errors]);
+
+    useEffect(() => {
+        if (auth.user && auth.user.steam_id && userTasks.length) {
+            let steamGameId = null
+            let checkedUserTask = null
+            userTasks.forEach(i => {
+                if (!i.is_done && i.task.category_id === 1 && i.task.task_category_item_id === 1) { // steam add wishlist
+                    checkedUserTask = i
+                    steamGameId = i.task.url.split('/')[4] // steam game id
+                }
+            });
+            console.log('UserTasks', userTasks)
+            if (steamGameId){
+                console.log('Need to get wishlist')
+                dispatch(setLoadingAction(true))
+                getWishListApi(auth.user.steam_id)
+                    .then(res => {
+                        if (!res.data.data) dispatch(setSnackMessageAction('Please make you wishlist public'))
+                        else {
+                            const obj = res.data.data
+                            const wishlist = Object.keys(obj).map((key) => {
+                                const item = obj[key]
+                                item.id = key
+                                return item
+                            });
+                            console.log('RESULT', wishlist)
+                            if (wishlist.length) {
+                                const foundSteamGame = wishlist.find(i => i.id === steamGameId)
+                                if (foundSteamGame) {
+                                    checkedUserTask.is_done = true
+                                    return userTaskPatchApi(checkedUserTask)
+                                } else dispatch(setSnackMessageAction('Your need add game to your wishlist'))
+                            } else dispatch(setSnackMessageAction('Your wishlist is empty'))
+                        }
+                    }).then(res => {
+                    if (res.data.success) {
+                        dispatch(setSnackMessageAction('Your task is done'))
+                        Inertia.visit('/', {preserveState: false})
+                    }
+                }).catch(err => dispatch(err.response.data.message))
+                    .finally(() => dispatch(setLoadingAction(false)));
+            }
+        }
+    }, []);
 
     const handleIsLogged = e => {
         if (auth.user) dispatch(setSnackMessageAction('What we need to do?'))
