@@ -42,7 +42,7 @@ class EmailController extends Controller
                 $users[$key]['key'] = $gift['gift_key'];
             }
 //            return $users;
-            foreach ($users as $user) Mail::to($user)->send(new WinnerCompetition($user, $game));
+            foreach ($users as $user) if ($user->email) Mail::to($user)->send(new WinnerCompetition($user, $game));
             $game->status = Game::STATUS_FINISHED;
             $game->save();
             return redirect()->back()->withErrors(['error' => 'Mails sent']);;
