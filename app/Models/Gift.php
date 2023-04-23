@@ -14,4 +14,9 @@ class Gift extends Model
         'game_id',
         'user_id',
     ];
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class);
+    }
 }

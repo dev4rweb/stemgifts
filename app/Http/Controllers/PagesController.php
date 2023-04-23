@@ -55,7 +55,8 @@ class PagesController extends Controller
 
     public function adminCompetitions()
     {
-        $games = Game::orderBy('status')
+        $games = Game::with('gifts', 'persons.wallet', 'persons.userTasks')
+            ->orderBy('status')
             ->orderBy('end_date')
             ->paginate(30);
         return Inertia::render('admin/AdminCompetitions', [

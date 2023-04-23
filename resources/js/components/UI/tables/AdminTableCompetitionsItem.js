@@ -1,9 +1,11 @@
 import React from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {InertiaLink} from "@inertiajs/inertia-react";
 import {Inertia} from "@inertiajs/inertia";
+import {editDrawWinnerAction} from "../../../reducers/modalReducer";
 
 const AdminTableCompetitionsItem = ({item, index}) => {
+    const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const itemType = item.is_competition  ?
         stateData.admin.compPage.table.give[stateData.lang] :
@@ -33,6 +35,7 @@ const AdminTableCompetitionsItem = ({item, index}) => {
     };
     const drawHandler = e => {
         console.log('drawHandler', item)
+        dispatch(editDrawWinnerAction(item))
     };
     const removeHandler = e => {
         console.log('removeHandler', item)

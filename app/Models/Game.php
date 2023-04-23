@@ -54,6 +54,10 @@ class Game extends Model
         return $this->hasMany(UserGame::class);
     }
 
+    public function persons()
+    {
+        return $this->hasManyThrough(User::class, UserGame::class, 'game_id', 'id', 'id', 'user_id');
+    }
 
     public function scopeFilter(Builder $builder, QueryFilter $filter)
     {

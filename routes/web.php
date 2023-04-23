@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\UserTaskController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FileUploaderController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\GiftController;
@@ -52,6 +53,10 @@ Route::post('/file-upload', [FileUploaderController::class, 'uploadImage']);
 Route::get('/auth/steam', [SocialController::class, 'steamRedirect']);
 Route::get('/auth/steam/callback', [SocialController::class, 'loginWithSteam']);
 Route::get('/steam/add-wishlist', [SocialController::class, 'addToWishListSteam']);
+
+// Emails
+Route::get('/test-email', [EmailController::class, 'testEmail']);
+Route::post('/send-email-winners', [EmailController::class, 'sendEmailWinner']);
 
 Route::resources([
     'admin-user' => UserController::class,

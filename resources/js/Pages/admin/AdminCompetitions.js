@@ -7,16 +7,22 @@ import AdminSideBar from "../../components/parts/AdminSideBar";
 import AdminTableCompetitions from "../../components/UI/tables/AdminTableCompetitions";
 import BasePagination from "../../components/BasePagination";
 import {setSnackMessageAction} from "../../reducers/mainReducer";
+import DrawWinner from "../../components/modals/DrawWinner";
+import {editDrawWinnerAction} from "../../reducers/modalReducer";
 
 const AdminCompetitions = ({games, errors}) => {
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
+    const editDrawWinner = useSelector(state => state.modal.editDrawWinner)
     // console.log('AdminCompetitions', games)
     console.log('AdminCompetitions err', errors.error)
 
     useEffect(() => {
-        if (errors && errors.error)
+        if (errors && errors.error){
             dispatch(setSnackMessageAction(errors.error))
+            dispatch(editDrawWinnerAction(null))
+        }
+
     }, [errors]);
 
     return (
@@ -59,6 +65,9 @@ const AdminCompetitions = ({games, errors}) => {
                             <div/>
                     }
                 </div>
+                {
+                    editDrawWinner &&  <DrawWinner />
+                }
             </div>
         </AdminLayout>
     );

@@ -24,4 +24,9 @@ class UserGame extends Model
         if ($game) return true;
         return false;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

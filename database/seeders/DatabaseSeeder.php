@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Game;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -32,14 +34,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@gmail.com',
             'password' => \bcrypt('password'),
         ]);
-        User::factory(100)->create();
-//        $this->call(GameSeeder::class);
-//        $this->call(TaskCategorySeeder::class);
-//        $this->call(TaskCategoryItemSeeder::class);
-//        $this->call(TaskSeeder::class);
-//        $this->call(UserTaskSeeder::class);
-//        $this->call(UserGameSeeder::class);
-//        $this->call(GiftSeeder::class);
-//        $this->call(WalletSeeder::class);
+        User::factory(10)->create();
+        $this->call(GameSeeder::class);
+        $this->call(TaskCategorySeeder::class);
+        $this->call(TaskCategoryItemSeeder::class);
+        $this->call(TaskSeeder::class);
+        $this->call(UserTaskSeeder::class);
+        $this->call(UserGameSeeder::class);
+        $this->call(GiftSeeder::class);
+        $this->call(WalletSeeder::class);
     }
 }

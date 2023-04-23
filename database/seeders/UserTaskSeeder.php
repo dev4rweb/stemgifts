@@ -14,6 +14,6 @@ class UserTaskSeeder extends Seeder
      */
     public function run()
     {
-        UserTask::factory(15000)->create();
+        UserTask::factory(150)->create();
     }
 }

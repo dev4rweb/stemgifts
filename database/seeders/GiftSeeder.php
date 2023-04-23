@@ -16,8 +16,8 @@ class GiftSeeder extends Seeder
      */
     public function run()
     {
-        Gift::factory(300)->create();
-        Gift::factory(500)->create([
+        Gift::factory(50)->create();
+        Gift::factory(70)->create([
             'user_id' => null
         ]);
     }

@@ -14,6 +14,6 @@ class UserGameSeeder extends Seeder
      */
     public function run()
     {
-        UserGame::factory(3000)->create();
+        UserGame::factory(300)->create();
     }
 }

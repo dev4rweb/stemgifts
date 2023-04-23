@@ -1,5 +1,5 @@
 import {
-    CLICK_CHECK_WEBSITE,
+    CLICK_CHECK_WEBSITE, EDIT_DRAW_WINNER,
     SET_EDIT_PAGE,
     SET_GAME_DESCRIPTION, SET_MODAL_AUTH, SET_MODAL_DRAW_WINNER,
     SET_MODAL_GAME_DESCRIPTION, SET_MODAL_GAME_DETAILS,
@@ -19,7 +19,8 @@ const defaultState = {
     modalGameDetails: false,
     checkWebsiteDetails: null,
     checkWebsiteClick: false,
-    modalTwitterViewPost: false
+    modalTwitterViewPost: false,
+    editDrawWinner: null
 }
 
 export default function modalReducer(state = defaultState, action) {
@@ -45,7 +46,7 @@ export default function modalReducer(state = defaultState, action) {
                 modalKey: action.payload
             }
         case SET_MODAL_AUTH:
-            return  {
+            return {
                 ...state,
                 modalAuth: action.payload
             }
@@ -84,6 +85,11 @@ export default function modalReducer(state = defaultState, action) {
                 ...state,
                 modalTwitterViewPost: action.payload
             }
+        case EDIT_DRAW_WINNER:
+            return {
+                ...state,
+                editDrawWinner: action.payload
+            }
         default:
             return state
     }
@@ -101,3 +107,4 @@ export const setModalVisitWebsiteAction = isOpen => ({type: SET_MODAL_GAME_DETAI
 export const setVisitWebsiteDetailsAction = item => ({type: SET_VISIT_SITE_DETAILS, payload: item})
 export const checkWebsiteClickAction = isClick => ({type: CLICK_CHECK_WEBSITE, payload: isClick})
 export const setModalTwitterViewPostAction = isOpen => ({type: SET_MODAL_TWITTER_VIEW_POST, payload: isOpen})
+export const editDrawWinnerAction = (game) => ({type: EDIT_DRAW_WINNER, payload: game})
