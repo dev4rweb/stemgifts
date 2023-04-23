@@ -17,7 +17,7 @@ class EmailController extends Controller
             $users = User::query()->inRandomOrder()->limit(3)->get();
             $game = Game::query()->with('gifts')->inRandomOrder()->first();
             if (count($game->gifts)) foreach ($game->gifts as $gift) $gift->update(['user_id' => 1]);
-            return $game;
+//            return $game;
             foreach ($users as $user) Mail::to($user)->send(new WinnerCompetition($user, $game));
             return 'Mail sent';
         } catch (\Exception $exception) {
