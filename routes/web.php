@@ -9,6 +9,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGameController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,5 +69,9 @@ Route::resources([
 Route::apiResources([
     'user-tasks' => UserTaskController::class,
 ]);
+
+Route::group(['middleware' => 'auth'], function (){
+Route::get('/wallets/reset-all', [WalletController::class, 'resetAllWallets']);
+});
 
 Route::fallback([PagesController::class, 'errorPage']);

@@ -9,6 +9,7 @@ import BasePagination from "../../components/BasePagination";
 import {setSnackMessageAction} from "../../reducers/mainReducer";
 import DrawWinner from "../../components/modals/DrawWinner";
 import {editDrawWinnerAction} from "../../reducers/modalReducer";
+import {InertiaLink} from "@inertiajs/inertia-react";
 
 const AdminCompetitions = ({games, errors}) => {
     const dispatch = useDispatch()
@@ -31,10 +32,19 @@ const AdminCompetitions = ({games, errors}) => {
                 <AdminSideBar/>
                 <div className={`container ${s.adminMainPage}`}>
                     <div className="title-wrapper">
-                        <p className="admin-title">
-                            | {stateData.admin.competitionTab[stateData.lang]}
-                              - {games.total}
-                        </p>
+                        <div className="d-flex justify-content-between">
+                            <p className="admin-title">
+                                | {stateData.admin.competitionTab[stateData.lang]}
+                                - {games.total}
+                            </p>
+                            <InertiaLink
+                                className="btn btn-danger"
+                                href="/wallets/reset-all"
+                            >
+                                Reset All Wallets
+                            </InertiaLink>
+                        </div>
+
                         <hr/>
                     </div>
 

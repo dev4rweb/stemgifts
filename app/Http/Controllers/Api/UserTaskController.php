@@ -33,7 +33,8 @@ class UserTaskController extends Controller
             } else {
                 UserTask::create([
                     'user_id' => Auth::id(),
-                    'task_id' => $request['task_id']
+                    'task_id' => $request['task_id'],
+                    'is_done' => $request['is_done']
                 ]);
                 $response['success'] = true;
                 $response['message'] = 'UserTask created';

@@ -1,5 +1,5 @@
-export const userTaskStoreApi = task_id => {
-    return axios.post('/user-tasks', {task_id})
+export const userTaskStoreApi = (task_id, is_done = 0) => {
+    return axios.post('/user-tasks', {task_id, is_done})
         .then(res => {
             console.log('userTaskStoreApi', res)
             return res
