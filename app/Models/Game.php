@@ -17,18 +17,18 @@ class Game extends Model
     const STATUS_DELETED = 3;
 
     protected $fillable = [
-      'name',
-      'description',
-      'is_competition',
-      'status',
-      'start_date',
-      'end_date',
-      'main_image',
-      'secondary_image',
-      'left_image',
-      'right_image',
-      'is_favorite',
-      'is_sponsored',
+        'name',
+        'description',
+        'is_competition',
+        'status',
+        'start_date',
+        'end_date',
+        'main_image',
+        'secondary_image',
+        'left_image',
+        'right_image',
+        'is_favorite',
+        'is_sponsored',
     ];
 
     protected $casts = [

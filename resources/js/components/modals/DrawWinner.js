@@ -16,6 +16,8 @@ const DrawWinner = () => {
     const [candidates, setCandidates] = useState(game.persons)
     const rootClasses = [m.modal]
 
+    console.log('GAME', game)
+
     if (game) rootClasses.push(m.active)
 
     const handleClose = e => {dispatch(editDrawWinnerAction(null))}

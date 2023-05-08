@@ -95,7 +95,8 @@ const SwitchGameDescBtn = ({task}) => {
                     window.addEventListener('focus', function () {
                         console.log('FOCUS')
                         dispatch(setGameDescription(null))
-                        Inertia.visit('/', {preserveState: false, preserveScroll: true})
+                        // Inertia.visit('/', {preserveState: false, preserveScroll: true})
+                        Inertia.post('/wallets/add-points', {points: 1}, {preserveState: false, preserveScroll: true})
                     });
                 }
             }).catch(err => dispatch(setSnackMessageAction(err.response.data.message)))

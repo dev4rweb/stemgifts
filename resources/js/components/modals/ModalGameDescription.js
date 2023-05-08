@@ -155,13 +155,16 @@ const ModalGameDescription = () => {
                                     <img src={share} alt="share"/>
                                 </TelegramShareButton>
 
-                                <button
-                                    className="btn btn-warning"
-                                    disabled={isDisabled()}
-                                    onClick={handleClick}
-                                >
-                                    {btnText()}
-                                </button>
+                                {
+                                    !item.is_competition &&
+                                    <button
+                                        className="btn btn-warning"
+                                        disabled={isDisabled()}
+                                        onClick={handleClick}
+                                    >
+                                        {btnText()}
+                                    </button>
+                                }
                             </div>
                         </div>
                     }

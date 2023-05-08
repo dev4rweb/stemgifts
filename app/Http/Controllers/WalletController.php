@@ -19,4 +19,35 @@ class WalletController extends Controller
         }
         return redirect()->back()->withErrors(['error' => 'wrong request']);
     }
+
+    public function addPoints(Request $request)
+    {
+        $user_id = Auth::id();
+        $points = $request['points'];
+        if ($user_id) {
+            $wallet = Wallet::query()->where('user_id', $user_id)->first();
+            if ($wallet) {
+                $wallet['points'] += $points;
+                $wallet->save();
+                $message = "Added $points points";
+            } else $message = "Something was wrong with user_id = $user_id";
+        } else $message = "User not found";
+        redirect()->back()->withErrors(['error' => $message]);
+    }
+
+    public function addPointsForGameTask(Request $request)
+    {
+        $user_id = Auth::id();
+        $points = $request['points'];
+        if ($user_id) {
+
+            $wallet = Wallet::query()->where('user_id', $user_id)->first();
+            if ($wallet) {
+                $wallet['points'] += $points;
+                $wallet->save();
+                $message = "Added $points points";
+            } else $message = "Something was wrong with user_id = $user_id";
+        } else $message = "User not found";
+        redirect()->back()->withErrors(['error' => $message]);
+    }
 }

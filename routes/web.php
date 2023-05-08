@@ -72,6 +72,8 @@ Route::apiResources([
 
 Route::group(['middleware' => 'auth'], function (){
 Route::get('/wallets/reset-all', [WalletController::class, 'resetAllWallets']);
+Route::post('/wallets/add-points', [WalletController::class, 'addPoints']);
+Route::post('/wallets/add-points-task', [WalletController::class, 'addPointsForGameTask']);
 });
 
 Route::fallback([PagesController::class, 'errorPage']);
