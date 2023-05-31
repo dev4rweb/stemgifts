@@ -14,6 +14,7 @@ import RedditTaskButton from "./RedditTaskButton";
 import {userTaskStoreApi} from "../../api/userTasksApi";
 import {Inertia} from "@inertiajs/inertia";
 import {setGameDescription} from "../../reducers/modalReducer";
+import {setGameDescNotificationAction} from "../../reducers/pages/homePageReducer";
 
 const SwitchGameDescBtn = ({task}) => {
     const { auth } = usePage().props
@@ -24,21 +25,24 @@ const SwitchGameDescBtn = ({task}) => {
 
     if (task.users.length && auth.user) {
         const userTask = task.users.find(i => i.user_id === auth.user.id && i.is_done)
-        if (userTask && userTask.is_done)
+
+        if (userTask && userTask.is_done) {
+            dispatch(setGameDescNotificationAction('You have been registered for this competition, remember the more tasks you complete, the greater your chance of winning'))
             return (
                 <button
-                    className={s.clipboard}
+                    // className={s.clipboard}
+                    className={`btn ${s.clipboardMod}`}
                     disabled={true}
                     style={{
                         textDecoration: "none",
-                        color: "#60b95b"
+                        color: "#60b95b",
                     }}
                 >
-                    {
-                        stateData.home.done[stateData.lang]
-                    }
+                    {/*{ stateData.home.done[stateData.lang] }*/}
+                    &#10004;
                 </button>
             )
+        }
     }
 
     if (task.category_id === 1) { // steam

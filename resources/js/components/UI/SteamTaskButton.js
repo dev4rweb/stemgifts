@@ -29,14 +29,14 @@ const SteamTaskButton = ({task}) => {
 
     return (
         <button
-            className={s.clipboard}
+            className={`btn ${s.clipboardMod}`}
             onClick={clickHandler}
             style={{
                 textDecoration: "none",
                 color: "#0a2a95"
             }}
         >
-            { task.task }
+            {/*{ task.task }*/}
         </button>
     );
 };

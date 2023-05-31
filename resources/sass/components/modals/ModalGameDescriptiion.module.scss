@@ -87,11 +87,25 @@
             }
         }
 
+        .iconSteam{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 80px;
+            width: 80px;
+            height: 80px;
+            border: 2px solid $text-color-three;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            border-radius: 20px;
+        }
+
         .subscribe {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             position: relative;
-            flex-wrap: wrap;
+            //flex-wrap: wrap;
             border: 2px solid $text-color-three;
             padding: 30px 5px 20px 5px;
             margin-top: 25px;
@@ -133,6 +147,25 @@
                 font-weight: 900;
                 color: $text-grey;
                 font-size: 14px;
+            }
+
+            .clipboardMod {
+                border: 3px solid white;
+                font-weight: bold;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 40px;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                border-radius: 0;
+                width: 62px;
+                height: 62px;
+                -webkit-transform: scale(.5);
+                -moz-transform: scale(.5);
+                -ms-transform: scale(.5);
+                -o-transform: scale(.5);
+                transform: scale(.5);
             }
 
             .checkWebsite{

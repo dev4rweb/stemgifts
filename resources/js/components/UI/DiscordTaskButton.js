@@ -16,14 +16,14 @@ const DiscordTaskButton = ({task}) => {
 
     return (
         <button
-            className={s.clipboard}
+            className={`btn ${s.clipboardMod}`}
             onClick={clickHandler}
             style={{
                 textDecoration: "none",
                 color: "#236bfa"
             }}
         >
-            { task.task }
+            {/*{ task.task }*/}
         </button>
     );
 };

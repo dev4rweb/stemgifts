@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import s from '../../../sass/components/ModalLayout.module.scss'
 import m from '../../../sass/components/modals/ModalGameDescriptiion.module.scss'
@@ -10,15 +10,21 @@ import {Tab, TabList, TabPanel, Tabs} from "react-tabs";
 import SwitchGameDescBtn from "../UI/SwitchGameDescBtn";
 import {usePage} from "@inertiajs/inertia-react";
 import {Inertia} from "@inertiajs/inertia";
+import {setGameDescNotificationAction} from "../../reducers/pages/homePageReducer";
 
 const ModalGameDescription = () => {
     const {auth} = usePage().props
     const dispatch = useDispatch()
     const stateData = useSelector(state => state.lang)
     const item = useSelector(state => state.modal.gameDescription)
+    const gameDescNotification = useSelector(state => state.homePage.gameDescNotification)
     const rootClasses = [s.modal]
 
     if (item) rootClasses.push(s.active)
+
+    useEffect(() => {
+        dispatch(setGameDescNotificationAction('You need to finish at least one task to take part in the competition. '))
+    }, [item]);
 
     const handleClose = (ev) => dispatch(setGameDescription(null))
 
@@ -55,14 +61,16 @@ const ModalGameDescription = () => {
                 if (item.tasks.length) {
                     const countTasks = item.tasks.length;
                     /*const countDoneTasks = item.tasks.reduce((total, task) =>
-                        total + task.users.find(i => i.user_id === auth.user.id) ? 1 : 0, 0)*/;
+                        total + task.users.find(i => i.user_id === auth.user.id) ? 1 : 0, 0)*/
+                    ;
                     const countDoneTasks = item.tasks.filter(i => {
                         const userTask = i.users.find(m => m.user_id === auth.user.id && m.is_done === 1)
                         if (userTask) return true
                     });
                     console.log('COUNT DONE', countDoneTasks, countTasks);
                     return countTasks !== countDoneTasks.length;
-                } return  false
+                }
+                return false
             }
         }
         return true;
@@ -110,7 +118,29 @@ const ModalGameDescription = () => {
                             {
                                 item.is_competition ?
                                     <div className={m.links}>
-                                        <Tabs>
+                                        {
+                                            item.tasks.slice(0, 3).map((i, index) => {
+                                                return (
+                                                    <div className={m.subscribe} key={index}>
+                                                        <div className='d-flex align-items-center'>
+                                                            <div className={`${m.iconSteam} me-2`}>
+                                                                <img src={steam} alt="steam"/>
+                                                            </div>
+                                                            <p className="me-3">
+                                                                <span>{i.task}</span> <br/>
+                                                                {i.url.length > 42 ? i.url.slice(0, 41) : i.url}
+                                                            </p>
+                                                        </div>
+                                                        <SwitchGameDescBtn
+                                                            task={i}
+                                                            // userTasks={userTasks}
+                                                        />
+                                                    </div>
+                                                )
+                                            })
+                                        }
+
+                                        {/*<Tabs>
                                             <TabList className={m.tasks}>
                                                 {
                                                     item.tasks && item.tasks.slice(0, 3).map((item, index) =>
@@ -140,11 +170,13 @@ const ModalGameDescription = () => {
                                                     })
                                                 }
                                             </div>
-                                        </Tabs>
+                                        </Tabs>*/}
                                     </div>
                                     :
                                     <div/>
                             }
+
+                            <p className="text-center mt-3">{gameDescNotification}</p>
 
                             <div className={m.btnWrapper}>
                                 <TelegramShareButton

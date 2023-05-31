@@ -16,14 +16,14 @@ const RedditTaskButton = ({task}) => {
 
     return (
         <button
-            className={s.clipboard}
+            className={`btn ${s.clipboardMod}`}
             onClick={clickHandler}
             style={{
                 textDecoration: "none",
                 color: "#f83d05"
             }}
         >
-            { task.task }
+            {/*{ task.task }*/}
         </button>
     );
 };

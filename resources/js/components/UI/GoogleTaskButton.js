@@ -20,14 +20,14 @@ const GoogleTaskButton = ({task}) => {
 
     return (
         <button
-            className={s.clipboard}
+            className={`btn ${s.clipboardMod}`}
             onClick={clickHandler}
             style={{
                 textDecoration: "none",
                 color: "#fa053e"
             }}
         >
-            { task.task }
+            {/*{ task.task }*/}
         </button>
     );
 };
