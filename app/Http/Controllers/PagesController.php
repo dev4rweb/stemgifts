@@ -10,12 +10,16 @@ use App\Models\User;
 use App\Models\UserGame;
 use App\Models\UserTask;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 
 class PagesController extends Controller
 {
     public function homePage(GameFilter $filter)
     {
+// https://store.steampowered.com/wishlist/profiles/76561199127510163/#sort=order  - me
+        // https://store.steampowered.com/wishlist/profiles/76561198076460039/#sort=order - Nikodem
+
         $limit = 12;
         $user_tasks = null;
         if (Auth::id()) $user_tasks = UserTask::query()

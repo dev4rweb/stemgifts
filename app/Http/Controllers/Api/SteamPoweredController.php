@@ -35,8 +35,8 @@ class SteamPoweredController extends Controller
         // LordTV
         try {
 //            $data = Http::get(self::calc_url . '?urlType=id&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=US&switch=true');
-//            $data = Http::get(self::calc_url . '?urlType=profiles&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=US&switch=true');
-            $data = Http::get(self::calc_url . '?urlType=profiles&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=&switch=true');
+            $data = Http::get(self::calc_url . '?urlType=profiles&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=US&switch=true');
+//            $data = Http::get(self::calc_url . '?urlType=profiles&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=&switch=true');
             $response['data'] = $data->json();
             $response['success'] = true;
         } catch (\Exception $exception) {
