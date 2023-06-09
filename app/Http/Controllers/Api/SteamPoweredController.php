@@ -12,6 +12,7 @@ class SteamPoweredController extends Controller
     const api_key = '4280EC36D1A4C1670BB67C1B48633AC9';
     const url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/';
     const calc_url = 'https://steamwishlistcalculator.com/php/main.php';
+    const own_url = 'https://steamwishlist.dev4rweb.com/php/main.php';
     const calc_alternative = 'https://steamwishlistcalculator.com/php/main.php';
 
     public function getSteamUserData(Request $request)
@@ -35,7 +36,8 @@ class SteamPoweredController extends Controller
         // LordTV
         try {
 //            $data = Http::get(self::calc_url . '?urlType=id&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=US&switch=true');
-            $data = Http::get(self::calc_url . '?urlType=profiles&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=US&switch=true');
+//            $data = Http::get(self::calc_url . '?urlType=profiles&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=US&switch=true');
+            $data = Http::get(self::own_url . '?urlType=profiles&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=US&switch=true');
 //            $data = Http::get(self::calc_url . '?urlType=profiles&profileId=' . $request['profile_id'] . '&pageNumber=0&cc=&switch=true');
             $response['data'] = $data->json();
             $response['success'] = true;
