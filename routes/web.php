@@ -36,6 +36,8 @@ Route::get('/', [PagesController::class, 'homePage']);
 Route::get('/faq', [PagesController::class, 'faqPage']);
 Route::get('/affiliate-program', [PagesController::class, 'affiliatePage']);
 Route::get('/contacts', [PagesController::class, 'ContactsPage']);
+Route::get('/privacy-policy', [PagesController::class, 'privacyPolicyPage']);
+Route::get('/terms', [PagesController::class, 'termsPage']);
 
 Route::get('/admin-panel', [PagesController::class, 'adminPage']);
 Route::get('/admin-competitions', [PagesController::class, 'adminCompetitions']);

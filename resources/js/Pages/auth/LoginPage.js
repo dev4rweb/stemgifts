@@ -208,6 +208,9 @@ const LoginPage = ({errors}) => {
             <div>
                 <InertiaLink href={'/privacy-policy'}>Privacy Policy</InertiaLink>
             </div>
+            <div>
+                <InertiaLink href={'/terms'}>Terms of Service</InertiaLink>
+            </div>
         </div>
     );
 };

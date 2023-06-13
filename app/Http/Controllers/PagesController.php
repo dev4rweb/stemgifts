@@ -152,6 +152,16 @@ class PagesController extends Controller
         return Inertia::render('ContactsPage');
     }
 
+    public function privacyPolicyPage()
+    {
+        return Inertia::render('PrivacyPolicy');
+    }
+
+    public function termsPage()
+    {
+        return Inertia::render('TermsPage');
+    }
+
     public function errorPage()
     {
         return Inertia::render('ErrorPage');
