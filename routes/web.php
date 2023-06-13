@@ -51,9 +51,13 @@ Route::get('/user-achievements', [PagesController::class, 'userAchievements']);
 Route::post('/file-upload', [FileUploaderController::class, 'uploadImage']);
 
 // Socials
+// Steam
 Route::get('/auth/steam', [SocialController::class, 'steamRedirect']);
 Route::get('/auth/steam/callback', [SocialController::class, 'loginWithSteam']);
 Route::get('/steam/add-wishlist', [SocialController::class, 'addToWishListSteam']);
+// Twitter
+Route::get('/auth/twitter', [SocialController::class, 'twitterRedirect']);
+Route::get('/auth/twitter/callback', [SocialController::class, 'loginWithTwitter']);
 
 // Emails
 Route::get('/test-email', [EmailController::class, 'testEmail']);

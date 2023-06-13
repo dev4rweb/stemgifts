@@ -52,7 +52,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
             console.log('UserTasks', userTasks)
             if (steamGameId){
                 console.log('Need to get wishlist')
-                dispatch(setLoadingAction(true))
+                // dispatch(setLoadingAction(true))
                 getWishListApi(auth.user.steam_id)
                     .then(res => {
                         if (!res.data.data) dispatch(setSnackMessageAction('Please make you wishlist public'))
@@ -78,7 +78,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                         Inertia.visit('/', {preserveState: false})
                     }
                 }).catch(err => dispatch(err.response.data.message))
-                    .finally(() => dispatch(setLoadingAction(false)));
+                    //.finally(() => dispatch(setLoadingAction(false)));
             }
         }
     }, []);

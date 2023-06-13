@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 // https://laravel.com/docs/8.x/socialite
 // https://youtu.be/9FKBKoWg-lQ?t=754
 
-//https://www.youtube.com/watch?v=rfHX-Hecu3k
+//https://youtu.be/9FKBKoWg-lQ?t=754
 //https://github.com/invisnik/laravel-steam-auth
 // https://developer.valvesoftware.com/wiki/Steam_Web_API#Interfaces_and_method
 

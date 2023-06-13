@@ -196,6 +196,15 @@ const LoginPage = ({errors}) => {
                     or Login with STEAM
                 </a>
             </div>
+
+            <div className="m-3 d-flex justify-content-center">
+                <a
+                    className="btn btn-info"
+                    href={'/auth/twitter'}
+                >
+                    or Login with TWITTER
+                </a>
+            </div>
             <div>
                 <InertiaLink href={'/privacy-policy'}>Privacy Policy</InertiaLink>
             </div>

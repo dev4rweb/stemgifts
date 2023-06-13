@@ -128,4 +128,26 @@ class SocialController extends Controller
         }
         return response()->json($response);
     }
+
+    // https://developer.twitter.com/en/portal/projects/1668255045245190144/apps/27298139/settings
+    // https://socialiteproviders.com/Twitter/#installation-basic-usage
+
+    public function twitterRedirect()
+    {
+        return Socialite::driver('twitter')->redirect();
+    }
+
+    public function loginWithTwitter()
+    {
+        try {
+            // Authenticate user with Twitter using Socialite
+            $social_user = Socialite::driver('steam')->user();
+            $response['success'] = true;
+            $response['user'] = $social_user;
+        } catch (\Exception $exception) {
+            $response['success'] = false;
+            $response['message'] = $exception->getMessage();
+        }
+        return response()->json($response);
+    }
 }
