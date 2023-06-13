@@ -141,7 +141,7 @@ class SocialController extends Controller
     {
         try {
             // Authenticate user with Twitter using Socialite
-            $social_user = Socialite::driver('steam')->user();
+            $social_user = Socialite::driver('twitter')->user();
             $response['success'] = true;
             $response['user'] = $social_user;
         } catch (\Exception $exception) {
