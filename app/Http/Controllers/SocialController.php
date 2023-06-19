@@ -131,6 +131,10 @@ class SocialController extends Controller
 
     // https://developer.twitter.com/en/portal/projects/1668255045245190144/apps/27298139/settings
     // https://socialiteproviders.com/Twitter/#installation-basic-usage
+    // add like
+    // https://developer.twitter.com/en/docs/twitter-api/tweets/likes/introduction
+    // https://developer.twitter.com/en/docs/authentication/guides/v2-authentication-mapping
+    // https://www.postman.com/twitter/workspace/twitter-s-public-workspace/request/9956214-fbf3547c-4aff-49f2-8995-c034ee1c3a51
 
     public function twitterRedirect()
     {
@@ -142,6 +146,27 @@ class SocialController extends Controller
         try {
             // Authenticate user with Twitter using Socialite
             $social_user = Socialite::driver('twitter')->user();
+            if ($social_user) {
+                $is_user = User::query()->where('twitter_id', $social_user->id)->first();
+                if ($is_user) Auth::login($is_user);
+                else {
+                    if (Auth::user()) {  // Подкрепление аккаунта из личного кабинета
+                        $auth_user = User::query()->findOrFail(Auth::id());
+                        $auth_user['twitter_id'] = $social_user->getId();
+                        $auth_user['name'] = $social_user->getNickname();
+                        $auth_user->save();
+                        return redirect('/user-settings');
+                    } else {
+                        $user = User::create([
+                            'twitter_id' => $social_user->getId(),
+                            'name' => $social_user->getNickname(),
+                            'password' => Hash::make('password')
+                        ]);
+                        Auth::login($user);
+                    }
+                }
+                return redirect('/');
+            }
             $response['success'] = true;
             $response['user'] = $social_user;
         } catch (\Exception $exception) {

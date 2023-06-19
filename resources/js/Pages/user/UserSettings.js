@@ -31,6 +31,19 @@ const UserSettings = () => {
                                 </a>
                             </div>
                     }
+                    {
+                        auth.user.twitter_id ?
+                            <h2>Twitter ID - { auth.user.twitter_id}</h2>
+                            :
+                            <div className="m-3 d-flex justify-content-center">
+                                <a
+                                    className="btn btn-info"
+                                    href={'/auth/twitter'}
+                                >
+                                    Attach an account from steam
+                                </a>
+                            </div>
+                    }
                 </div>
             </div>
         </UserLayout>
