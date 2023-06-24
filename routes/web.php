@@ -58,12 +58,18 @@ Route::get('/auth/steam', [SocialController::class, 'steamRedirect']);
 Route::get('/auth/steam/callback', [SocialController::class, 'loginWithSteam']);
 Route::get('/steam/add-wishlist', [SocialController::class, 'addToWishListSteam']);
 // Twitter
-Route::get('/auth/twitter', [SocialController::class, 'twitterRedirect']);
-Route::get('/auth/twitter/callback', [SocialController::class, 'loginWithTwitter']);
+//Route::get('/auth/twitter', [SocialController::class, 'twitterRedirect']);
+//Route::get('/auth/twitter/callback', [SocialController::class, 'loginWithTwitter']);
+//https://github.com/abraham/twitteroauth
+Route::get('/auth/twitter', [SocialController::class, 'redirectToProvider']);
+Route::get('/auth/twitter/callback', [SocialController::class, 'handleProviderCallback']);
+Route::get('/twitter/getNews', [SocialController::class, 'getTwitterNews']);
 
 // Emails
 Route::get('/test-email', [EmailController::class, 'testEmail']);
 Route::post('/send-email-winners', [EmailController::class, 'sendEmailWinner']);
+
+
 
 Route::resources([
     'admin-user' => UserController::class,
