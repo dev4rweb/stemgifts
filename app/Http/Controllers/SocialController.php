@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
+use League\OAuth1\Client\Server\Twitter;
 
 class SocialController extends Controller
 {
@@ -165,8 +166,6 @@ class SocialController extends Controller
                         Auth::login($user);
                     }
                 }
-                $client_id = 'XmjcXI9RynDOQwS8YSxknuV9l';
-                $client_secret = 'WB12LjiJ7f01ngZU7b9GgmTZbe8x2U0FGSnvCUt89msdQYfkwK';
                 //https://twitter.com/SourceByteGames/status/1664383713579343872
                 // Get the tweet ID of the tweet you want to like
                 $tweetId = '1664383713579343872'; // Replace with the actual tweet ID
@@ -189,11 +188,15 @@ class SocialController extends Controller
     public function redirectToProvider()
     {
         try {
-            $client_id = 'zOXQFWq1TouTPYE0HybfZ8ZLq';
-            $client_secret = '999bConJQT8gHRTyBpgdijS0pfcyvFInVs28hqg29D24vxgfDY';
-            $connection = new TwitterOAuth($client_id, $client_secret);
+            $connection = new TwitterOAuth(
+                config('twitter.consumer_key'),
+                config('twitter.consumer_secret')
+            );
 
-            $request_token = $connection->oauth('oauth/request_token', ['oauth_callback' => 'http://127.0.0.1:8000/auth/twitter/callback']);
+            $request_token = $connection->oauth(
+                'oauth/request_token',
+                ['oauth_callback' => config('twitter.redirect_url')]
+            );
 
             $oauth_token = $request_token['oauth_token'];
 
@@ -215,25 +218,56 @@ class SocialController extends Controller
         try {
             $oauth_token = $request->oauth_token;
             $oauth_verifier = $request->oauth_verifier;
-            $client_id = 'zOXQFWq1TouTPYE0HybfZ8ZLq';
-            $client_secret = '999bConJQT8gHRTyBpgdijS0pfcyvFInVs28hqg29D24vxgfDY';
 
             $connection = new TwitterOAuth(
                 config('twitter.consumer_key'),
                 config('twitter.consumer_secret'),
-                config('twitter.access_token'),
-                config('twitter.access_token_secret')
+                $oauth_token,
+                $oauth_verifier,
             );
 
-//            $token = $connection->oauth('oauth/access_token', ['oauth_verifier' => $oauth_verifier]);
-//            $response['res_token'] = $token;
-//            return $this->postMessageToTwitter($token['oauth_token'], $token['oauth_token_secret']);
-//            $response['res'] = $connection->get('/statuses/home_timeline', ['count' => 20]);
-            $response['verify'] = $connection->get("account/verify_credentials");
+            $token = $connection->oauth('oauth/access_token', ['oauth_verifier' => $oauth_verifier]);
+            $response['res_token'] = $token;// full info about user
 
-            // Handle the tweet response as needed
+            $conTwo = new TwitterOAuth(
+                config('twitter.consumer_key'),
+                config('twitter.consumer_secret'),
+                $token['oauth_token'],
+                $token['oauth_token_secret']
+            );
 
-            // Redirect the user to a success page or perform other actions
+//            $conTwo->setTimeouts(10, 15);
+            $response['home_timeline'] = $conTwo->get("statuses/home_timeline", ["count" => 25, "exclude_replies" => true]);
+            $response['post_tweet'] = $conTwo->post('statuses/update', ['status' => 'Hello, Twitter!']);
+
+            $response['get_tweets'] = $conTwo->get('statuses/user_timeline', [
+                'screen_name' => $token['screen_name'],
+                'count' => 10, // Number of tweets to retrieve
+            ]);
+            $response['verify'] = $conTwo->get("account/verify_credentials"); // full info about user
+
+           /* $response['get_tweets_else'] =  $conTwo->get(
+                'search/tweets',
+                ['q' => 'news', 'count' => 10] // Retrieve 10 tweets containing 'news'
+            );*/
+           /* $tweet = 'Hello, Twitter! This is my first tweet from Laravel.';
+
+            // Create a new TwitterOAuth instance
+            $twitter = new TwitterOAuth(
+                config('twitter.consumer_key'),
+                config('twitter.consumer_secret'),
+                $token['oauth_token'],
+                $token['oauth_token_secret']
+            );
+
+            // Post the tweet
+            $status = $twitter->post('statuses/update', ['status' => $tweet]);
+
+            if ($twitter->getLastHttpCode() === 200) {
+                $response['success'] = 'Tweet posted successfully!';
+            } else {
+                $response['error'] = 'Error posting tweet: ' . $status->errors[0]->message;
+            }*/
         } catch (\Exception $exception) {
             $response['success'] = false;
             $response['message'] = $exception->getMessage();
@@ -245,8 +279,8 @@ class SocialController extends Controller
     public function postMessageToTwitter($oauth_token, $oauth_token_secret)
     {
         $push = new TwitterOAuth(
-            'zOXQFWq1TouTPYE0HybfZ8ZLq',
-            '999bConJQT8gHRTyBpgdijS0pfcyvFInVs28hqg29D24vxgfDY',
+            config('twitter.consumer_key'),
+            config('twitter.consumer_secret'),
             $oauth_token,
             $oauth_token_secret
         );
