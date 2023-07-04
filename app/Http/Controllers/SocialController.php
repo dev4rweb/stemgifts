@@ -190,9 +190,8 @@ class SocialController extends Controller
         try {
             $connection = new TwitterOAuth(
                 config('twitter.consumer_key'),
-                config('twitter.consumer_secret')
+                config('twitter.consumer_secret'),
             );
-
             $request_token = $connection->oauth(
                 'oauth/request_token',
                 ['oauth_callback' => config('twitter.redirect_url')]
@@ -216,58 +215,97 @@ class SocialController extends Controller
     public function handleProviderCallback(Request $request)
     {
         try {
+
             $oauth_token = $request->oauth_token;
             $oauth_verifier = $request->oauth_verifier;
+            $response['$oauthToken'] = $oauth_token;
+            $response['$oauthVerifier'] = $oauth_verifier;
+
+            // Retrieve the request token and secret from the session (or database)
+            $requestToken = session('oauth_token');
+            $requestTokenSecret = session('oauth_token_secret');
+
+            $response['$requestToken'] = $requestToken;
+            $response['$requestTokenSecret'] = $requestTokenSecret;
 
             $connection = new TwitterOAuth(
                 config('twitter.consumer_key'),
                 config('twitter.consumer_secret'),
-                $oauth_token,
-                $oauth_verifier,
+                $requestToken,
+                $requestTokenSecret
             );
-
+//            $connection->setApiVersion('1.1');
             $token = $connection->oauth('oauth/access_token', ['oauth_verifier' => $oauth_verifier]);
-            $response['res_token'] = $token;// full info about user
+            $response['$accessToken'] = $token;// full info about user
+//            return response()->json($response);
+//            $response['post_tweet_one'] = $connection->post('statuses/update', ['status' => 'Hello, Twitter!']);
 
+            $tweet = 'Hello, Twitter! This is my first tweet from Laravel using Twitter API v2.';
             $conTwo = new TwitterOAuth(
                 config('twitter.consumer_key'),
                 config('twitter.consumer_secret'),
                 $token['oauth_token'],
                 $token['oauth_token_secret']
             );
-
+            $conTwo->setApiVersion('2');
+            $response['$response'] = $conTwo->post('tweets', [
+                'text' => $tweet
+            ], true);
+            /*
+             * {
+                    "$oauthToken": "bFyiXgAAAAABoIlbAAABiRXz7uw",
+                    "$oauthVerifier": "mZsYUEkbW9HFy3o4vPOXL9T8Ftkm5fQr",
+                    "$requestToken": "bFyiXgAAAAABoIlbAAABiRXz7uw",
+                    "$requestTokenSecret": "rOigdThYQfxDwT4nt0fPTxFfbwsTPaWk",
+                    "$accessToken": {
+                        "oauth_token": "1667827169379090436-EdUwwMS6aXHQ1pmdmEEEqiaWlWnc2L",
+                        "oauth_token_secret": "iOPjHxQI81oQIdvjbmpwdZPuGQRNuKyEvljBIJg2TYXLi",
+                        "user_id": "1667827169379090436",
+                        "screen_name": "aovramec95"
+                    },
+                    "$response": {
+                        "data": {
+                            "edit_history_tweet_ids": [
+                                "1675437740865777665"
+                            ],
+                            "id": "1675437740865777665",
+                            "text": "Hello, Twitter! This is my first tweet from Laravel using Twitter API v2."
+                            }
+                        }
+                }
+             * */
 //            $conTwo->setTimeouts(10, 15);
-            $response['home_timeline'] = $conTwo->get("statuses/home_timeline", ["count" => 25, "exclude_replies" => true]);
-            $response['post_tweet'] = $conTwo->post('statuses/update', ['status' => 'Hello, Twitter!']);
+//            $response['home_timeline'] = $conTwo->get("statuses/home_timeline", ["count" => 25, "exclude_replies" => true]);
+//            $response['post_tweet'] = $conTwo->post('statuses/update', ['status' => 'Hello, Twitter!']);
 
-            $response['get_tweets'] = $conTwo->get('statuses/user_timeline', [
+            /*$response['get_tweets'] = $conTwo->get('statuses/user_timeline', [
                 'screen_name' => $token['screen_name'],
                 'count' => 10, // Number of tweets to retrieve
             ]);
-            $response['verify'] = $conTwo->get("account/verify_credentials"); // full info about user
+            $response['verify'] = $conTwo->get("account/verify_credentials"); // full info about user*/
 
-           /* $response['get_tweets_else'] =  $conTwo->get(
-                'search/tweets',
-                ['q' => 'news', 'count' => 10] // Retrieve 10 tweets containing 'news'
-            );*/
-           /* $tweet = 'Hello, Twitter! This is my first tweet from Laravel.';
+            /* $response['get_tweets_else'] =  $conTwo->get(
+                 'search/tweets',
+                 ['q' => 'news', 'count' => 10] // Retrieve 10 tweets containing 'news'
+             );*/
+            /* $tweet = 'Hello, Twitter! This is my first tweet from Laravel.';
 
-            // Create a new TwitterOAuth instance
-            $twitter = new TwitterOAuth(
-                config('twitter.consumer_key'),
-                config('twitter.consumer_secret'),
-                $token['oauth_token'],
-                $token['oauth_token_secret']
-            );
+             // Create a new TwitterOAuth instance
+             $twitter = new TwitterOAuth(
+                 config('twitter.consumer_key'),
+                 config('twitter.consumer_secret'),
+                 $token['oauth_token'],
+                 $token['oauth_token_secret']
+             );
 
-            // Post the tweet
-            $status = $twitter->post('statuses/update', ['status' => $tweet]);
+             // Post the tweet
+             $status = $twitter->post('statuses/update', ['status' => $tweet]);
 
-            if ($twitter->getLastHttpCode() === 200) {
-                $response['success'] = 'Tweet posted successfully!';
-            } else {
-                $response['error'] = 'Error posting tweet: ' . $status->errors[0]->message;
-            }*/
+             if ($twitter->getLastHttpCode() === 200) {
+                 $response['success'] = 'Tweet posted successfully!';
+             } else {
+                 $response['error'] = 'Error posting tweet: ' . $status->errors[0]->message;
+             }*/
         } catch (\Exception $exception) {
             $response['success'] = false;
             $response['message'] = $exception->getMessage();

@@ -43,6 +43,11 @@ class HandleInertiaRequests extends Middleware
 
             // Lazily
             'auth.user' => Auth::user(),
+            'session' => [
+                'twitter_id' => function () use ($request) {
+                    return $request->session()->get('twitter_id');
+                }
+            ]
         ]);
     }
 }

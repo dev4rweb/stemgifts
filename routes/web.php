@@ -7,6 +7,7 @@ use App\Http\Controllers\GameController;
 use App\Http\Controllers\GiftController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\SocialTwitterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGameController;
 use App\Http\Controllers\WalletController;
@@ -61,8 +62,11 @@ Route::get('/steam/add-wishlist', [SocialController::class, 'addToWishListSteam'
 //Route::get('/auth/twitter', [SocialController::class, 'twitterRedirect']);
 //Route::get('/auth/twitter/callback', [SocialController::class, 'loginWithTwitter']);
 //https://github.com/abraham/twitteroauth
-Route::get('/auth/twitter', [SocialController::class, 'redirectToProvider']);
-Route::get('/auth/twitter/callback', [SocialController::class, 'handleProviderCallback']);
+//Route::get('/auth/twitter', [SocialController::class, 'redirectToProvider']);
+//Route::get('/auth/twitter/callback', [SocialController::class, 'handleProviderCallback']);
+Route::get('/auth/twitter', [SocialTwitterController::class, 'twitterRedirect']);
+Route::get('/auth/twitter/callback', [SocialTwitterController::class, 'twitterLogin']);
+Route::post('/twitter/postTweet', [SocialTwitterController::class, 'postTwitter']);
 Route::get('/twitter/getNews', [SocialController::class, 'getTwitterNews']);
 
 // Emails

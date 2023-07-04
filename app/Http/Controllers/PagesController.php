@@ -36,7 +36,7 @@ class PagesController extends Controller
         return Inertia::render('HomePage', [
             'games' => $games,
             'sponsorGame' => $sponsor_game,
-            'userTasks' => $user_tasks
+            'userTasks' => $user_tasks,
         ]);
     }
 

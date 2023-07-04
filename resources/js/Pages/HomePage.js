@@ -23,7 +23,7 @@ import {userTaskPatchApi} from "../api/userTasksApi";
 const HomePage = ({games, sponsorGame, errors, userTasks}) => {
     const dispatch = useDispatch()
     const pagination = useSelector(state => state.homePage.page)
-    const { auth } = usePage().props
+    const { auth, session } = usePage().props
     console.log('HomePage', errors)
     const stateData = useSelector(state => state.lang)
     const [category, setCategory] = useState('all')
@@ -33,6 +33,18 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
     const [lowLimit, setLowLimit] = useState(12)
     const [middleLimit, setMiddleLimit] = useState(24)
     const [highLimit, setHighLimit] = useState(48)
+    const activeTwitterTask = JSON.parse(sessionStorage.getItem('twitterTask'))
+
+    console.log('Twitter ID', session)
+    console.log('Twitter Task', activeTwitterTask)
+
+    if (activeTwitterTask && session && session.twitter_id) {
+        Inertia.post('/twitter/postTweet', {
+            task_id: activeTwitterTask.id,
+            message: activeTwitterTask.url
+        }, {preserveState: false})
+        sessionStorage.removeItem('twitterTask')
+    }
 
     useEffect(() => {
         if (errors && errors.error)
