@@ -18,11 +18,31 @@ const TwitterTaskButton = ({task}) => {
         const twitterSession = !!(session && session.twitter_id)
         switch (task.task_category_item_id) {
             case 7: // Post Twitter
-                postTweeterHandler(twitterSession)
+                // postTweeterHandler(twitterSession)
+                postIntentTweet(twitterSession)
                 break
             default:
                 notPrepareFunc()
                 break
+        }
+    };
+
+    const postIntentTweet = isSessionTwitter => {
+        console.log('isSessionTwitter', isSessionTwitter)
+        if (isSessionTwitter) {
+            console.log('Can post');
+            window.open(
+                `https://twitter.com/intent/tweet?text=${task.url}`,
+                '_blank',
+                'location=yes,height=480,width=640,scrollbars=yes,status=yes'
+            )
+            window.addEventListener('focus', function () {
+                console.log('FOCUS')
+            });
+        } else {
+            console.log('Need to auth before')
+            sessionStorage.setItem('twitterTask', JSON.stringify(task))
+            window.location.href = '/auth/twitter'
         }
     };
 

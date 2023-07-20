@@ -23,7 +23,7 @@ import {userTaskPatchApi} from "../api/userTasksApi";
 const HomePage = ({games, sponsorGame, errors, userTasks}) => {
     const dispatch = useDispatch()
     const pagination = useSelector(state => state.homePage.page)
-    const { auth, session } = usePage().props
+    const {auth, session} = usePage().props
     console.log('HomePage', errors)
     const stateData = useSelector(state => state.lang)
     const [category, setCategory] = useState('all')
@@ -62,7 +62,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                 }
             });
             console.log('UserTasks', userTasks)
-            if (steamGameId){
+            if (steamGameId) {
                 console.log('Need to get wishlist')
                 // dispatch(setLoadingAction(true))
                 getWishListApi(auth.user.steam_id)
@@ -90,7 +90,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                         Inertia.visit('/', {preserveState: false})
                     }
                 }).catch(err => dispatch(err.response.data.message))
-                    //.finally(() => dispatch(setLoadingAction(false)));
+                //.finally(() => dispatch(setLoadingAction(false)));
             }
         }
     }, []);
@@ -112,7 +112,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         handleSubmit()
     }, [category, pagination, limit, favorite, search])
 
@@ -170,8 +170,8 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
 
                 <section className={`container ${s.content}`}>
                     <h2>{stateData.home.header[stateData.lang]}</h2>
-                    <Timer />
-                    <SocialBlock />
+                    <Timer/>
+                    <SocialBlock/>
                     <button
                         className="btn btn-warning mt-3 mb-5"
                         style={{zIndex: '1'}}
@@ -180,6 +180,16 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                         {stateData.home.get_key[stateData.lang]}
                     </button>
                 </section>
+
+                {/*https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/overview*/}
+                <div className="d-flex justify-content-center">
+                    {/*<a
+                        className="btn btn-warning mt-3 mb-5 twitter-share-button"
+                       href="https://twitter.com/intent/tweet?text=Hello%20world"
+                    >
+                        Tweet
+                    </a>*/}
+                </div>
 
                 <section className="container">
 
@@ -195,7 +205,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                                 <select
                                     name="category"
                                     className="form-select"
-                                    style={{ color: '#ffffff'}}
+                                    style={{color: '#ffffff'}}
                                     onChange={categoryHandleSelect}
                                 >
                                     <option value="all">{stateData.home.select_all[stateData.lang]}</option>
@@ -211,7 +221,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                                 <select
                                     name="favorite"
                                     className="form-select"
-                                    style={{ color: '#ffffff'}}
+                                    style={{color: '#ffffff'}}
                                     onChange={favoriteHandler}
                                 >
                                     <option value="all">{stateData.home.select_all[stateData.lang]}</option>
@@ -224,7 +234,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                                 <input
                                     className="form-control"
                                     value={search}
-                                    style={{ color: '#ffffff'}}
+                                    style={{color: '#ffffff'}}
                                     placeholder='searching'
                                     onInput={e => setSearch(e.target.value)}
                                     type="text"
@@ -238,7 +248,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                                 <select
                                     name="limit"
                                     className="form-select"
-                                    style={{ color: '#ffffff'}}
+                                    style={{color: '#ffffff'}}
                                     onChange={limitHandlerSelect}
                                 >
                                     <option value={lowLimit}>{lowLimit}</option>
@@ -251,7 +261,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
 
                     {
                         sponsorGame ?
-                            <SponsorGame sponsorGame={sponsorGame} />
+                            <SponsorGame sponsorGame={sponsorGame}/>
                             :
                             <div/>
                     }
@@ -265,7 +275,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                                             key={item.id}
                                             className="d-flex justify-content-center align-items-center"
                                         >
-                                            <GameCard item={item} />
+                                            <GameCard item={item}/>
                                         </div>
                                     )
                                 }
@@ -276,7 +286,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
 
                     {
                         games.links.length &&
-                        <Pagination links={games.links} />
+                        <Pagination links={games.links}/>
 
                     }
 
@@ -285,8 +295,8 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
             <ModalLayout>
                 <LogRegWelcome/>
             </ModalLayout>
-            <ModalGameDescription />
-            <ModalKey />
+            <ModalGameDescription/>
+            <ModalKey/>
         </Layout>
     );
 };

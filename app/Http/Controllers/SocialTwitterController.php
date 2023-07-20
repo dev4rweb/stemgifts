@@ -132,6 +132,7 @@ class SocialTwitterController extends Controller
                 $requestTokenSecret
             );
             $token = $connection->oauth('oauth/access_token', ['oauth_verifier' => $oauth_verifier]);
+            return $token;
             if ($token) {
                 $user_id = $token['user_id'] ?? null;
                 if ($user_id) {
@@ -236,4 +237,5 @@ class SocialTwitterController extends Controller
         }
         return redirect('/')->withErrors(['error' => $message]);
     }
+
 }
