@@ -132,7 +132,6 @@ class SocialTwitterController extends Controller
                 $requestTokenSecret
             );
             $token = $connection->oauth('oauth/access_token', ['oauth_verifier' => $oauth_verifier]);
-            return $token;
             if ($token) {
                 $user_id = $token['user_id'] ?? null;
                 if ($user_id) {
@@ -238,4 +237,28 @@ class SocialTwitterController extends Controller
         return redirect('/')->withErrors(['error' => $message]);
     }
 
+    public function getCreatedPost(Request $request)
+    {
+        try {
+            $message = $request['message'];
+            $task_id = $request['task_id'];
+            if (Auth::user() && session('twitter_id') && $message) {
+                $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+                if ($socialTwitter) {
+                    $twitter = new TwitterOAuth(
+                        config('twitter.consumer_key'),
+                        config('twitter.consumer_secret'),
+                        $socialTwitter['oauth_token'],
+                        $socialTwitter['oauth_token_secret']
+                    );
+                    $message = $twitter->get("account/verify_credentials"); // full info about user
+                } else $message = 'SocialTwitter data not found';
+            } else {
+                $message = 'Need auth';
+            }
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+        }
+        return response()->json($message);
+    }
 }
