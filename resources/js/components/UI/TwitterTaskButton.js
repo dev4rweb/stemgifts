@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {usePage} from "@inertiajs/inertia-react";
 import {setLoadingAction, setSnackMessageAction} from "../../reducers/mainReducer";
 import {Inertia} from "@inertiajs/inertia";
+import axios from "axios";
 
 const TwitterTaskButton = ({task}) => {
     const dispatch = useDispatch()
@@ -38,6 +39,13 @@ const TwitterTaskButton = ({task}) => {
             )
             window.addEventListener('focus', function () {
                 console.log('FOCUS')
+                // Inertia.post()
+                axios.post('/twitter/postTweet', {task_id: task.id})
+                    .then(res => {
+                        console.log('postIntentTweet api', res)
+                    }).catch(err => {
+                    console.log('postIntentTweet api err', err)
+                });
             });
         } else {
             console.log('Need to auth before')

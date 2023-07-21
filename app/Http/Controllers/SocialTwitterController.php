@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use App\Models\SocialTwitter;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\UserTask;
 use Illuminate\Http\Request;
@@ -240,25 +241,63 @@ class SocialTwitterController extends Controller
     public function getCreatedPost(Request $request)
     {
         try {
-            $message = $request['message'];
-            $task_id = $request['task_id'];
-            if (Auth::user() && session('twitter_id') && $message) {
-                $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
-                if ($socialTwitter) {
-                    $twitter = new TwitterOAuth(
-                        config('twitter.consumer_key'),
-                        config('twitter.consumer_secret'),
-                        $socialTwitter['oauth_token'],
-                        $socialTwitter['oauth_token_secret']
-                    );
-                    $message = $twitter->get("account/verify_credentials"); // full info about user
-                } else $message = 'SocialTwitter data not found';
-            } else {
-                $message = 'Need auth';
+            $task = Task::query()->find($request['task_id']);
+            $response['success'] = false;
+            if (!Auth::user()) {
+                $response['message'] = 'Need auth';
+                return response()->json($response);
             }
+            if (!$task) {
+                $response['message'] = 'Task not found';
+                return response()->json($response);
+            }
+            $user_task = UserTask::query()
+                ->where('task_id', $request['task_id'])
+                ->where('user_id', Auth::id())->first();
+            if (!$user_task) {
+                $response['message'] = 'User Task not found';
+                return response()->json($response);
+            }
+
+            $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+            if (!$socialTwitter) {
+                $response['message'] = 'SocialTwitter data not found';
+                return response()->json($response);
+            }
+            $twitter = new TwitterOAuth(
+                config('twitter.consumer_key'),
+                config('twitter.consumer_secret'),
+                $socialTwitter['oauth_token'],
+                $socialTwitter['oauth_token_secret']
+            );
+            $resp = $twitter->get("account/verify_credentials"); // full info about user
+            if (!isset($resp->status)) {
+                $response['message'] = 'verify_credentials status is invalid';
+                $response['data'] = $resp;
+                return $response;
+            }
+            if (!isset($resp->status->text)) {
+                $response['message'] = 'verify_credentials status -> text is invalid';
+                $response['data'] = $resp;
+                return $response;
+            }
+            if (strpos(strtolower($resp->status->text), strtolower($task['url'])) !== false) {
+                $user_task['is_done'] = true;
+                $user_task->save();
+
+                $response['success'] = true;
+                $response['message'] = 'Task is done';
+                $response['data'] = $resp;
+                return $response;
+            } else {
+                $response['message'] = 'tweet not found';
+                $response['data'] = $resp;
+                return $response;
+            }
+            // https://steam.dev4rweb.com/twitter/created-post?message=123&task_id=555
         } catch (\Exception $exception) {
             $message = $exception->getMessage();
         }
-        return response()->json($message);
+        return $message;
     }
 }
