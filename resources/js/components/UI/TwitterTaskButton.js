@@ -40,11 +40,14 @@ const TwitterTaskButton = ({task}) => {
             window.addEventListener('focus', function () {
                 console.log('FOCUS')
                 // Inertia.post()
-                axios.post('/twitter/postTweet', {task_id: task.id})
+                axios.post('/twitter/created-post', {task_id: task.id})
                     .then(res => {
                         console.log('postIntentTweet api', res)
+                        dispatch(setSnackMessageAction(res.data.message))
+                        if (res.data.success) window.location.reload()
                     }).catch(err => {
                     console.log('postIntentTweet api err', err)
+                    dispatch(setSnackMessageAction('Some thing was wrong'))
                 });
             });
         } else {

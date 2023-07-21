@@ -67,7 +67,7 @@ Route::get('/steam/add-wishlist', [SocialController::class, 'addToWishListSteam'
 Route::get('/auth/twitter', [SocialTwitterController::class, 'twitterRedirect']);
 Route::get('/auth/twitter/callback', [SocialTwitterController::class, 'twitterLogin']);
 Route::post('/twitter/created-post', [SocialTwitterController::class, 'getCreatedPost']);
-Route::post('/twitter/postTweet', [SocialTwitterController::class, 'postTwitter']);
+Route::get('/twitter/postTweet', [SocialTwitterController::class, 'postTwitter']);
 Route::get('/twitter/getNews', [SocialController::class, 'getTwitterNews']);
 
 // Emails

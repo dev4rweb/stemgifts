@@ -251,13 +251,6 @@ class SocialTwitterController extends Controller
                 $response['message'] = 'Task not found';
                 return response()->json($response);
             }
-            $user_task = UserTask::query()
-                ->where('task_id', $request['task_id'])
-                ->where('user_id', Auth::id())->first();
-            if (!$user_task) {
-                $response['message'] = 'User Task not found';
-                return response()->json($response);
-            }
 
             $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
             if (!$socialTwitter) {
@@ -282,8 +275,12 @@ class SocialTwitterController extends Controller
                 return $response;
             }
             if (strpos(strtolower($resp->status->text), strtolower($task['url'])) !== false) {
-                $user_task['is_done'] = true;
-                $user_task->save();
+
+                UserTask::create([
+                    'user_id' => Auth::id(),
+                    'task_id' => $request['task_id'],
+                    'is_done' => true
+                ]);
 
                 $response['success'] = true;
                 $response['message'] = 'Task is done';
