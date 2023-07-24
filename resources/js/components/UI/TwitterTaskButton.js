@@ -5,6 +5,7 @@ import {usePage} from "@inertiajs/inertia-react";
 import {setLoadingAction, setSnackMessageAction} from "../../reducers/mainReducer";
 import {Inertia} from "@inertiajs/inertia";
 import axios from "axios";
+import {setGameDescription} from "../../reducers/modalReducer";
 
 const TwitterTaskButton = ({task}) => {
     const dispatch = useDispatch()
@@ -13,6 +14,7 @@ const TwitterTaskButton = ({task}) => {
 
     console.log('TwitterTaskButton', session)
     console.log('TwitterTaskButton Task', task)
+    console.log('TwitterTaskButton Auth', auth)
 
     const clickHandler = e => {
         console.log('clickHandler', session)
@@ -39,12 +41,14 @@ const TwitterTaskButton = ({task}) => {
             )
             window.addEventListener('focus', function () {
                 console.log('FOCUS')
-                // Inertia.post()
                 axios.post('/twitter/created-post', {task_id: task.id})
                     .then(res => {
                         console.log('postIntentTweet api', res)
                         dispatch(setSnackMessageAction(res.data.message))
-                        if (res.data.success) window.location.reload()
+                        if (res.data.success) {
+                            dispatch(setGameDescription(null))
+                            Inertia.reload({preserveState: false})
+                        }
                     }).catch(err => {
                     console.log('postIntentTweet api err', err)
                     dispatch(setSnackMessageAction('Some thing was wrong'))

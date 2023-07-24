@@ -7,6 +7,7 @@ use App\Models\SocialTwitter;
 use App\Models\Task;
 use App\Models\User;
 use App\Models\UserTask;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -242,6 +243,7 @@ class SocialTwitterController extends Controller
     {
         try {
             $task = Task::query()->find($request['task_id']);
+            $wallet = Wallet::query()->find(['user_id' => Auth::id()]);
             $response['success'] = false;
             if (!Auth::user()) {
                 $response['message'] = 'Need auth';
@@ -249,6 +251,10 @@ class SocialTwitterController extends Controller
             }
             if (!$task) {
                 $response['message'] = 'Task not found';
+                return response()->json($response);
+            }
+            if (!$wallet) {
+                $response['message'] = 'User wallet not found';
                 return response()->json($response);
             }
 
@@ -281,6 +287,9 @@ class SocialTwitterController extends Controller
                     'task_id' => $request['task_id'],
                     'is_done' => true
                 ]);
+
+                $wallet['points'] += 1;
+                $wallet->save();
 
                 $response['success'] = true;
                 $response['message'] = 'Task is done';
