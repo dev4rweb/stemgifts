@@ -239,6 +239,160 @@ class SocialTwitterController extends Controller
         return redirect('/')->withErrors(['error' => $message]);
     }
 
+    public function likePost(Request $request)
+    {
+        if (Auth::user() && session('twitter_id')) {
+            $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+
+            if ($socialTwitter) {
+                // Post ID of the tweet to like
+                $postId = $request['post_id'] ?? '1664383713579343872';
+
+                // Create a new TwitterOAuth instance with access token and secret
+                $twitter = new TwitterOAuth(
+                    config('twitter.consumer_key'),
+                    config('twitter.consumer_secret'),
+                    $socialTwitter['oauth_token'],
+                    $socialTwitter['oauth_token_secret']
+                );
+
+                // Set the API version to 2
+                $twitter->setApiVersion('2');
+
+                // Like the post
+                $response = $twitter->post("tweets/{$postId}/likes");
+
+                if ($response->errors) {
+                    return 'Error liking post: ' . $response->errors[0]->message;
+                } else {
+                    return 'Post liked successfully!';
+                }
+
+            }  else return 'SocialTwitter data not found';
+        } else {
+            return 'Need auth';
+        }
+    }
+
+    public function followPost(Request $request)
+    {
+        if (Auth::user() && session('twitter_id')) {
+            $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+
+            if ($socialTwitter) {
+                // User ID or username of the user to follow
+                $userId = $request['user_id'] ?? 'SourceByteGames';
+
+                // Create a new TwitterOAuth instance with access token and secret
+                $twitter = new TwitterOAuth(
+                    config('twitter.consumer_key'),
+                    config('twitter.consumer_secret'),
+                    $socialTwitter['oauth_token'],
+                    $socialTwitter['oauth_token_secret']
+                );
+
+                // Set the API version to 2
+                $twitter->setApiVersion('2');
+
+                // Follow the user
+                $response = $twitter->post("users/{$userId}/following");
+
+                if ($response->errors) {
+                    return 'Error following user: ' . $response->errors[0]->message;
+                } else {
+                    return 'User followed successfully!';
+                }
+
+            }  else return 'SocialTwitter data not found';
+        } else {
+            return 'Need auth';
+        }
+    }
+
+    public function repostPost(Request $request)
+    {
+        if (Auth::user() && session('twitter_id')) {
+            $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+
+            if ($socialTwitter) {
+                // Post ID of the tweet to view
+                $postId = $request['post_id'] ?? '1664383713579343872';
+
+                // Create a new TwitterOAuth instance with access token and secret
+                $twitter = new TwitterOAuth(
+                    config('twitter.consumer_key'),
+                    config('twitter.consumer_secret'),
+                    $socialTwitter['oauth_token'],
+                    $socialTwitter['oauth_token_secret']
+                );
+
+                // Set the API version to 2
+                $twitter->setApiVersion('2');
+
+                // View the tweet
+                $response = $twitter->get("tweets/{$postId}");
+
+                if ($response->errors) {
+                    return 'Error viewing tweet: ' . $response->errors[0]->message;
+                } else {
+                    // Access the tweet data from the response
+                    $tweet = $response->data;
+
+                    // Perform any necessary operations with the tweet data
+                    // ...
+
+                    // Return the tweet data or display it as needed
+                    return $tweet;
+                }
+
+            }  else return 'SocialTwitter data not found';
+        } else {
+            return 'Need auth';
+        }
+    }
+
+    public function viewPost(Request $request)
+    {
+        if (Auth::user() && session('twitter_id')) {
+            $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+
+            if ($socialTwitter) {
+                // Post ID of the tweet to view
+                $postId = $request['post_id'] ?? '1664383713579343872';
+
+                // Create a new TwitterOAuth instance with access token and secret
+                $twitter = new TwitterOAuth(
+                    config('twitter.consumer_key'),
+                    config('twitter.consumer_secret'),
+                    $socialTwitter['oauth_token'],
+                    $socialTwitter['oauth_token_secret']
+                );
+
+                // Set the API version to 2
+                $twitter->setApiVersion('2');
+
+                // View the tweet
+                $response = $twitter->get("tweets/{$postId}");
+
+                if ($response->errors) {
+                    return 'Error viewing tweet: ' . $response->errors[0]->message;
+                } else {
+                    // Access the tweet data from the response
+                    $tweet = $response->data;
+
+                    // Perform any necessary operations with the tweet data
+                    // ...
+
+                    // Return the tweet data or display it as needed
+                    return $tweet;
+                }
+
+            }  else return 'SocialTwitter data not found';
+        } else {
+            return 'Need auth';
+        }
+    }
+
     public function getCreatedPost(Request $request)
     {
         try {

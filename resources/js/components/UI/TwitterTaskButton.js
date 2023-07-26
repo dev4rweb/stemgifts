@@ -24,10 +24,42 @@ const TwitterTaskButton = ({task}) => {
                 // postTweeterHandler(twitterSession)
                 postIntentTweet(twitterSession)
                 break
+            case 4: // Follow
+                followTwitterPost(twitterSession)
+                break
+            case 5: // Like
+                likeTwitterPost(twitterSession)
+                break
+            case 6: // Repost
+                repostTwitterPost(twitterSession)
+                break
+            case 8: // view post
+                viewTwitterPost(twitterSession)
+                break
             default:
                 notPrepareFunc()
                 break
         }
+    };
+
+    const likeTwitterPost = isSessionTwitter => {
+        console.log('likeTwitterPost isSessionTwitter', isSessionTwitter)
+        dispatch(setSnackMessageAction('Like'))
+    };
+
+    const followTwitterPost = isSessionTwitter => {
+        console.log('followTwitterPost isSessionTwitter', isSessionTwitter)
+        dispatch(setSnackMessageAction('Follow'))
+    };
+
+    const repostTwitterPost = isSessionTwitter => {
+        console.log('repostTwitterPost isSessionTwitter', isSessionTwitter)
+        dispatch(setSnackMessageAction('Repost'))
+    };
+
+    const viewTwitterPost = isSessionTwitter => {
+        console.log('viewTwitterPost isSessionTwitter', isSessionTwitter)
+        dispatch(setSnackMessageAction('view post'))
     };
 
     const postIntentTweet = isSessionTwitter => {

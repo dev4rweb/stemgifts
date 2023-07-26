@@ -69,6 +69,10 @@ Route::get('/auth/twitter/callback', [SocialTwitterController::class, 'twitterLo
 Route::post('/twitter/created-post', [SocialTwitterController::class, 'getCreatedPost']);
 Route::get('/twitter/postTweet', [SocialTwitterController::class, 'postTwitter']);
 Route::get('/twitter/getNews', [SocialController::class, 'getTwitterNews']);
+Route::get('/twitter/like-post', [SocialTwitterController::class, 'likePost']);
+Route::get('/twitter/follow-post', [SocialTwitterController::class, 'followPost']);
+Route::get('/twitter/repost-post', [SocialTwitterController::class, 'repostPost']);
+Route::get('/twitter/repost-post', [SocialTwitterController::class, 'viewPost']);
 
 // Emails
 Route::get('/test-email', [EmailController::class, 'testEmail']);
