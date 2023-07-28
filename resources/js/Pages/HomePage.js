@@ -182,13 +182,66 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                 </section>
 
                 {/*https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/overview*/}
-                <div className="d-flex justify-content-center">
+                <div className="d-flex flex-wrap justify-content-center">
                     {/*<a
                         className="btn btn-warning mt-3 mb-5 twitter-share-button"
                        href="https://twitter.com/intent/tweet?text=Hello%20world"
                     >
                         Tweet
                     </a>*/}
+                    <a
+                        className="btn btn-warning twitter-share-button m-2"
+                        href="https://twitter.com/SourceByteGames"
+                        target="_blank"
+                    >
+                        Follow @SourceByteGames
+                    </a>
+                    <a
+                        href="https://twitter.com/messages/compose?recipient_id=3805104374"
+                        className="btn btn-warning twitter-share-button m-2"
+                        target="_blank"
+                        data-screen-name="@furni"
+                    >
+                        Message @furni
+                    </a>
+                </div>
+
+                <div className="d-flex flex-wrap justify-content-center">
+                    <a
+                        className="btn btn-info twitter-share-button m-2"
+                        href="/twitter/check-twitter-user"
+                        target="_blank"
+                    >
+                        Check TwitterUser
+                    </a>
+                    <a
+                        href="/twitter/like-post"
+                        className="btn btn-info twitter-share-button m-2"
+                        target="_blank"
+                    >
+                        Like Post by API
+                    </a>
+                    <a
+                        href="/twitter/follow-post"
+                        className="btn btn-info twitter-share-button m-2"
+                        target="_blank"
+                    >
+                        Follow by API
+                    </a>
+                    <a
+                        href="/twitter/repost-post"
+                        className="btn btn-info twitter-share-button m-2"
+                        target="_blank"
+                    >
+                        Repost by API
+                    </a>
+                    <a
+                        href="/twitter/view-post"
+                        className="btn btn-info twitter-share-button m-2"
+                        target="_blank"
+                    >
+                        View by API
+                    </a>
                 </div>
 
                 <section className="container">

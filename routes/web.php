@@ -72,7 +72,8 @@ Route::get('/twitter/getNews', [SocialController::class, 'getTwitterNews']);
 Route::get('/twitter/like-post', [SocialTwitterController::class, 'likePost']);
 Route::get('/twitter/follow-post', [SocialTwitterController::class, 'followPost']);
 Route::get('/twitter/repost-post', [SocialTwitterController::class, 'repostPost']);
-Route::get('/twitter/repost-post', [SocialTwitterController::class, 'viewPost']);
+Route::get('/twitter/view-post', [SocialTwitterController::class, 'viewPost']);
+Route::get('/twitter/check-twitter-user', [SocialTwitterController::class, 'checkTwitterUser']);
 
 // Emails
 Route::get('/test-email', [EmailController::class, 'testEmail']);

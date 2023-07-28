@@ -261,6 +261,7 @@ class SocialTwitterController extends Controller
 
                 // Like the post
                 $response = $twitter->post("tweets/{$postId}/likes");
+                return $response;
 
                 if ($response->errors) {
                     return 'Error liking post: ' . $response->errors[0]->message;
@@ -296,7 +297,7 @@ class SocialTwitterController extends Controller
 
                 // Follow the user
                 $response = $twitter->post("users/{$userId}/following");
-
+                return $response;
                 if ($response->errors) {
                     return 'Error following user: ' . $response->errors[0]->message;
                 } else {
@@ -331,7 +332,7 @@ class SocialTwitterController extends Controller
 
                 // View the tweet
                 $response = $twitter->get("tweets/{$postId}");
-
+                return $response;
                 if ($response->errors) {
                     return 'Error viewing tweet: ' . $response->errors[0]->message;
                 } else {
@@ -373,7 +374,7 @@ class SocialTwitterController extends Controller
 
                 // View the tweet
                 $response = $twitter->get("tweets/{$postId}");
-
+                return $response;
                 if ($response->errors) {
                     return 'Error viewing tweet: ' . $response->errors[0]->message;
                 } else {
@@ -459,5 +460,26 @@ class SocialTwitterController extends Controller
             $message = $exception->getMessage();
         }
         return $message;
+    }
+
+    public function checkTwitterUser(Request $request)
+    {
+        try {
+            $response['message'] = 'Empty';
+            if (!Auth::user()) return $response['message'] = 'Need auth';
+            $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+            if (!$socialTwitter) return $response['message'] = 'SocialTwitter data not found';
+            $twitter = new TwitterOAuth(
+                config('twitter.consumer_key'),
+                config('twitter.consumer_secret'),
+                $socialTwitter['oauth_token'],
+                $socialTwitter['oauth_token_secret']
+            );
+            $resp = $twitter->get("account/verify_credentials"); // full info about user
+            $response['twitter_response'] = $resp;
+        } catch (\Exception $exception) {
+            $response ['message'] = 'Exception - ' .$exception->getMessage();
+        }
+        return response()->json($response);
     }
 }
