@@ -397,7 +397,7 @@ class SocialTwitterController extends Controller
     {
         try {
             $task = Task::query()->find($request['task_id']);
-            $wallet = Wallet::query()->find(['user_id' => Auth::id()]);
+            $wallet = Wallet::query()->where('user_id', Auth::id())->first();
             $response['success'] = false;
             if (!Auth::user()) {
                 $response['message'] = 'Need auth';
@@ -409,6 +409,13 @@ class SocialTwitterController extends Controller
             }
             if (!$wallet) {
                 $response['message'] = 'User wallet not found';
+                return response()->json($response);
+            }
+
+            $userTask = UserTask::where('task_id', $request['task_id'])->where('user_id', Auth::id())->first();
+            if ($userTask && $userTask['is_done'] == true) {
+                $response['message'] = 'Task is done';
+                $response['success'] = true;
                 return response()->json($response);
             }
 
@@ -436,11 +443,16 @@ class SocialTwitterController extends Controller
             }
             if (strpos(strtolower($resp->status->text), strtolower($task['url'])) !== false) {
 
-                UserTask::create([
-                    'user_id' => Auth::id(),
-                    'task_id' => $request['task_id'],
-                    'is_done' => true
-                ]);
+                if (!$userTask) {
+                    UserTask::create([
+                        'user_id' => Auth::id(),
+                        'task_id' => $request['task_id'],
+                        'is_done' => true
+                    ]);
+                } else {
+                    $userTask['is_done'] = true;
+                    $userTask->save();
+                }
 
                 $wallet['points'] += 1;
                 $wallet->save();
@@ -495,7 +507,7 @@ class SocialTwitterController extends Controller
         try {
             $task = Task::query()->find($request['task_id']);
             $likesBefore = intval($request['likes']);
-            $wallet = Wallet::query()->find(['user_id' => Auth::id()]);
+            $wallet = Wallet::query()->where('user_id', Auth::id())->first();
             $response['success'] = false;
             if (!Auth::user()) {
                 $response['message'] = 'Need auth';

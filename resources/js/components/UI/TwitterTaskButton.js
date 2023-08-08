@@ -44,30 +44,44 @@ const TwitterTaskButton = ({task}) => {
 
     const likeTwitterPost = isSessionTwitter => {
         console.log('likeTwitterPost isSessionTwitter', isSessionTwitter)
-        const twitterData = checkTwitterUser()
-        if (twitterData && twitterData.favourites_count) {
-            const likesBefore = twitterData.favourites_count
-            window.open(
-                `${task.url}`,
-                '_blank',
-                'location=yes,height=480,width=640,scrollbars=yes,status=yes'
-            )
-            window.addEventListener('focus', function (){
-                console.log('FOCUS')
-                axios.post('/twitter/liked-post', {task_id: task.id})
-                    .then(res => {
-                        console.log('postIntentTweet api', res)
-                        dispatch(setSnackMessageAction(res.data.message))
-                        if (res.data.success) {
-                            dispatch(setGameDescription(null))
-                            Inertia.reload({preserveState: false})
-                        }
-                    }).catch(err => {
-                    console.log('postIntentTweet api err', err)
-                    dispatch(setSnackMessageAction('Some thing was wrong'))
-                });
-            })
-        }
+        let twitterUser
+        axios.post('/twitter/check-twitter-user')
+            .then(res => {
+                console.log('checkTwitterUser', res)
+                if (res.data.success) {
+                    twitterUser = res.data.twitter_response
+                    if (twitterUser && twitterUser.favourites_count !== null) {
+                        const likesBefore = twitterUser.favourites_count
+                        window.open(
+                            `${task.url}`,
+                            '_blank',
+                            'location=yes,height=480,width=640,scrollbars=yes,status=yes'
+                        )
+                        window.addEventListener('focus', function (){
+                            console.log('FOCUS')
+                            axios.post('/twitter/liked-post', {task_id: task.id, likes: likesBefore})
+                                .then(res => {
+                                    console.log('likeIntentTweet api', res)
+                                    dispatch(setSnackMessageAction(res.data.message))
+                                    if (res.data.success) {
+                                        dispatch(setGameDescription(null))
+                                        Inertia.reload({preserveState: false})
+                                    }
+                                }).catch(err => {
+                                console.log('likeIntentTweet api err', err)
+                                dispatch(setSnackMessageAction('Some thing was wrong'))
+                            }).finally(() => {
+                                window.removeEventListener('focus', this)
+                            });
+                        })
+                    }
+                }
+                else dispatch(setSnackMessageAction(res.data.message))
+            }).catch(err => {
+            console.log('checkTwitterUser', err)
+            dispatch(setSnackMessageAction('Server error'))
+        }).finally(() => dispatch(setLoadingAction(false)));
+
     };
 
     const followTwitterPost = isSessionTwitter => {
@@ -142,6 +156,7 @@ const TwitterTaskButton = ({task}) => {
                     console.log('checkTwitterUser', res)
                     if (res.data.success) twitterUser = res.data.twitter_response
                     else dispatch(setSnackMessageAction(res.data.message))
+                    return res.data.twitter_response
                 }).catch(err => {
                 console.log('checkTwitterUser', err)
                 dispatch(setSnackMessageAction('Server error'))
@@ -151,7 +166,6 @@ const TwitterTaskButton = ({task}) => {
             sessionStorage.setItem('twitterTask', JSON.stringify(task))
             window.location.href = '/auth/twitter'
         }
-        // todo: Сравнить работу /created-post и внедрить ее к лайкам
         return twitterUser
     };
 
