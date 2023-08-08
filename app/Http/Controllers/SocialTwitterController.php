@@ -218,7 +218,7 @@ class SocialTwitterController extends Controller
                         'text' => $message
                     ], true);
 //                    return $response;
-                    if ($response){
+                    if ($response) {
                         if (Auth::user() && $task_id) {
                             UserTask::create([
                                 'user_id' => Auth::id(),
@@ -227,8 +227,7 @@ class SocialTwitterController extends Controller
                             ]);
                             $message = 'Post created ';
                         }
-                    }
-                    else return $response;
+                    } else return $response;
                 } else $message = 'SocialTwitter data not found';
             } else {
                 $message = 'Need auth';
@@ -269,7 +268,7 @@ class SocialTwitterController extends Controller
                     return 'Post liked successfully!';
                 }
 
-            }  else return 'SocialTwitter data not found';
+            } else return 'SocialTwitter data not found';
         } else {
             return 'Need auth';
         }
@@ -304,7 +303,7 @@ class SocialTwitterController extends Controller
                     return 'User followed successfully!';
                 }
 
-            }  else return 'SocialTwitter data not found';
+            } else return 'SocialTwitter data not found';
         } else {
             return 'Need auth';
         }
@@ -346,7 +345,7 @@ class SocialTwitterController extends Controller
                     return $tweet;
                 }
 
-            }  else return 'SocialTwitter data not found';
+            } else return 'SocialTwitter data not found';
         } else {
             return 'Need auth';
         }
@@ -388,7 +387,7 @@ class SocialTwitterController extends Controller
                     return $tweet;
                 }
 
-            }  else return 'SocialTwitter data not found';
+            } else return 'SocialTwitter data not found';
         } else {
             return 'Need auth';
         }
@@ -465,10 +464,17 @@ class SocialTwitterController extends Controller
     public function checkTwitterUser(Request $request)
     {
         try {
+            $response['success'] = false;
             $response['message'] = 'Empty';
-            if (!Auth::user()) return $response['message'] = 'Need auth';
+            if (!Auth::user()) {
+                $response['message'] = 'Need auth';
+                return response()->json($response);
+            }
             $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
-            if (!$socialTwitter) return $response['message'] = 'SocialTwitter data not found';
+            if (!$socialTwitter) {
+                $response['message'] = 'SocialTwitter data not found';
+                return response()->json($response);
+            }
             $twitter = new TwitterOAuth(
                 config('twitter.consumer_key'),
                 config('twitter.consumer_secret'),
@@ -476,10 +482,75 @@ class SocialTwitterController extends Controller
                 $socialTwitter['oauth_token_secret']
             );
             $resp = $twitter->get("account/verify_credentials"); // full info about user
+            $response['success'] = true;
             $response['twitter_response'] = $resp;
         } catch (\Exception $exception) {
-            $response ['message'] = 'Exception - ' .$exception->getMessage();
+            $response ['message'] = 'Exception - ' . $exception->getMessage();
         }
         return response()->json($response);
+    }
+
+    public function getLikedPost(Request $request)
+    {
+        try {
+            $task = Task::query()->find($request['task_id']);
+            $likesBefore = intval($request['likes']);
+            $wallet = Wallet::query()->find(['user_id' => Auth::id()]);
+            $response['success'] = false;
+            if (!Auth::user()) {
+                $response['message'] = 'Need auth';
+                return response()->json($response);
+            }
+            if (!$task) {
+                $response['message'] = 'Task not found';
+                return response()->json($response);
+            }
+            if (!$wallet) {
+                $response['message'] = 'User wallet not found';
+                return response()->json($response);
+            }
+
+            $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+            if (!$socialTwitter) {
+                $response['message'] = 'SocialTwitter data not found';
+                return response()->json($response);
+            }
+            $twitter = new TwitterOAuth(
+                config('twitter.consumer_key'),
+                config('twitter.consumer_secret'),
+                $socialTwitter['oauth_token'],
+                $socialTwitter['oauth_token_secret']
+            );
+            $resp = $twitter->get("account/verify_credentials"); // full info about user
+            if (!isset($resp->favourites_count)) {
+                $response['message'] = 'verify_credentials status is invalid';
+                $response['data'] = $resp;
+                return $response;
+            }
+            if ($resp->favourites_count > $likesBefore) {
+
+                UserTask::create([
+                    'user_id' => Auth::id(),
+                    'task_id' => $request['task_id'],
+                    'is_done' => true
+                ]);
+
+                $wallet['points'] += 1;
+                $wallet->save();
+
+                $response['success'] = true;
+                $response['message'] = 'Task is done';
+                $response['data'] = $resp;
+                return $response;
+            } else {
+                $response['message'] = 'likes not found';
+                $response['data'] = $resp;
+                return $response;
+            }
+            // https://steam.dev4rweb.com/twitter/created-post?message=123&task_id=555
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+        }
+        return $message;
     }
 }

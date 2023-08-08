@@ -182,13 +182,13 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                 </section>
 
                 {/*https://developer.twitter.com/en/docs/twitter-for-websites/tweet-button/overview*/}
-                <div className="d-flex flex-wrap justify-content-center">
-                    {/*<a
+                {/*<div className="d-flex flex-wrap justify-content-center">
+                    <a
                         className="btn btn-warning mt-3 mb-5 twitter-share-button"
                        href="https://twitter.com/intent/tweet?text=Hello%20world"
                     >
                         Tweet
-                    </a>*/}
+                    </a>
                     <a
                         className="btn btn-warning twitter-share-button m-2"
                         href="https://twitter.com/SourceByteGames"
@@ -242,7 +242,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
                     >
                         View by API
                     </a>
-                </div>
+                </div>*/}
 
                 <section className="container">
 

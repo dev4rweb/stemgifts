@@ -44,7 +44,30 @@ const TwitterTaskButton = ({task}) => {
 
     const likeTwitterPost = isSessionTwitter => {
         console.log('likeTwitterPost isSessionTwitter', isSessionTwitter)
-        dispatch(setSnackMessageAction('Like'))
+        const twitterData = checkTwitterUser()
+        if (twitterData && twitterData.favourites_count) {
+            const likesBefore = twitterData.favourites_count
+            window.open(
+                `${task.url}`,
+                '_blank',
+                'location=yes,height=480,width=640,scrollbars=yes,status=yes'
+            )
+            window.addEventListener('focus', function (){
+                console.log('FOCUS')
+                axios.post('/twitter/liked-post', {task_id: task.id})
+                    .then(res => {
+                        console.log('postIntentTweet api', res)
+                        dispatch(setSnackMessageAction(res.data.message))
+                        if (res.data.success) {
+                            dispatch(setGameDescription(null))
+                            Inertia.reload({preserveState: false})
+                        }
+                    }).catch(err => {
+                    console.log('postIntentTweet api err', err)
+                    dispatch(setSnackMessageAction('Some thing was wrong'))
+                });
+            })
+        }
     };
 
     const followTwitterPost = isSessionTwitter => {
@@ -106,6 +129,30 @@ const TwitterTaskButton = ({task}) => {
             sessionStorage.setItem('twitterTask', JSON.stringify(task))
             window.location.href = '/auth/twitter'
         }
+    };
+
+    const checkTwitterUser = () => {
+        const twitterSession = !!(session && session.twitter_id)
+        console.log('isSessionTwitter', twitterSession)
+        let twitterUser = null
+        if (twitterSession){
+            dispatch(setLoadingAction(true));
+            axios.post('/twitter/check-twitter-user')
+                .then(res => {
+                    console.log('checkTwitterUser', res)
+                    if (res.data.success) twitterUser = res.data.twitter_response
+                    else dispatch(setSnackMessageAction(res.data.message))
+                }).catch(err => {
+                console.log('checkTwitterUser', err)
+                dispatch(setSnackMessageAction('Server error'))
+            }).finally(() => dispatch(setLoadingAction(false)));
+        } else {
+            dispatch(setSnackMessageAction('Need to auth before'))
+            sessionStorage.setItem('twitterTask', JSON.stringify(task))
+            window.location.href = '/auth/twitter'
+        }
+        // todo: Сравнить работу /created-post и внедрить ее к лайкам
+        return twitterUser
     };
 
     const notPrepareFunc = () => {
