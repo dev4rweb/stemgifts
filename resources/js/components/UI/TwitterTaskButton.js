@@ -127,7 +127,44 @@ const TwitterTaskButton = ({task}) => {
 
     const repostTwitterPost = isSessionTwitter => {
         console.log('repostTwitterPost isSessionTwitter', isSessionTwitter)
-        dispatch(setSnackMessageAction('Repost'))
+        let twitterUser
+        axios.post('/twitter/reposted-post')
+            .then(res => {
+                console.log('checkTwitterUser', res)
+                if (res.data.success) {
+                    twitterUser = res.data.twitter_response
+                    if (twitterUser && twitterUser.friends_count !== null) {
+                        const statuses_count_before = twitterUser.statuses_count
+                        window.open(
+                            `${task.url}`,
+                            '_blank',
+                            'location=yes,height=480,width=640,scrollbars=yes,status=yes'
+                        )
+                        window.addEventListener('focus', function (){
+                            console.log('FOCUS')
+                            axios.post('/twitter/followed-post',
+                                {task_id: task.id, statuses_count: statuses_count_before})
+                                .then(res => {
+                                    console.log('likeIntentTweet api', res)
+                                    dispatch(setSnackMessageAction(res.data.message))
+                                    if (res.data.success) {
+                                        dispatch(setGameDescription(null))
+                                        Inertia.reload({preserveState: false})
+                                    }
+                                }).catch(err => {
+                                console.log('likeIntentTweet api err', err)
+                                dispatch(setSnackMessageAction('Some thing was wrong'))
+                            }).finally(() => {
+                                window.removeEventListener('focus', this)
+                            });
+                        })
+                    }
+                }
+                else dispatch(setSnackMessageAction(res.data.message))
+            }).catch(err => {
+            console.log('checkTwitterUser', err)
+            dispatch(setSnackMessageAction('Server error'))
+        }).finally(() => dispatch(setLoadingAction(false)));
     };
 
     const viewTwitterPost = isSessionTwitter => {

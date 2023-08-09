@@ -643,7 +643,83 @@ class SocialTwitterController extends Controller
                 $response['data'] = $resp;
                 return $response;
             } else {
-                $response['message'] = 'likes not found';
+                $response['message'] = 'follow not found';
+                $response['data'] = $resp;
+                return $response;
+            }
+            // https://steam.dev4rweb.com/twitter/created-post?message=123&task_id=555
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+        }
+        return $message;
+    }
+
+    public function getRepostedPost(Request $request)
+    {
+        try {
+            $task = Task::query()->find($request['task_id']);
+            $statuses_count_before = intval($request['statuses_count']);
+            $wallet = Wallet::query()->where('user_id', Auth::id())->first();
+            $response['success'] = false;
+            if (!Auth::user()) {
+                $response['message'] = 'Need auth';
+                return response()->json($response);
+            }
+            if (!$task) {
+                $response['message'] = 'Task not found';
+                return response()->json($response);
+            }
+            if (!$wallet) {
+                $response['message'] = 'User wallet not found';
+                return response()->json($response);
+            }
+
+            $userTask = UserTask::where('task_id', $request['task_id'])->where('user_id', Auth::id())->first();
+            if ($userTask && $userTask['is_done'] == true) {
+                $response['message'] = 'Task is done';
+                $response['success'] = true;
+                return response()->json($response);
+            }
+
+            $socialTwitter = SocialTwitter::query()->where('user_id', Auth::id())->first();
+            if (!$socialTwitter) {
+                $response['message'] = 'SocialTwitter data not found';
+                return response()->json($response);
+            }
+            $twitter = new TwitterOAuth(
+                config('twitter.consumer_key'),
+                config('twitter.consumer_secret'),
+                $socialTwitter['oauth_token'],
+                $socialTwitter['oauth_token_secret']
+            );
+            $resp = $twitter->get("account/verify_credentials"); // full info about user
+            if (!isset($resp->favourites_count)) {
+                $response['message'] = 'verify_credentials status is invalid';
+                $response['data'] = $resp;
+                return $response;
+            }
+            if ($resp->statuses_count > $statuses_count_before) {
+
+                if (!$userTask) {
+                    UserTask::create([
+                        'user_id' => Auth::id(),
+                        'task_id' => $request['task_id'],
+                        'is_done' => true
+                    ]);
+                } else {
+                    $userTask['is_done'] = true;
+                    $userTask->save();
+                }
+
+                $wallet['points'] += 1;
+                $wallet->save();
+
+                $response['success'] = true;
+                $response['message'] = 'Task is done';
+                $response['data'] = $resp;
+                return $response;
+            } else {
+                $response['message'] = 'Repost not found';
                 $response['data'] = $resp;
                 return $response;
             }

@@ -69,6 +69,7 @@ Route::get('/auth/twitter/callback', [SocialTwitterController::class, 'twitterLo
 Route::post('/twitter/created-post', [SocialTwitterController::class, 'getCreatedPost']);
 Route::post('/twitter/liked-post', [SocialTwitterController::class, 'getLikedPost']);
 Route::post('/twitter/followed-post', [SocialTwitterController::class, 'getFollowedPost']);
+Route::post('/twitter/reposted-post', [SocialTwitterController::class, 'getRepostedPost']);
 Route::get('/twitter/postTweet', [SocialTwitterController::class, 'postTwitter']);
 Route::get('/twitter/getNews', [SocialController::class, 'getTwitterNews']);
 Route::get('/twitter/like-post', [SocialTwitterController::class, 'likePost']);
