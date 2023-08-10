@@ -178,7 +178,7 @@ const TwitterTaskButton = ({task}) => {
             window.addEventListener('focus', function (){
                 console.log('FOCUS')
                 axios.post('/twitter/view-twitter-post',
-                    {task_id: task.id, statuses_count: statuses_count_before})
+                    {task_id: task.id})
                     .then(res => {
                         console.log('likeIntentTweet api', res)
                         dispatch(setSnackMessageAction(res.data.message))
