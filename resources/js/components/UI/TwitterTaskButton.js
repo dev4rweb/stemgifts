@@ -128,7 +128,7 @@ const TwitterTaskButton = ({task}) => {
     const repostTwitterPost = isSessionTwitter => {
         console.log('repostTwitterPost isSessionTwitter', isSessionTwitter)
         let twitterUser
-        axios.post('/twitter/reposted-post')
+        axios.post('/twitter/check-twitter-user')
             .then(res => {
                 console.log('checkTwitterUser', res)
                 if (res.data.success) {
@@ -142,7 +142,7 @@ const TwitterTaskButton = ({task}) => {
                         )
                         window.addEventListener('focus', function (){
                             console.log('FOCUS')
-                            axios.post('/twitter/followed-post',
+                            axios.post('/twitter/reposted-post',
                                 {task_id: task.id, statuses_count: statuses_count_before})
                                 .then(res => {
                                     console.log('likeIntentTweet api', res)
@@ -169,7 +169,32 @@ const TwitterTaskButton = ({task}) => {
 
     const viewTwitterPost = isSessionTwitter => {
         console.log('viewTwitterPost isSessionTwitter', isSessionTwitter)
-        dispatch(setSnackMessageAction('view post'))
+        if (isSessionTwitter) {
+            window.open(
+                `${task.url}`,
+                '_blank',
+                'location=yes,height=480,width=640,scrollbars=yes,status=yes'
+            );
+            window.addEventListener('focus', function (){
+                console.log('FOCUS')
+                axios.post('/twitter/view-twitter-post',
+                    {task_id: task.id, statuses_count: statuses_count_before})
+                    .then(res => {
+                        console.log('likeIntentTweet api', res)
+                        dispatch(setSnackMessageAction(res.data.message))
+                        if (res.data.success) {
+                            dispatch(setGameDescription(null))
+                            Inertia.reload({preserveState: false})
+                        }
+                    }).catch(err => {
+                    console.log('likeIntentTweet api err', err)
+                    dispatch(setSnackMessageAction('Some thing was wrong'))
+                }).finally(() => {
+                    window.removeEventListener('focus', this)
+                });
+            })
+        } else dispatch(setSnackMessageAction("Need to auth with Twitter"))
+
     };
 
     const postIntentTweet = isSessionTwitter => {

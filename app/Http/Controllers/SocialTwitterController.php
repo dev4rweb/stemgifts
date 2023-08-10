@@ -729,4 +729,50 @@ class SocialTwitterController extends Controller
         }
         return $message;
     }
+
+    public function viewTwitterPost(Request $request)
+    {
+        try {
+            $task = Task::query()->find($request['task_id']);
+            $wallet = Wallet::query()->where('user_id', Auth::id())->first();
+            if (!Auth::user()) {
+                $response['message'] = 'Need auth';
+                return response()->json($response);
+            }
+            if (!$task) {
+                $response['message'] = 'Task not found';
+                return response()->json($response);
+            }
+            if (!$wallet) {
+                $response['message'] = 'User wallet not found';
+                return response()->json($response);
+            }
+            $userTask = UserTask::where('task_id', $request['task_id'])->where('user_id', Auth::id())->first();
+            if ($userTask && $userTask['is_done'] == true) {
+                $response['message'] = 'Task is done';
+                $response['success'] = true;
+                return response()->json($response);
+            }
+            if (!$userTask) {
+                UserTask::create([
+                    'user_id' => Auth::id(),
+                    'task_id' => $request['task_id'],
+                    'is_done' => true
+                ]);
+            } else {
+                $userTask['is_done'] = true;
+                $userTask->save();
+            }
+
+            $wallet['points'] += 1;
+            $wallet->save();
+
+            $response['success'] = true;
+            $response['message'] = 'Task is done';
+            return $response;
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+        }
+        return $message;
+    }
 }

@@ -76,6 +76,7 @@ Route::get('/twitter/like-post', [SocialTwitterController::class, 'likePost']);
 Route::get('/twitter/follow-post', [SocialTwitterController::class, 'followPost']);
 Route::get('/twitter/repost-post', [SocialTwitterController::class, 'repostPost']);
 Route::get('/twitter/view-post', [SocialTwitterController::class, 'viewPost']);
+Route::get('/twitter/view-twitter-post', [SocialTwitterController::class, 'viewTwitterPost']);
 Route::get('/twitter/check-twitter-user', [SocialTwitterController::class, 'checkTwitterUser']);
 Route::post('/twitter/check-twitter-user', [SocialTwitterController::class, 'checkTwitterUser']);
 
