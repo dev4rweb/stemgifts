@@ -42,6 +42,9 @@ class PagesController extends Controller
 
     public function adminPage()
     {
+        $cur_user = Auth::user();
+        if (!$cur_user['is_admin'])  return Inertia::location('/');
+
         $users = User::where('is_admin', 0)
             ->get();
         $activeGames = Game::where('is_sponsored', false)
@@ -59,6 +62,8 @@ class PagesController extends Controller
 
     public function adminCompetitions()
     {
+        $cur_user = Auth::user();
+        if (!$cur_user['is_admin'])  return Inertia::location('/');
         $games = Game::with('gifts', 'persons.wallet', 'persons.userTasks')
             ->orderBy('status')
             ->orderBy('end_date')
@@ -70,6 +75,8 @@ class PagesController extends Controller
 
     public function adminUsers()
     {
+        $cur_user = Auth::user();
+        if (!$cur_user['is_admin'])  return Inertia::location('/');
         $users = User::withCount('games')
             ->with('games')
             ->with('wallet')
@@ -83,11 +90,17 @@ class PagesController extends Controller
 
     public function adminCategoryTasks()
     {
-        return Inertia::render('admin/AdminCategoryTasks');
+        $cur_user = Auth::user();
+        if (!$cur_user['is_admin'])  return Inertia::location('/');
+        return Inertia::render('admin/AdminCategoryTasks', [
+            'categories' => TaskCategory::with('taskCategoryItems')->get()
+        ]);
     }
 
     public function adminCreateCompetition()
     {
+        $cur_user = Auth::user();
+        if (!$cur_user['is_admin'])  return Inertia::location('/');
         $categories = TaskCategory::with('taskCategoryItems')->get();
         return Inertia::render('admin/AdminCreateCompetition', [
             'categories' => $categories
@@ -96,6 +109,8 @@ class PagesController extends Controller
 
     public function adminTestPage()
     {
+        $cur_user = Auth::user();
+        if (!$cur_user['is_admin'])  return Inertia::location('/');
         return Inertia::render('admin/AdminTestPage');
     }
 

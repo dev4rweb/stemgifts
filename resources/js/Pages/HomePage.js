@@ -18,6 +18,8 @@ import SponsorGame from "../components/SponsorGame";
 import ModalKey from "../components/modals/ModalKey";
 import {getWishListApi} from "../api/steamApi";
 import {userTaskPatchApi} from "../api/userTasksApi";
+import GetKeyModal from "../components/modals/GetKeyModal";
+import {setModalGetKey} from "../reducers/modalReducer";
 
 
 const HomePage = ({games, sponsorGame, errors, userTasks}) => {
@@ -96,7 +98,8 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
     }, []);
 
     const handleIsLogged = e => {
-        if (auth.user) dispatch(setSnackMessageAction('What we need to do?'))
+        // if (auth.user) dispatch(setSnackMessageAction('What we need to do?'))
+        if (auth.user) dispatch(setModalGetKey(true))
         else Inertia.visit('/login')
     };
 
@@ -350,6 +353,7 @@ const HomePage = ({games, sponsorGame, errors, userTasks}) => {
             </ModalLayout>
             <ModalGameDescription/>
             <ModalKey/>
+            <GetKeyModal />
         </Layout>
     );
 };

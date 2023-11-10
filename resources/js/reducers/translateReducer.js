@@ -82,6 +82,9 @@ const defaultState = {
         testPage: {
             en: 'Test Page', ru: 'Тестовая страница'
         },
+        taskCategories: {
+            en: 'Task categories', ru: 'Категории задач'
+        },
         competitionTab: {
             en: 'Competitions', ru: 'Конкурсы'
         },

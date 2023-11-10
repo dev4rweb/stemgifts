@@ -47,6 +47,13 @@ const AdminSideBar = () => {
             activeIcon: managementOrange,
             name: stateData.admin.testPage[stateData.lang]
         },
+        {
+            id: 5,
+            url: '/admin-category',
+            icon: management,
+            activeIcon: managementOrange,
+            name: stateData.admin.taskCategories[stateData.lang]
+        },
     ]
     const isActiveItem = url => !!window.location.href.includes(url);
 

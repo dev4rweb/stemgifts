@@ -40,16 +40,6 @@ Route::get('/contacts', [PagesController::class, 'ContactsPage']);
 Route::get('/privacy-policy', [PagesController::class, 'privacyPolicyPage']);
 Route::get('/terms', [PagesController::class, 'termsPage']);
 
-Route::get('/admin-panel', [PagesController::class, 'adminPage']);
-Route::get('/admin-competitions', [PagesController::class, 'adminCompetitions']);
-Route::get('/admin-users', [PagesController::class, 'adminUsers']);
-Route::get('/admin-category', [PagesController::class, 'adminCategoryTasks']);
-Route::get('/admin-create-competition', [PagesController::class, 'adminCreateCompetition']);
-Route::get('/admin-test-page', [PagesController::class, 'adminTestPage']);
-
-Route::get('/user-panel', [PagesController::class, 'userPage']);
-Route::get('/user-settings', [PagesController::class, 'userSettings']);
-Route::get('/user-achievements', [PagesController::class, 'userAchievements']);
 
 Route::post('/file-upload', [FileUploaderController::class, 'uploadImage']);
 
@@ -84,8 +74,6 @@ Route::post('/twitter/check-twitter-user', [SocialTwitterController::class, 'che
 Route::get('/test-email', [EmailController::class, 'testEmail']);
 Route::post('/send-email-winners', [EmailController::class, 'sendEmailWinner']);
 
-
-
 Route::resources([
     'admin-user' => UserController::class,
     'admin-games' => GameController::class,
@@ -97,10 +85,21 @@ Route::apiResources([
     'user-tasks' => UserTaskController::class,
 ]);
 
-Route::group(['middleware' => 'auth'], function (){
-Route::get('/wallets/reset-all', [WalletController::class, 'resetAllWallets']);
-Route::post('/wallets/add-points', [WalletController::class, 'addPoints']);
-Route::post('/wallets/add-points-task', [WalletController::class, 'addPointsForGameTask']);
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/wallets/reset-all', [WalletController::class, 'resetAllWallets']);
+    Route::post('/wallets/add-points', [WalletController::class, 'addPoints']);
+    Route::post('/wallets/add-points-task', [WalletController::class, 'addPointsForGameTask']);
+
+    Route::get('/user-panel', [PagesController::class, 'userPage']);
+    Route::get('/user-settings', [PagesController::class, 'userSettings']);
+    Route::get('/user-achievements', [PagesController::class, 'userAchievements']);
+
+    Route::get('/admin-panel', [PagesController::class, 'adminPage']);
+    Route::get('/admin-competitions', [PagesController::class, 'adminCompetitions']);
+    Route::get('/admin-users', [PagesController::class, 'adminUsers']);
+    Route::get('/admin-category', [PagesController::class, 'adminCategoryTasks']);
+    Route::get('/admin-create-competition', [PagesController::class, 'adminCreateCompetition']);
+    Route::get('/admin-test-page', [PagesController::class, 'adminTestPage']);
 });
 
 Route::fallback([PagesController::class, 'errorPage']);

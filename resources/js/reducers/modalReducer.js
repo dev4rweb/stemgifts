@@ -2,7 +2,7 @@ import {
     CLICK_CHECK_WEBSITE, EDIT_DRAW_WINNER,
     SET_EDIT_PAGE,
     SET_GAME_DESCRIPTION, SET_MODAL_AUTH, SET_MODAL_DRAW_WINNER,
-    SET_MODAL_GAME_DESCRIPTION, SET_MODAL_GAME_DETAILS,
+    SET_MODAL_GAME_DESCRIPTION, SET_MODAL_GAME_DETAILS, SET_MODAL_GET_KEY,
     SET_MODAL_IS_AUTH,
     SET_MODAL_KEY, SET_MODAL_REGISTER, SET_MODAL_TWITTER_VIEW_POST, SET_VISIT_SITE_DETAILS
 } from "../utils/reducerConsts";
@@ -12,6 +12,7 @@ const defaultState = {
     modalGameDescription: false,
     gameDescription: null,
     modalKey: false,
+    getKeyModal: false,
     modalAuth: false,
     modalRegister: false,
     editPage: false,
@@ -44,6 +45,11 @@ export default function modalReducer(state = defaultState, action) {
             return {
                 ...state,
                 modalKey: action.payload
+            }
+        case SET_MODAL_GET_KEY:
+            return {
+                ...state,
+                getKeyModal: action.payload
             }
         case SET_MODAL_AUTH:
             return {
@@ -99,6 +105,7 @@ export const setIsAuthModalOpen = (isOpen) => ({type: SET_MODAL_IS_AUTH, payload
 export const setModalGameDescription = (isOpen) => ({type: SET_MODAL_GAME_DESCRIPTION, payload: isOpen})
 export const setGameDescription = (item) => ({type: SET_GAME_DESCRIPTION, payload: item})
 export const setModalKey = (isOpen) => ({type: SET_MODAL_KEY, payload: isOpen})
+export const setModalGetKey = (isOpen) => ({type: SET_MODAL_GET_KEY, payload: isOpen})
 export const setModalAuth = (isOpen) => ({type: SET_MODAL_AUTH, payload: isOpen})
 export const setModalRegister = (isOpen) => ({type: SET_MODAL_REGISTER, payload: isOpen})
 export const setEditPage = (isOpen) => ({type: SET_EDIT_PAGE, payload: isOpen})

@@ -117,8 +117,9 @@ const TwitterTaskButton = ({task}) => {
                             });
                         })
                     }
-                }
-                else dispatch(setSnackMessageAction(res.data.message))
+                } else if (res.data.message.includes('SocialTwitter data not found')){
+                    window.location.href = '/auth/twitter'
+                } else dispatch(setSnackMessageAction(res.data.message))
             }).catch(err => {
             console.log('checkTwitterUser', err)
             dispatch(setSnackMessageAction('Server error'))

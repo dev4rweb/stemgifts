@@ -23,7 +23,11 @@ const GameCard = ({item}) => {
     }
 
     return (
-        <div className={s.card} style={{backgroundImage: `url(${item.main_image})`}}>
+        <div
+            className={s.card}
+            style={{backgroundImage: `url(${item.main_image})`}}
+            onClick={handleClick}
+        >
             <div className={s.starBox}><span><img src={star} alt="favorite"/></span></div>
             <div className={s.content}>
                 <h3>{item.name}</h3>
@@ -40,14 +44,14 @@ const GameCard = ({item}) => {
                         <div/>
                 }
 
-                <div className={s.btnBox}>
+                {/*<div className={s.btnBox}>
                     <button
                         className="btn btn-warning"
                         onClick={handleClick}
                     >
                         {btnText}
                     </button>
-                </div>
+                </div>*/}
             </div>
         </div>
     );

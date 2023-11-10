@@ -96,10 +96,10 @@
     &:hover {
         cursor: pointer;
 
-        .starBox {
+        /*.starBox {
             height: 0;
             overflow-y: hidden;
-        }
+        }*/
 
         .content {
             position: absolute;
@@ -113,11 +113,11 @@
             -moz-border-radius: 20px;
             border-radius: 20px;
 
-            .btnBox {
+            /*.btnBox {
                 height: auto;
                 overflow-y: visible;
                 margin-top: 12px;
-            }
+            }*/
         }
     }
 }
